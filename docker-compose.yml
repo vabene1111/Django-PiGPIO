@@ -15,9 +15,9 @@ services:
     - ./.env
     command: "gunicorn --bind 0.0.0.0:8080 DjangoPiGPIO.wsgi"
     volumes:
-    - .:/Recipes
+    - .:/DjangoPiGPIO
     depends_on:
-    - db_recipes
+    - db_pigpio
 
   nginx_pigpio:
     image: "nginx"
