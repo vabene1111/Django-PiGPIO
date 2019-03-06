@@ -6,13 +6,13 @@ services:
     volumes:
     - /usr/src/DjangoPiGPIO/postgresql:/var/lib/postgresql/data
     env_file:
-    - ./.env.secret
+    - ./.env
 
   web_pigpio:
     build: .
     restart: always
     env_file:
-    - ./.env.secret
+    - ./.env
     command: "gunicorn --bind 0.0.0.0:8080 DjangoPiGPIO.wsgi"
     volumes:
     - .:/Recipes
