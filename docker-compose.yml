@@ -4,7 +4,7 @@ services:
     restart: always
     image: "postgres:10.3-alpine"
     volumes:
-    - /usr/src/DjangoPiGPIO/postgresql:/var/lib/postgresql/data
+    - /usr/src/pigpio/postgresql:/var/lib/postgresql/data
     env_file:
     - ./.env
 
