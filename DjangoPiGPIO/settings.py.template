@@ -59,8 +59,6 @@ MIDDLEWARE = [
 
 ROOT_URLCONF = 'DjangoPiGPIO.urls'
 
-ROOT_URLCONF = 'recipes.urls'
-
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
@@ -78,7 +76,7 @@ TEMPLATES = [
     },
 ]
 
-WSGI_APPLICATION = 'recipes.wsgi.application'
+WSGI_APPLICATION = 'DjangoPiGPIO.wsgi.application'
 
 # Database
 # Load settings from env files
