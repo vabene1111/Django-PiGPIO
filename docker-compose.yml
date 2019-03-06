@@ -28,5 +28,3 @@ services:
     - ./nginx/conf.d:/etc/nginx/conf.d
     - ./staticfiles:/static
     - ./mediafiles:/media
-    depends_on:
-      - web_pigpio
