@@ -16,8 +16,7 @@ RUN apk --no-cache add \
     postgresql-client \
     postgresql-dev \
     build-base \
-    gettext \
-    python3-gpiozero
+    gettext
 
 RUN pip3 install --upgrade pip
 
