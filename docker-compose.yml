@@ -9,6 +9,7 @@ services:
     - ./.env
 
   web_pigpio:
+    privileged: true
     build: .
     restart: always
     env_file:
@@ -16,6 +17,7 @@ services:
     command: "gunicorn --bind 0.0.0.0:8080 DjangoPiGPIO.wsgi"
     volumes:
     - .:/DjangoPiGPIO
+    - /sys:/sys
     depends_on:
     - db_pigpio
 
