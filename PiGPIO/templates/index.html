@@ -8,7 +8,56 @@
 
 {% block content %}
 
-<a href="https://de.pinout.xyz/">Pin Belegung</a>
-<a href="{% url 'api_set_pin' %}">Set Pin API Test</a>
+    <a href="https://de.pinout.xyz/">Pin Belegung</a> -
+    <a href="{% url 'api_set_pin' %}">Set Pin API Test</a>
 
+    <br/>
+    <br/>
+    <br/>
+
+    <button onclick="setPin(15,1)" class="btn btn-success">IN 1</button>
+    <button onclick="setPin(13,1)" class="btn btn-success">IN 2</button>
+    <button onclick="setPin(11,1)" class="btn btn-success">IN 3</button>
+    <button onclick="setPin(7,1)" class="btn btn-success">IN 4</button>
+
+    <br/>
+    <br/>
+
+    <button onclick="setPin(15,0)" class="btn btn-danger">IN 1</button>
+    <button onclick="setPin(13,0)" class="btn btn-danger">IN 2</button>
+    <button onclick="setPin(11,0)" class="btn btn-danger">IN 3</button>
+    <button onclick="setPin(7,0)" class="btn btn-danger">IN 4</button>
+
+
+{% endblock %}
+
+
+{% block script %}
+    <script type="text/javascript">
+        function setPin(pin, state) {
+            let request_body = JSON.stringify({
+                "pin": pin,
+                "mode": 1,
+                "state": state
+            });
+            makeRequest(request_body)
+
+        }
+
+        function makeRequest(request_body) {
+            $.ajax({
+                url: '{% url "api_set_pin" %}',
+                dataType: 'json',
+                type: 'post',
+                contentType: 'application/json',
+                data: request_body,
+                success: function (data, textStatus, jQxhr) {
+                    console.log(data,textStatus,jQxhr);
+                },
+                error: function (jqXhr, textStatus, errorThrown) {
+                    console.log(errorThrown);
+                }
+            });
+        }
+    </script>
 {% endblock %}
