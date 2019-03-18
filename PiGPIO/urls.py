@@ -5,5 +5,6 @@ from .views import *
 
 urlpatterns = [
     path('', views.index, name='index'),
-    path('api/set', SetPinView.as_view(), name='api_set_pin')
+    path('api/set', SetPinView.as_view(), name='api_set_pin'),
+    path('api/run', RunProgramView.as_view(), name='api_run_prog'),
 ]

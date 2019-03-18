@@ -28,6 +28,10 @@
     <button onclick="setPin(11,0)" class="btn btn-danger">IN 3</button>
     <button onclick="setPin(7,0)" class="btn btn-danger">IN 4</button>
 
+    <br/>
+    <br/>
+
+    <button onclick="runProgram(1)" class="btn btn-success">Run Program</button>
 
 {% endblock %}
 
@@ -40,15 +44,23 @@
                 "mode": 1,
                 "state": state
             });
-            
-            setupAjax();
-            makeRequest(request_body)
 
+            setupAjax();
+            makeRequest(request_body, '{% url "api_set_pin" %}' )
         }
 
-        function makeRequest(request_body) {
+        function runProgram(program) {
+            let request_body = JSON.stringify({
+                "program": program
+            });
+
+            setupAjax();
+            makeRequest(request_body, '{% url "api_run_prog" %}' )
+        }
+
+        function makeRequest(request_body, url) {
             $.ajax({
-                url: '{% url "api_set_pin" %}',
+                url: url,
                 dataType: 'json',
                 type: 'POST',
                 contentType: 'application/json',
@@ -62,6 +74,7 @@
             });
         }
 
+        // TODO move into base on page load (needs only one execution)
         function setupAjax() {
             let csrftoken = getCookie('csrftoken');
 
