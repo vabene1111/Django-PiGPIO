@@ -2,7 +2,7 @@ from django.shortcuts import render
 from rest_framework.decorators import api_view
 from rest_framework.response import Response
 from rest_framework.views import APIView
-
+from django.contrib.auth.mixins import LoginRequiredMixin
 from PiGPIO.serializers import SetPinSerializer
 from time import sleep
 
@@ -15,7 +15,7 @@ from PiGPIO.helper import raspi
 logger = logging.getLogger(__name__)
 
 
-class SetPinView(APIView):
+class SetPinView(APIView, LoginRequiredMixin):
     def post(self, request):
         raspi.set_mode(0)
 
@@ -24,7 +24,7 @@ class SetPinView(APIView):
         return Response({})
 
 
-class RunProgramView(APIView):
+class RunProgramView(APIView, LoginRequiredMixin):
     def post(self, request):
         raspi.set_mode(0)
         program_id = request.data['program']
@@ -52,19 +52,21 @@ class RunProgramView(APIView):
         return Response({})
 
 
-class SaveStepView(APIView): # TODO implement
+class EditStepView(APIView, LoginRequiredMixin):
     def post(self, request):
-        raspi.set_mode(0)
+        # TODO implement
 
-        raspi.setup_pin(request.data['pin'], request.data['mode'])
-        raspi.set_output(request.data['pin'], request.data['state'])
         return Response({})
 
 
-class CreateStepView(APIView): # TODO implement
+class NewStepView(APIView, LoginRequiredMixin):
     def post(self, request):
-        raspi.set_mode(0)
+        # TODO proper input validation
+        step = ProgramStep()
+        step.program_id = request.data['program']
+        step.num = request.data['num']
 
-        raspi.setup_pin(request.data['pin'], request.data['mode'])
-        raspi.set_output(request.data['pin'], request.data['state'])
+        step.save()
+
+        # TODO proper response
         return Response({})

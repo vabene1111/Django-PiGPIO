@@ -8,8 +8,8 @@ urlpatterns = [
     path('api/set', SetPinView.as_view(), name='api_set_pin'),
     path('api/run', RunProgramView.as_view(), name='api_run_prog'),
 
-    path('api/save/step', SaveStepView.as_view(), name='api_save_step'),
-
+    path('api/edit/step', EditStepView.as_view(), name='api_edit_step'),
+    path('api/new/step', NewStepView.as_view(), name='api_new_step'),
 
 
     path('program/<int:pk>/', views.program, name='program'),

@@ -48,7 +48,6 @@
                 "state": state
             });
 
-            setupAjax();
             makeRequest(request_body, '{% url "api_set_pin" %}' )
         }
 
@@ -57,10 +56,10 @@
                 "program": program
             });
 
-            setupAjax();
             makeRequest(request_body, '{% url "api_run_prog" %}' )
         }
 
+        // TODO make general method in base
         function makeRequest(request_body, url) {
             $.ajax({
                 url: url,
@@ -77,37 +76,5 @@
             });
         }
 
-        // TODO move into base on page load (needs only one execution)
-        function setupAjax() {
-            let csrftoken = getCookie('csrftoken');
-
-            $.ajaxSetup({
-                beforeSend: function (xhr, settings) {
-                    if (!csrfSafeMethod(settings.type) && !this.crossDomain) {
-                        xhr.setRequestHeader("X-CSRFToken", csrftoken);
-                    }
-                }
-            });
-        }
-
-        function csrfSafeMethod(method) {
-            return (/^(GET|HEAD|OPTIONS|TRACE)$/.test(method));
-        }
-
-        function getCookie(name) {
-            var cookieValue = null;
-            if (document.cookie && document.cookie !== '') {
-                var cookies = document.cookie.split(';');
-                for (var i = 0; i < cookies.length; i++) {
-                    var cookie = jQuery.trim(cookies[i]);
-                    // Does this cookie string begin with the name we want?
-                    if (cookie.substring(0, name.length + 1) === (name + '=')) {
-                        cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
-                        break;
-                    }
-                }
-            }
-            return cookieValue;
-        }
     </script>
 {% endblock %}
