@@ -12,9 +12,9 @@
     Editing Program: <code>{{ program_info.name }}</code> <br/><br/>
 
 
-    <table class="table table-hover">
+    <table class="table table-hover" id="program_table">
         <thead>
-        <tr>
+        <tr id="program_table_head">
             <td>{% trans 'Line' %}</td>
             <td>{% trans 'Pin' %}</td>
             <td>{% trans 'Type' %}</td>
@@ -25,15 +25,12 @@
         </thead>
 
         {% for step in program_steps %}
-            <tr>
-                <td hidden>
-                    {{ step.pk }}
-                </td>
+            <tr data-id="{{ step.pk }}" data-num="{{ step.num }}">
                 <td>
                     <code>{{ step.num }}</code>
                 </td>
                 <td>
-                    <select class="form-control">
+                    <select class="form-control" name="select_type">
                         <option value="output"
                                 {% if step.type == 'output' %}selected{% endif %}>{% trans 'Output' %}</option>
                         <option value="sleep"
@@ -41,7 +38,7 @@
                     </select>
                 </td>
                 <td>
-                    <input class="form-control" type="number" size="4" value="{{ step.pin }}">
+                    <input class="form-control" type="number" size="4" value="{{ step.pin }}" name="input_pin">
                 </td>
 
                 <td>
@@ -57,30 +54,64 @@
         {% endfor %}
     </table>
 
-
-
+    <button onclick="newStep({{ program_info.pk }})">New Step</button>
 
 {% endblock %}
 
-
 {% block script %}
     <script type="text/javascript">
-        function setPin(pin, state) {
-            let request_body = JSON.stringify({
-                "pin": pin,
-                "mode": 1,
-                "state": state
-            });
 
-            makeRequest(request_body, '{% url "api_save_step" %}' )
+        function saveAllSteps() {
+            let rows = $("#program_table tr");
+            for(var i = 0; i < rows.length; i++){
+                if (rows[i].id !== 'program_table_head'){
+                    let row_id = parseInt(rows[i].dataset.id);
+                    let row_num = parseInt(rows[i].dataset.num);
+
+
+
+
+                    editStep(row_id,row_num);
+                }
+            }
         }
 
-        function runProgram(program) {
+        function editStep(id, num, pin, type, data, successor_true, succesor_false) {
+
             let request_body = JSON.stringify({
-                "program": program
+                "id": id,
+                "num": num,
+                "pin": pin,
+                "type": type,
+                "data": data,
+                "successor_true": successor_true,
+                "successor_false": successor_false,
             });
 
-            makeRequest(request_body, '{% url "api_run_prog" %}' )
+            makeRequest(request_body, '{% url "api_edit_step" %}')
+        }
+
+        function newStep(program) {
+            var num = 0;
+
+            let rows = $("#program_table tr");
+            for(var i = 0; i < rows.length; i++){
+                if (rows[i].id !== 'program_table_head'){
+                    debugger;
+                    let row_num = parseInt(rows[i].dataset.num);
+                    if (row_num >= num){
+                        num = row_num + 1;
+                    }
+                }
+            }
+
+            let request_body = JSON.stringify({
+                "program": program,
+                "num": num
+            });
+
+            makeRequest(request_body, '{% url "api_new_step" %}');
+            location.reload();
         }
 
         // TODO make general method in base
