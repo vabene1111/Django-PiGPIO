@@ -34,6 +34,8 @@ class RunProgramView(APIView):
         program = Program.objects.get(pk=program_id)
         program_steps = ProgramStep.objects.filter(program_id=program_id)
 
+        # TODO lots of validation for data elements
+
         for step in program_steps:
             print("RUN")
             if step.type == '0':
@@ -42,7 +44,7 @@ class RunProgramView(APIView):
             elif step.type == '1':
                 print("Type 1")
                 raspi.setup_pin(step.pin, 1)
-                raspi.set_output(step.pin, step.data)
+                raspi.set_output(step.pin, int(step.data))
             elif step.type == '2':
                 print("Type 2")
                 sleep(int(step.data))
