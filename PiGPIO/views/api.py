@@ -50,3 +50,21 @@ class RunProgramView(APIView):
                 sleep(int(step.data))
 
         return Response({})
+
+
+class SaveStepView(APIView): # TODO implement
+    def post(self, request):
+        raspi.set_mode(0)
+
+        raspi.setup_pin(request.data['pin'], request.data['mode'])
+        raspi.set_output(request.data['pin'], request.data['state'])
+        return Response({})
+
+
+class CreateStepView(APIView): # TODO implement
+    def post(self, request):
+        raspi.set_mode(0)
+
+        raspi.setup_pin(request.data['pin'], request.data['mode'])
+        raspi.set_output(request.data['pin'], request.data['state'])
+        return Response({})

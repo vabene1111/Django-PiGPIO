@@ -9,8 +9,9 @@ class Program(models.Model):
 
 class ProgramStep(models.Model):
     program = models.ForeignKey(Program, on_delete=models.CASCADE)
+    num = models.IntegerField()
     type = models.CharField(max_length=32)
-    successor_true = models.ForeignKey('self', on_delete=models.CASCADE, related_name='step_successor_true', null=True)
-    successor_false = models.ForeignKey('self', on_delete=models.CASCADE, related_name='step_successor_false', null=True)
+    successor_true = models.IntegerField(null=True)
+    successor_false = models.IntegerField(null=True)
     pin = models.IntegerField(null=True)
-    data = models.CharField(max_length=128, default="")
+    data = models.CharField(max_length=128, default="", null=True)

@@ -9,8 +9,56 @@
 
 {% block content %}
 
+    Editing Program: <code>{{ program_info.name }}</code> <br/><br/>
 
-    {% render_table test %}
+
+    <table class="table table-hover">
+        <thead>
+        <tr>
+            <td>{% trans 'Line' %}</td>
+            <td>{% trans 'Pin' %}</td>
+            <td>{% trans 'Type' %}</td>
+            <td>{% trans 'Data' %}</td>
+            <td>{% trans 'Next sucess' %}</td>
+            <td>{% trans 'Next fail' %}</td>
+        </tr>
+        </thead>
+
+        {% for step in program_steps %}
+            <tr>
+                <td hidden>
+                    {{ step.pk }}
+                </td>
+                <td>
+                    <code>{{ step.num }}</code>
+                </td>
+                <td>
+                    <select class="form-control">
+                        <option value="output"
+                                {% if step.type == 'output' %}selected{% endif %}>{% trans 'Output' %}</option>
+                        <option value="sleep"
+                                {% if step.type == 'sleep' %}selected{% endif %}>{% trans 'Sleep' %}</option>
+                    </select>
+                </td>
+                <td>
+                    <input class="form-control" type="number" size="4" value="{{ step.pin }}">
+                </td>
+
+                <td>
+                    <input class="form-control" value="{{ step.data }}">
+                </td>
+                <td>
+                    <input class="form-control" type="number" size="4" value="{{ step.successor_true }}">
+                </td>
+                <td>
+                    <input class="form-control" type="number" size="4" value="{{ step.successor_false }}">
+                </td>
+            </tr>
+        {% endfor %}
+    </table>
+
+
+
 
 {% endblock %}
 
