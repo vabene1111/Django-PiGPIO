@@ -1,0 +1,22 @@
+{% extends "base.html" %}
+{% load crispy_forms_tags %}
+{% load i18n %}
+{% load django_tables2 %}
+{% load class_tag %}
+
+{% block title %}{% trans 'List' %} - {{ title }}{% endblock %}
+
+{% block content %}
+
+    <h3>{{ title }} {% trans 'List' %}
+    {% if table.Meta.model|get_class == 'Program' %}
+        <a href="{% url 'new_program' %}" ><i class="fas fa-plus-circle"></i></a>
+    {% endif %}
+    </h3>
+    <br/>
+
+    {% if table %}
+        {% render_table table %}
+    {% endif %}
+
+{% endblock %}

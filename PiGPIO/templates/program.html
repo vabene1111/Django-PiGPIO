@@ -1,0 +1,22 @@
+{% extends "base.html" %}
+{% load static %}
+{% load i18n %}
+
+{% load render_table from django_tables2 %}
+
+{% block title %}{% trans "Program" %}{% endblock %}
+
+
+{% block content %}
+
+
+    {% render_table test %}
+
+{% endblock %}
+
+
+{% block script %}
+    <script type="text/javascript">
+
+    </script>
+{% endblock %}

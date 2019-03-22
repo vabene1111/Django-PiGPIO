@@ -2,6 +2,8 @@ django
 djangorestframework
 markdown
 django-filter
+django-tables2
+django-crispy-forms
 RPi.GPIO
 python-dotenv==0.7.1
 psycopg2==2.7.4
