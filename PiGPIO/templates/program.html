@@ -99,7 +99,7 @@
 
             setTimeout(function () { // TODO remove after sufficient testing
                 location.reload();
-            }, 500);
+            }, (rows.length * 200));
         }
 
 
@@ -135,7 +135,7 @@
             let rows = $("#program_table tr");
             for (var i = 0; i < rows.length; i++) {
                 if (rows[i].id !== 'program_table_head') {
-                    debugger;
+
                     let row_num = parseInt(rows[i].dataset.num);
                     if (row_num >= num) {
                         num = row_num + 1;
