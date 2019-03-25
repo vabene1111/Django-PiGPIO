@@ -15,7 +15,7 @@ def index(request):
 def program(request, pk):
     # program_steps = ProgramStepTable(ProgramStep.objects.filter(program_id=pk).all())
     # RequestConfig(request, paginate={'per_page': 25}).configure(program_steps)
-    program_steps = ProgramStep.objects.filter(program_id=pk).all()
+    program_steps = ProgramStep.objects.filter(program_id=pk).all().order_by('num')
 
     program_info = Program.objects.get(pk=pk)
 

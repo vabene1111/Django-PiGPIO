@@ -6,6 +6,9 @@ class Program(models.Model):
     name = models.CharField(max_length=128, default="")
     description = models.CharField(max_length=1024, default="")
 
+    def __str__(self):
+        return self.name
+
 
 class ProgramStep(models.Model):
     program = models.ForeignKey(Program, on_delete=models.CASCADE)
@@ -15,3 +18,6 @@ class ProgramStep(models.Model):
     successor_false = models.IntegerField(null=True)
     pin = models.IntegerField(null=True)
     data = models.CharField(max_length=128, default="", null=True)
+
+    def __str__(self):
+        return 'Program: ' + str(self.program) + ' Num: ' + str(self.num) + ' Type: ' + self.type + ' Pin: ' + str(self.pin)

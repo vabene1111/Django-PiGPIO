@@ -10,6 +10,7 @@ urlpatterns = [
 
     path('api/edit/step', EditStepView.as_view(), name='api_edit_step'),
     path('api/new/step', NewStepView.as_view(), name='api_new_step'),
+    path('api/delete/step', DeleteStepView.as_view(), name='api_delete_step'),
 
 
     path('program/<int:pk>/', views.program, name='program'),

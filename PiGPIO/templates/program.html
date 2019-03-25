@@ -29,57 +29,83 @@
                 <td>
                     <code>{{ step.num }}</code>
                 </td>
+
                 <td>
-                    <select class="form-control" name="select_type">
+                    <input class="form-control" type="number" size="4" value="{{ step.pin }}" id="in_pin_{{ step.pk }}">
+                </td>
+                <td>
+                    <select class="form-control" name="select_type" id="in_type_{{ step.pk }}">
                         <option value="output"
                                 {% if step.type == 'output' %}selected{% endif %}>{% trans 'Output' %}</option>
                         <option value="sleep"
                                 {% if step.type == 'sleep' %}selected{% endif %}>{% trans 'Sleep' %}</option>
                     </select>
                 </td>
-                <td>
-                    <input class="form-control" type="number" size="4" value="{{ step.pin }}" name="input_pin">
-                </td>
 
                 <td>
-                    <input class="form-control" value="{{ step.data }}">
+                    <input class="form-control" value="{{ step.data }}" id="in_data_{{ step.pk }}">
                 </td>
                 <td>
-                    <input class="form-control" type="number" size="4" value="{{ step.successor_true }}">
+                    <input class="form-control" type="number" size="4" value="{{ step.successor_true }}"
+                           id="in_succ_true_{{ step.pk }}">
                 </td>
                 <td>
-                    <input class="form-control" type="number" size="4" value="{{ step.successor_false }}">
+                    <input class="form-control" type="number" size="4" value="{{ step.successor_false }}"
+                           id="in_succ_false_{{ step.pk }}">
+                </td>
+                <td>
+                    <button class="btn btn-danger" onclick="deleteStep({{ step.id }})"><i class="fas fa-trash-alt"></i>
+                    </button>
                 </td>
             </tr>
         {% endfor %}
     </table>
 
-    <button onclick="newStep({{ program_info.pk }})">New Step</button>
+    <button onclick="newStep({{ program_info.pk }})" class="btn btn-primary">New Step</button>
+    <button onclick="saveAllSteps()" class="btn btn-info">Save All</button>
+    <button onclick="runProgram({{ program_info.pk }})" class="btn btn-success">Run Program</button>
 
 {% endblock %}
 
 {% block script %}
     <script type="text/javascript">
 
+        function runProgram(program) {
+            let request_body = JSON.stringify({
+                "program": program
+            });
+
+            makeRequest(request_body, '{% url "api_run_prog" %}')
+        }
+
         function saveAllSteps() {
             let rows = $("#program_table tr");
-            for(var i = 0; i < rows.length; i++){
-                if (rows[i].id !== 'program_table_head'){
+            for (var i = 0; i < rows.length; i++) {
+                if (rows[i].id !== 'program_table_head') {
                     let row_id = parseInt(rows[i].dataset.id);
                     let row_num = parseInt(rows[i].dataset.num);
 
+                    let row_type = $('#in_type_' + row_id).val();
+                    let row_data = $('#in_data_' + row_id).val();
+
+                    let row_pin = $('#in_pin_' + row_id).val();
+                    let row_succ_true = $('#in_succ_true_' + row_id).val();
+                    let row_succ_false = $('#in_succ_false_' + row_id).val();
 
 
-
-                    editStep(row_id,row_num);
+                    editStep(row_id, row_num, row_pin, row_type, row_data, row_succ_true, row_succ_false);
                 }
             }
+
+            setTimeout(function () { // TODO remove after sufficient testing
+                location.reload();
+            }, 500);
         }
 
-        function editStep(id, num, pin, type, data, successor_true, succesor_false) {
 
+        function editStep(id, num, pin, type, data, successor_true, successor_false) {
             let request_body = JSON.stringify({
-                "id": id,
+                "pk": id,
                 "num": num,
                 "pin": pin,
                 "type": type,
@@ -88,30 +114,43 @@
                 "successor_false": successor_false,
             });
 
-            makeRequest(request_body, '{% url "api_edit_step" %}')
+            makeRequest(request_body, '{% url "api_edit_step" %}');
+        }
+
+        function deleteStep(row_id) {
+            let request_body = JSON.stringify({
+                "pk": row_id,
+            });
+
+            makeRequest(request_body, '{% url "api_delete_step" %}');
+
+            setTimeout(function () { // TODO proper JS remove of row
+                location.reload();
+            }, 500);
         }
 
         function newStep(program) {
             var num = 0;
 
             let rows = $("#program_table tr");
-            for(var i = 0; i < rows.length; i++){
-                if (rows[i].id !== 'program_table_head'){
+            for (var i = 0; i < rows.length; i++) {
+                if (rows[i].id !== 'program_table_head') {
                     debugger;
                     let row_num = parseInt(rows[i].dataset.num);
-                    if (row_num >= num){
+                    if (row_num >= num) {
                         num = row_num + 1;
                     }
                 }
             }
 
             let request_body = JSON.stringify({
-                "program": program,
-                "num": num
+                "program_pk": program,
+                "step_num": num
             });
 
             makeRequest(request_body, '{% url "api_new_step" %}');
-            location.reload();
+
+            location.reload(); //TODO some nice JS instead of reload
         }
 
         // TODO make general method in base

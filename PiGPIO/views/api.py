@@ -29,33 +29,66 @@ class RunProgramView(APIView, LoginRequiredMixin):
         raspi.set_mode(0)
         program_id = request.data['program']
 
-        print("Program started")
-
-        program = Program.objects.get(pk=program_id)
-        program_steps = ProgramStep.objects.filter(program_id=program_id)
+        print("Starting Program " + str(program_id))
 
         # TODO lots of validation for data elements
 
-        for step in program_steps:
-            print("RUN")
-            if step.type == '0':
-                # do nothing for now
-                print("Type 0")
-            elif step.type == '1':
-                print("Type 1")
-                raspi.setup_pin(step.pin, 1)
-                raspi.set_output(step.pin, int(step.data))
-            elif step.type == '2':
-                print("Type 2")
-                sleep(int(step.data))
+        step = ProgramStep.objects.earliest('num')
+
+        while True:
+            run_step(step)
+
+            try:
+                step = ProgramStep.objects.get(num=step.successor_true)
+            except ProgramStep.DoesNotExist:
+                break
 
         return Response({})
 
 
+def run_step(step):
+    print('Running Step: ' + str(step))
+    if step.type == 'sleep':
+        print('Running step sleep')
+        sleep(int(step.data))
+    elif step.type == 'output':
+        print("Running step output")
+        raspi.setup_pin(step.pin, 1)
+        raspi.set_output(step.pin, int(step.data))
+
+
 class EditStepView(APIView, LoginRequiredMixin):
     def post(self, request):
-        # TODO implement
+        # TODO proper input validation
+        if request.data['pk'] != '':
+            step = ProgramStep.objects.get(pk=int(request.data['pk']))
 
+            if request.data['num'] != '':
+                step.num = int(request.data['num'])
+            else:
+                step.num = None
+
+            if request.data['pin'] != '':
+                step.pin = int(request.data['pin'])
+            else:
+                step.pin = None
+
+            step.type = request.data['type']
+            step.data = request.data['data']
+
+            if request.data['successor_true'] != '':
+                step.successor_true = int(request.data['successor_true'])
+            else:
+                step.successor_true = None
+
+            if request.data['successor_false'] != '':
+                step.successor_true = int(request.data['successor_false'])
+            else:
+                step.successor_false = None
+
+            step.save()
+
+        # TODO proper response
         return Response({})
 
 
@@ -63,10 +96,20 @@ class NewStepView(APIView, LoginRequiredMixin):
     def post(self, request):
         # TODO proper input validation
         step = ProgramStep()
-        step.program_id = request.data['program']
-        step.num = request.data['num']
+        step.program_id = request.data['program_pk']
+        step.num = request.data['step_num']
 
         step.save()
+
+        # TODO proper response
+        return Response({})
+
+
+class DeleteStepView(APIView, LoginRequiredMixin):
+    def post(self, request):
+        # TODO proper input validation
+        step = ProgramStep.objects.get(pk=int(request.data['pk']))
+        step.delete()
 
         # TODO proper response
         return Response({})
