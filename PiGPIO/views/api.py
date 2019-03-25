@@ -65,7 +65,22 @@ class RunProgramView(APIView, LoginRequiredMixin):
                     log.save()
                 break
 
-        return Response({})
+        log = pretty_print_log()
+        return Response({'log': log})
+
+
+def pretty_print_log():
+    output = ""
+
+    logs = ProgramLog.objects.all()
+
+    for log in logs:
+        if log.info is not '':
+            output = output + str(log.created_at) + ' - ' + log.info + '\n'
+        else:
+            output = output + str(log) + '\n'
+
+    return output
 
 
 def run_step(step):
