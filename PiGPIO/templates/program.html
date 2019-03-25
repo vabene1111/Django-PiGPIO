@@ -12,15 +12,16 @@
     Editing Program: <code>{{ program_info.name }}</code> <br/><br/>
 
 
-    <table class="table table-hover" id="program_table">
+    <table class="table table-hover table-responsive" id="program_table">
         <thead>
         <tr id="program_table_head">
-            <td>{% trans 'Line' %}</td>
-            <td>{% trans 'Pin' %}</td>
-            <td>{% trans 'Type' %}</td>
-            <td>{% trans 'Data' %}</td>
-            <td>{% trans 'Next sucess' %}</td>
-            <td>{% trans 'Next fail' %}</td>
+            <th style="width: 5%">{% trans 'Line' %}</th>
+            <th style="width: 10%">{% trans 'Pin' %}</th>
+            <th style="width: 20%">{% trans 'Type' %}</th>
+            <th style="width: 40%">{% trans 'Data' %}</th>
+            <th style="width: 10%">{% trans 'Next' %} <i class="fas fa-check" style="color: greenyellow;"></i></th>
+            <th style="width: 10%">{% trans 'Next' %} <i class="fas fa-times" style="color: red;"></i></th>
+            <th style="width: 5%"><i class="fas fa-cogs"></i></th>
         </tr>
         </thead>
 
@@ -43,7 +44,8 @@
                 </td>
 
                 <td>
-                    <input class="form-control" value="{{ step.data }}" id="in_data_{{ step.pk }}">
+                    <textarea class="form-control" id="in_data_{{ step.pk }}"
+                              style="height: 38px!important;">{{ step.data }}</textarea>
                 </td>
                 <td>
                     <input class="form-control" type="number" size="4" value="{{ step.successor_true }}"
@@ -64,6 +66,18 @@
     <button onclick="newStep({{ program_info.pk }})" class="btn btn-primary">New Step</button>
     <button onclick="saveAllSteps()" class="btn btn-info">Save All</button>
     <button onclick="runProgram({{ program_info.pk }})" class="btn btn-success">Run Program</button>
+    <button onclick="stopProgram({{ program_info.pk }})" class="btn btn-danger">Stop Program</button>
+
+    <br/>
+    <br/>
+
+    <div class="row">
+        <div class="col-12">
+            <textarea id="program_state_info" class="form-control">
+
+            </textarea>
+        </div>
+    </div>
 
 {% endblock %}
 
@@ -72,10 +86,18 @@
 
         function runProgram(program) {
             let request_body = JSON.stringify({
-                "program": program
+                "pk": program
             });
 
             makeRequest(request_body, '{% url "api_run_prog" %}')
+        }
+
+        function stopProgram(program) {
+            let request_body = JSON.stringify({
+                "pk": program
+            });
+
+            makeRequest(request_body, '{% url "api_stop_prog" %}')
         }
 
         function saveAllSteps() {

@@ -8,7 +8,7 @@ from time import sleep
 
 import logging
 
-from PiGPIO.models import Program, ProgramStep
+from PiGPIO.models import Program, ProgramStep, ProgramLog
 
 from PiGPIO.helper import raspi
 
@@ -27,20 +27,42 @@ class SetPinView(APIView, LoginRequiredMixin):
 class RunProgramView(APIView, LoginRequiredMixin):
     def post(self, request):
         raspi.set_mode(0)
-        program_id = request.data['program']
+        program_id = request.data['pk']
 
         print("Starting Program " + str(program_id))
 
-        # TODO lots of validation for data elements
+        program = Program.objects.get(pk=program_id)
+        program.running = True
+        program.save()
+
+        ProgramLog.objects.all().delete()
 
         step = ProgramStep.objects.earliest('num')
 
         while True:
+            program = Program.objects.get(pk=step.program_id)
+
+            if not program.running:
+                if program.logging:
+                    log = ProgramLog()
+                    log.info = 'Program Terminated'
+                    log.save()
+                break
+
+            if program.logging:
+                log = ProgramLog()
+                log.step = step
+                log.save()
+
             run_step(step)
 
             try:
                 step = ProgramStep.objects.get(num=step.successor_true)
             except ProgramStep.DoesNotExist:
+                if program.logging:
+                    log = ProgramLog()
+                    log.info = 'Program Ended'
+                    log.save()
                 break
 
         return Response({})
@@ -110,6 +132,19 @@ class DeleteStepView(APIView, LoginRequiredMixin):
         # TODO proper input validation
         step = ProgramStep.objects.get(pk=int(request.data['pk']))
         step.delete()
+
+        # TODO proper response
+        return Response({})
+
+
+class StopProgramView(APIView, LoginRequiredMixin):
+    def post(self, request):
+        # TODO proper input validation
+        program = Program.objects.get(pk=int(request.data['pk']))
+
+        program.running = False
+
+        program.save()
 
         # TODO proper response
         return Response({})

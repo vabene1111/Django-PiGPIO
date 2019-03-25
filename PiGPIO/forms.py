@@ -8,4 +8,4 @@ from PiGPIO.models import Program
 class ProgramForm(forms.ModelForm):
     class Meta:
         model = Program
-        fields = ('name', 'description')
+        fields = ('name', 'description','logging')
