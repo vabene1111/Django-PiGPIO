@@ -39,10 +39,12 @@ class RunProgramView(APIView, LoginRequiredMixin):
 
         step = ProgramStep.objects.earliest('num')
 
+        vars = {}
+
         while True:
             program = Program.objects.get(pk=step.program_id)
 
-            if not program.running:
+            if not program.running:  # TODO check why not working on pi
                 if program.logging:
                     log = ProgramLog()
                     log.info = 'Program Terminated'
@@ -54,7 +56,7 @@ class RunProgramView(APIView, LoginRequiredMixin):
                 log.step = step
                 log.save()
 
-            run_step(step)
+            vars = run_step(step,vars)
 
             try:
                 step = ProgramStep.objects.get(num=step.successor_true)
@@ -83,7 +85,7 @@ def pretty_print_log():
     return output
 
 
-def run_step(step):
+def run_step(step, vars):
     print('Running Step: ' + str(step))
     if step.type == 'sleep':
         print('Running step sleep')
@@ -92,6 +94,11 @@ def run_step(step):
         print("Running step output")
         raspi.setup_pin(step.pin, 1)
         raspi.set_output(step.pin, int(step.data))
+    elif step.type == 'variable':
+        step.data
+
+    return vars
+
 
 
 class EditStepView(APIView, LoginRequiredMixin):
@@ -119,7 +126,7 @@ class EditStepView(APIView, LoginRequiredMixin):
                 step.successor_true = None
 
             if request.data['successor_false'] != '':
-                step.successor_true = int(request.data['successor_false'])
+                step.successor_false = int(request.data['successor_false'])
             else:
                 step.successor_false = None
 

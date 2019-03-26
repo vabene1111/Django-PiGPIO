@@ -40,6 +40,12 @@
                                 {% if step.type == 'output' %}selected{% endif %}>{% trans 'Output' %}</option>
                         <option value="sleep"
                                 {% if step.type == 'sleep' %}selected{% endif %}>{% trans 'Sleep' %}</option>
+                        <option value="variable"
+                                {% if step.type == 'variable' %}selected{% endif %}>{% trans 'Variable' %}</option>
+                        <option value="condition"
+                                {% if step.type == 'condition' %}selected{% endif %}>{% trans 'Condition' %}</option>
+                        <option value="comment"
+                                {% if step.type == 'comment' %}selected{% endif %}>{% trans 'Comment' %}</option>
                     </select>
                 </td>
 
