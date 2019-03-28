@@ -39,6 +39,10 @@ class InterpreterTestCase(TestCase):
         tmp = self.run_code('x = 1; if x != 2 then a = True end')
         self.assertTrue(tmp['a'])
 
+        # test if >= operator
+        tmp = self.run_code('x = 1; if x >= 1 then a = True end')
+        self.assertTrue(tmp['a'])
+
         # test while loop
         tmp = self.run_code('x = 1; while x < 3 do x = x + 1 end')
         self.assertEqual(tmp['x'], 3)
