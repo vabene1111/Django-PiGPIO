@@ -4,5 +4,5 @@ workflow "Run Tests" {
 }
 
 action "Django Test" {
-  uses = "vabene1111/django-test-action"
+  uses = "vabene1111/django-test-action@master"
 }
