@@ -4,13 +4,15 @@ import re
 # Tokens
 RESERVED = 'RESERVED'
 INT = 'INT'
+BOOLEAN = 'BOOLEAN'
 ID = 'ID'
 
 # Matching of expressions to tokens
 token_exprs = [
     (r'[ \n\t]+', None),
     (r'#[^\n]*', None),
-    (r'\:=', RESERVED),
+    (r'==', RESERVED),
+    (r'\=', RESERVED),
     (r'\(', RESERVED),
     (r'\)', RESERVED),
     (r';', RESERVED),
@@ -22,7 +24,6 @@ token_exprs = [
     (r'<', RESERVED),
     (r'>=', RESERVED),
     (r'>', RESERVED),
-    (r'=', RESERVED),
     (r'!=', RESERVED),
     (r'and', RESERVED),
     (r'or', RESERVED),
@@ -33,6 +34,8 @@ token_exprs = [
     (r'while', RESERVED),
     (r'do', RESERVED),
     (r'end', RESERVED),
+    (r'True', BOOLEAN),
+    (r'False', BOOLEAN),
     (r'[0-9]+', INT),
     (r'[A-Za-z][A-Za-z0-9_]*', ID),
 ]

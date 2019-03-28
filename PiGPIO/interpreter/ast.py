@@ -89,6 +89,17 @@ class IntAexp(Aexp):
         return self.i
 
 
+class BoolAexp(Aexp):
+    def __init__(self, i):
+        self.i = i
+
+    def __repr__(self):
+        return 'BoolAexp(%d)' % self.i
+
+    def eval(self, env):
+        return self.i
+
+
 class VarAexp(Aexp):
     def __init__(self, name):
         self.name = name
@@ -148,7 +159,7 @@ class RelopBexp(Bexp):
             value = left_value > right_value
         elif self.op == '>=':
             value = left_value >= right_value
-        elif self.op == '=':
+        elif self.op == '==':
             value = left_value == right_value
         elif self.op == '!=':
             value = left_value != right_value

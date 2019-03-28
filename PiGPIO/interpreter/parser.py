@@ -11,11 +11,19 @@ def keyword(kw):
 
 
 num = Tag(INT) ^ (lambda i: int(i))
+boolean = Tag(BOOLEAN) ^ (lambda i: get_bool(i))
 id = Tag(ID)
 
 
+def get_bool(i):
+    if i == 'True':
+        return True
+    else:
+        return False
+
+
 # Top level parser
-def imp_parse(tokens):
+def parse(tokens):
     ast = parser()(tokens, 0)
     return ast
 
@@ -41,7 +49,7 @@ def assign_stmt():
         ((name, _), exp) = parsed
         return AssignStatement(name, exp)
 
-    return id + keyword(':=') + aexp() ^ process
+    return id + keyword('=') + aexp() ^ process
 
 
 def if_stmt():
@@ -76,10 +84,11 @@ def bexp():
                       process_logic)
 
 
-def bexp_term():
-    return bexp_not() | \
+def bexp_term():  # TODO remove test var
+    test = bexp_not() | \
            bexp_relop() | \
            bexp_group()
+    return test
 
 
 def bexp_not():
@@ -87,8 +96,13 @@ def bexp_not():
 
 
 def bexp_relop():
-    relops = ['<', '<=', '>', '>=', '=', '!=']
+    relops = ['<', '<=', '>', '>=', '==', '!=']
     return aexp() + any_operator_in_list(relops) + aexp() ^ process_relop
+
+
+def bexp_bool():
+    test = aexp() ^ process_bool
+    return test
 
 
 def bexp_group():
@@ -112,6 +126,7 @@ def aexp_group():
 
 def aexp_value():
     return (num ^ (lambda i: IntAexp(i))) | \
+           (boolean ^ (lambda i: BoolAexp(i))) | \
            (id ^ (lambda v: VarAexp(v)))
 
 
@@ -134,6 +149,10 @@ def process_binop(op):
 def process_relop(parsed):
     ((left, op), right) = parsed
     return RelopBexp(op, left, right)
+
+
+def process_bool(parsed):
+    return BoolAexp(parsed.i)
 
 
 def process_logic(op):

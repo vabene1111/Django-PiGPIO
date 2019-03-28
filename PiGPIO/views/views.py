@@ -25,8 +25,8 @@ def program(request, pk):
 
 
 def test(request):
-    tokens = lex('n := 5; x := 3; if x < 3 then a := 1 else a := 2 end')
-    result = imp_parse(tokens)
+    tokens = lex('x = True; if x == 0 then a = True else a = False end')
+    result = parse(tokens)
 
     if not result:
         print('Praser failed')
