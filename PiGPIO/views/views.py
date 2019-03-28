@@ -4,6 +4,8 @@ from django_tables2 import RequestConfig
 from PiGPIO.models import ProgramStep, Program
 from PiGPIO.tables import ProgramStepTable
 
+from PiGPIO.interpreter import *
+
 
 def index(request):
     table = ProgramStepTable(ProgramStep.objects.all())
@@ -20,3 +22,17 @@ def program(request, pk):
     program_info = Program.objects.get(pk=pk)
 
     return render(request, 'program.html', {'program_info': program_info, 'program_steps': program_steps})
+
+
+def test(request):
+    tokens = lex('n := 5; x := 3; if x < 3 then a := 1 else a := 2 end')
+    result = imp_parse(tokens)
+
+    if not result:
+        print('Praser failed')
+
+    ast = result.value
+    env = {}
+    ast.eval(env)
+
+    return render(request, 'test.html', {'test': env})

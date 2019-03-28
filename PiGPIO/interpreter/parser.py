@@ -1,162 +1,168 @@
-class Result:
-    def __init__(self, value, pos):
-        self.value = value
-        self.pos = pos
+from functools import reduce
 
-    def __repr__(self):
-        return 'Result(%s, %d)' % (self.value, self.pos)
+from .lexer import *
+from .combinators import *
+from .ast import *
 
 
-class Parser:
-    def __call__(self, tokens, pos):
-        # Basic Parser is only abstract implementation, fails if not overridden by subclass
-        return None
-
-    def __add__(self, other):
-        return Concat(self, other)
-
-    def __mul__(self, other):
-        return Exp(self, other)
-
-    def __or__(self, other):
-        return Alternate(self, other)
-
-    def __xor__(self, function):
-        return Process(self, function)
+# Basic parsers
+def keyword(kw):
+    return Reserved(kw, RESERVED)
 
 
-class Reserved(Parser):
-    def __init__(self, value, tag):
-        self.value = value
-        self.tag = tag
+num = Tag(INT) ^ (lambda i: int(i))
+id = Tag(ID)
 
-    def __call__(self, tokens, pos):
-        if pos < len(tokens) and \
-                tokens[pos][0] == self.value and \
-                tokens[pos][1] is self.tag:
-            return Result(tokens[pos][0], pos + 1)
+
+# Top level parser
+def imp_parse(tokens):
+    ast = parser()(tokens, 0)
+    return ast
+
+
+def parser():
+    return Phrase(stmt_list())
+
+
+# Statements
+def stmt_list():
+    separator = keyword(';') ^ (lambda x: lambda l, r: CompoundStatement(l, r))
+    return Exp(stmt(), separator)
+
+
+def stmt():
+    return assign_stmt() | \
+           if_stmt() | \
+           while_stmt()
+
+
+def assign_stmt():
+    def process(parsed):
+        ((name, _), exp) = parsed
+        return AssignStatement(name, exp)
+
+    return id + keyword(':=') + aexp() ^ process
+
+
+def if_stmt():
+    def process(parsed):
+        (((((_, condition), _), true_stmt), false_parsed), _) = parsed
+        if false_parsed:
+            (_, false_stmt) = false_parsed
         else:
-            return None
+            false_stmt = None
+        return IfStatement(condition, true_stmt, false_stmt)
+
+    return keyword('if') + bexp() + \
+           keyword('then') + Lazy(stmt_list) + \
+           Opt(keyword('else') + Lazy(stmt_list)) + \
+           keyword('end') ^ process
 
 
-class Tag(Parser):
-    def __init__(self, tag):
-        self.tag = tag
+def while_stmt():
+    def process(parsed):
+        ((((_, condition), _), body), _) = parsed
+        return WhileStatement(condition, body)
 
-    def __call__(self, tokens, pos):
-        if pos < len(tokens) and tokens[pos][1] is self.tag:
-            return Result(tokens[pos][0], pos + 1)
-        else:
-            return None
-
-
-class Concat(Parser):
-    def __init__(self, left, right):
-        self.left = left
-        self.right = right
-
-    def __call__(self, tokens, pos):
-        left_result = self.left(tokens, pos)
-        if left_result:
-            right_result = self.right(tokens, left_result.pos)
-            if right_result:
-                combined_value = (left_result.value, right_result.value)
-                return Result(combined_value, right_result.pos)
-        return None
+    return keyword('while') + bexp() + \
+           keyword('do') + Lazy(stmt_list) + \
+           keyword('end') ^ process
 
 
-class Alternate(Parser):
-    def __init__(self, left, right):
-        self.left = left
-        self.right = right
-
-    def __call__(self, tokens, pos):
-        left_result = self.left(tokens, pos)
-        if left_result:
-            return left_result
-        else:
-            right_result = self.right(tokens, pos)
-            return right_result
+# Boolean expressions
+def bexp():
+    return precedence(bexp_term(),
+                      bexp_precedence_levels,
+                      process_logic)
 
 
-class Opt(Parser):
-    def __init__(self, parser):
-        self.parser = parser
-
-    def __call__(self, tokens, pos):
-        result = self.parser(tokens, pos)
-        if result:
-            return result
-        else:
-            return Result(None, pos)
+def bexp_term():
+    return bexp_not() | \
+           bexp_relop() | \
+           bexp_group()
 
 
-class Rep(Parser):
-    def __init__(self, parser):
-        self.parser = parser
-
-    def __call__(self, tokens, pos):
-        results = []
-        result = self.parser(tokens, pos)
-        while result:
-            results.append(result.value)
-            pos = result.pos
-            result = self.parser(tokens, pos)
-        return Result(results, pos)
+def bexp_not():
+    return keyword('not') + Lazy(bexp_term) ^ (lambda parsed: NotBexp(parsed[1]))
 
 
-class Process(Parser):
-    def __init__(self, parser, function):
-        self.parser = parser
-        self.function = function
-
-    def __call__(self, tokens, pos):
-        result = self.parser(tokens, pos)
-        if result:
-            result.value = self.function(result.value)
-            return result
+def bexp_relop():
+    relops = ['<', '<=', '>', '>=', '=', '!=']
+    return aexp() + any_operator_in_list(relops) + aexp() ^ process_relop
 
 
-class Lazy(Parser):
-    def __init__(self, parser_func):
-        self.parser = None
-        self.parser_func = parser_func
-
-    def __call__(self, tokens, pos):
-        if not self.parser:
-            self.parser = self.parser_func()
-        return self.parser(tokens, pos)
+def bexp_group():
+    return keyword('(') + Lazy(bexp) + keyword(')') ^ process_group
 
 
-class Phrase(Parser):
-    def __init__(self, parser):
-        self.parser = parser
-
-    def __call__(self, tokens, pos):
-        result = self.parser(tokens, pos)
-        if result and result.pos == len(tokens):
-            return result
-        else:
-            return None
+# Arithmetic expressions
+def aexp():
+    return precedence(aexp_term(),
+                      aexp_precedence_levels,
+                      process_binop)
 
 
-class Exp(Parser):
-    def __init__(self, parser, separator):
-        self.parser = parser
-        self.separator = separator
+def aexp_term():
+    return aexp_value() | aexp_group()
 
-    def __call__(self, tokens, pos):
-        result = self.parser(tokens, pos)
 
-        def process_next(parsed):
-            (sepfunc, right) = parsed
-            return sepfunc(result.value, right)
+def aexp_group():
+    return keyword('(') + Lazy(aexp) + keyword(')') ^ process_group
 
-        next_parser = self.separator + self.parser ^ process_next
 
-        next_result = result
-        while next_result:
-            next_result = next_parser(tokens, result.pos)
-            if next_result:
-                result = next_result
-        return result
+def aexp_value():
+    return (num ^ (lambda i: IntAexp(i))) | \
+           (id ^ (lambda v: VarAexp(v)))
+
+
+# An IMP-specific combinator for binary operator expressions (aexp and bexp)
+def precedence(value_parser, precedence_levels, combine):
+    def op_parser(precedence_level):
+        return any_operator_in_list(precedence_level) ^ combine
+
+    parser = value_parser * op_parser(precedence_levels[0])
+    for precedence_level in precedence_levels[1:]:
+        parser = parser * op_parser(precedence_level)
+    return parser
+
+
+# Miscellaneous functions for binary and relational operators
+def process_binop(op):
+    return lambda l, r: BinopAexp(op, l, r)
+
+
+def process_relop(parsed):
+    ((left, op), right) = parsed
+    return RelopBexp(op, left, right)
+
+
+def process_logic(op):
+    if op == 'and':
+        return lambda l, r: AndBexp(l, r)
+    elif op == 'or':
+        return lambda l, r: OrBexp(l, r)
+    else:
+        raise RuntimeError('unknown logic operator: ' + op)
+
+
+def process_group(parsed):
+    ((_, p), _) = parsed
+    return p
+
+
+def any_operator_in_list(ops):
+    op_parsers = [keyword(op) for op in ops]
+    parser = reduce(lambda l, r: l | r, op_parsers)
+    return parser
+
+
+# Operator keywords and precedence levels
+aexp_precedence_levels = [
+    ['*', '/'],
+    ['+', '-'],
+]
+
+bexp_precedence_levels = [
+    ['and'],
+    ['or'],
+]
