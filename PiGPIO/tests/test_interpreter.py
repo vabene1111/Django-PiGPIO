@@ -27,6 +27,10 @@ class InterpreterTestCase(TestCase):
         self.assertTrue(tmp['a'])
         self.assertFalse(tmp['b'])
 
+        # test while loop
+        tmp = self.run_code('x = 1; while x < 3 do x = x + 1 end')
+        self.assertEqual(tmp['x'], 3)
+
     def run_code(self, code):
         tokens = lex(code)
         result = parse(tokens)
