@@ -1,6 +1,6 @@
 workflow "Run Tests" {
-  on = "push"
   resolves = ["Django Test"]
+  on = "push"
 }
 
 action "Django Test" {
