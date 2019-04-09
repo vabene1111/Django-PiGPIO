@@ -4,7 +4,7 @@ from django.contrib.auth.mixins import LoginRequiredMixin
 from rest_framework.response import Response
 from rest_framework.views import APIView
 
-from PiGPIO.helper import raspi
+from PiGPIO.helper import raspi, UndefinedPinException
 from PiGPIO.models import Program
 
 
@@ -29,7 +29,9 @@ class RunProgramView(APIView, LoginRequiredMixin):
 
         try:
             exec(program.code)
-        except:
+        except UndefinedPinException:
+            return Response({'error': 'A pin you are trying to set is not defined'})  # TODO localize
+        except Exception:
             return Response({'error': str(sys.exc_info())})
 
         return Response({})

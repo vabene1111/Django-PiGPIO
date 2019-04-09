@@ -47,6 +47,11 @@ DB_ENGINE=django.db.backends.sqlite3
 POSTGRES_HOST=db.sqlite3
 ```
 
+When working on a machine that does not have the GPIO python library installed (basically anything but the pi itself)
+it might be useful to install [this](https://github.com/Def4l71diot/RPi.GPIO-def) package to prevent errors.
+Do note that this package just makes the interpreter think you have the required library's, no code is 
+actually executed.
+
 ## License
 Most of the Code in this repository is licensed under the MIT License which basically allows you to do whatever you want.
 Click [here](https://github.com/vabene1111/Django-PiGPIO/blob/master/LICENSE.md) to see some actually useful information 

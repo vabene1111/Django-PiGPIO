@@ -8,6 +8,12 @@
 
 {% block content %}
     <div class="row">
+        <div class="col-12 text-center">
+            <a href="https://pinout.xyz/" target="_blank">{% trans 'Raspberry Pi Pin Info' %}</a>
+        </div>
+    </div>
+
+    <div class="row">
         <div class="col-12">
             <div id="blocklyDiv" style="height: 75%!important;"></div>
         </div>
@@ -19,8 +25,10 @@
         <div class="col-6 offset-3 text-center">
             <button onclick="exportBlocks()" class="btn btn-success"><i class="fas fa-download"></i> Export</button>
             <button onclick="importBlocks()" class="btn btn-danger"><i class="fas fa-upload"></i> Import</button>
-            <button onclick="saveProgram()" class="btn btn-primary"><i class="fas fa-save"></i> Save</button>
+            <button onclick="saveProgram()" class="btn btn-primary"><i class="fas fa-save"></i> Save </button>
             <button onclick="runProgram()" class="btn btn-info"><i class="fas fa-running"></i> Run</button>
+
+
         </div>
     </div>
 
@@ -350,8 +358,16 @@
                 "code": code
             });
 
-            makeRequest(request_body, '{% url "api_edit_program" %}');
+            makeRequest(request_body, '{% url "api_edit_program" %}', saveProgramCallback);
 
+        }
+
+        function saveProgramCallback(error, data, textStatus, jqXhr) {
+            if (error) {
+                alert('{% trans 'An Error occured when trying to save your Program.' %}');
+            } else {
+                workspace_changed = false;
+            }
         }
 
         function runProgram() {
@@ -367,15 +383,20 @@
             makeRequest(request_body, '{% url "api_run_prog" %}', runProgramCallback)
         }
 
-        function runProgramCallback(data, textStatus, jQxhr) {
+        function runProgramCallback(error, data, textStatus, jqXhr) {
             $('#program_spinner').hide();
             let cb_data = $('#program_callback_data');
-            console.log(data);
-            if(typeof data.error !== "undefined"){
-                cb_data.val(data.error);
+
+            if (error) {
+                cb_data.val('Something went terribly wrong: ' + data); //TODO localize/beautify
             } else {
-                cb_data.val('{% trans 'Program ran successfully!' %}');
+                if (typeof data.error !== "undefined") {
+                    cb_data.val(data.error);
+                } else {
+                    cb_data.val('{% trans 'Program ran successfully!' %}'); //TODO localize/beautify
+                }
             }
+
 
             cb_data.show();
         }
@@ -389,12 +410,15 @@
                 contentType: 'application/json',
                 data: request_body,
                 success: function (data, textStatus, jQxhr) {
-                    if (typeof callback !== "undefined"){
-                        callback(data,textStatus, jQxhr)
+                    if (typeof callback !== "undefined") {
+                        callback(false, data, textStatus, jQxhr)
                     }
                 },
                 error: function (jqXhr, textStatus, errorThrown) {
-                    console.log(jqXhr, textStatus, errorThrown)
+                    console.log(jqXhr, textStatus, errorThrown);
+                    if (typeof callback !== "undefined") {
+                        callback(true, errorThrown, textStatus, jqXhr)
+                    }
                 }
             });
         }
@@ -439,6 +463,31 @@
         Blockly.Xml.domToWorkspace(xml, workspace);
 
         workspace.scrollCenter();
+
+        workspace.addChangeListener(workspaceChangeListener);
+
+
+        function workspaceChangeListener(event) {
+            console.log(event.type);
+            if (workspace_loaded) {
+                workspace_changed = true;
+            }
+
+            if (event.type === Blockly.Events.FINISHED_LOADING) {
+                workspace_loaded = true;
+            }
+        }
+
+        window.onbeforeunload = confirmExit;
+
+        function confirmExit() {
+            if (workspace_changed) {
+                return false;
+            }
+        }
+
+        let workspace_changed = false;
+        let workspace_loaded = false;
 
     </script>
 {% endblock %}

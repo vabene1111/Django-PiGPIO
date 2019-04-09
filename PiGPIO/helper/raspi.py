@@ -1,6 +1,14 @@
 import RPi.GPIO as GPIO
 
 
+class UndefinedPinException(BaseException):
+    pass
+
+
+class UnsupportedPinException(BaseException):
+    pass
+
+
 def set_mode(mode):
     """
     Sets Mode of board (defines pin numbering)
@@ -22,6 +30,12 @@ def setup_pin(pin, mode):
     :param mode: 1 for output, all other input
     :return:
     """
+    if pin is None:
+        raise UndefinedPinException()
+
+    if pin < 0:
+        raise UnsupportedPinException()
+
     if mode == 1:
         GPIO.setup(pin, GPIO.OUT)
     else:
@@ -34,4 +48,11 @@ def set_output(pin, state):
     :param pin: number of pin according to gpio mode
     :param state: False for low signal and True for high signal
     """
+
+    if pin is None:
+        raise UndefinedPinException()
+
+    if pin < 0:
+        raise UnsupportedPinException()
+
     GPIO.output(pin, state)
