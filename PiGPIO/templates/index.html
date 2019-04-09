@@ -10,54 +10,13 @@
 
 {% block content %}
 
-    <a href="https://de.pinout.xyz/">Pin Belegung</a> -
-    <a href="{% url 'api_set_pin' %}">Set Pin API Test</a>
-
-    <br/>
-    <br/>
-    <br/>
-
-    <button onclick="setPin(15,1)" class="btn btn-success">IN 1</button>
-    <button onclick="setPin(13,1)" class="btn btn-success">IN 2</button>
-    <button onclick="setPin(11,1)" class="btn btn-success">IN 3</button>
-    <button onclick="setPin(7,1)" class="btn btn-success">IN 4</button>
-
-    <br/>
-    <br/>
-
-    <button onclick="setPin(15,0)" class="btn btn-danger">IN 1</button>
-    <button onclick="setPin(13,0)" class="btn btn-danger">IN 2</button>
-    <button onclick="setPin(11,0)" class="btn btn-danger">IN 3</button>
-    <button onclick="setPin(7,0)" class="btn btn-danger">IN 4</button>
-
-    <br/>
-    <br/>
-
-    <button onclick="runProgram(1)" class="btn btn-success">Run Program</button>
-
 
 {% endblock %}
 
 
 {% block script %}
     <script type="text/javascript">
-        function setPin(pin, state) {
-            let request_body = JSON.stringify({
-                "pin": pin,
-                "mode": 1,
-                "state": state
-            });
 
-            makeRequest(request_body, '{% url "api_set_pin" %}' )
-        }
-
-        function runProgram(program) {
-            let request_body = JSON.stringify({
-                "program": program
-            });
-
-            makeRequest(request_body, '{% url "api_run_prog" %}' )
-        }
 
         // TODO make general method in base
         function makeRequest(request_body, url) {

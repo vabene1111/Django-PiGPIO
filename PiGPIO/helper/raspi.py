@@ -34,6 +34,11 @@ def setup_pin(pin, mode):
     :param mode: 1 for output, all other input
     :return:
     """
+    if type(pin) is list:
+        for p in pin:
+            setup_pin(p, mode)
+        return
+
     if pin is None:
         raise UndefinedPinException()
 
@@ -55,6 +60,10 @@ def set_output(pin, state):
     :param pin: number of pin according to gpio mode
     :param state: False for low signal and True for high signal
     """
+    if type(pin) is list:
+        for p in pin:
+            set_output(p, state)
+        return
 
     if pin is None:
         raise UndefinedPinException()
@@ -66,4 +75,3 @@ def set_output(pin, state):
         GPIO.output(pin, state)
     except ValueError:
         raise OutputNotSupportedException(pin)
-

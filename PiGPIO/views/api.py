@@ -32,7 +32,7 @@ class RunProgramView(APIView, LoginRequiredMixin):
         except UndefinedPinException:
             return Response({'error': 'ERROR: Trying to set status of undefined pin'})  # TODO localize
         except OutputNotSupportedException as e:
-            return Response({'error': 'ERROR: Trying to use a pin that does not support this mode of operation' + str(e)})  # TODO localize
+            return Response({'error': 'ERROR: Outputting on pin ' + str(e) + ' is not supported by this model.'})  # TODO localize
         except Exception:
             return Response({'error': str(sys.exc_info())})
 
