@@ -9,6 +9,10 @@ class UnsupportedPinException(BaseException):
     pass
 
 
+class OutputNotSupportedException(BaseException):
+    pass
+
+
 def set_mode(mode):
     """
     Sets Mode of board (defines pin numbering)
@@ -37,7 +41,10 @@ def setup_pin(pin, mode):
         raise UnsupportedPinException()
 
     if mode == 1:
-        GPIO.setup(pin, GPIO.OUT)
+        try:
+            GPIO.setup(pin, GPIO.OUT)
+        except ValueError:
+            raise OutputNotSupportedException(pin)
     else:
         GPIO.setup(pin, GPIO.IN)
 
@@ -55,4 +62,8 @@ def set_output(pin, state):
     if pin < 0:
         raise UnsupportedPinException()
 
-    GPIO.output(pin, state)
+    try:
+        GPIO.output(pin, state)
+    except ValueError:
+        raise OutputNotSupportedException(pin)
+

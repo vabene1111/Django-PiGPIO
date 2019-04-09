@@ -4,7 +4,7 @@ from django.contrib.auth.mixins import LoginRequiredMixin
 from rest_framework.response import Response
 from rest_framework.views import APIView
 
-from PiGPIO.helper import raspi, UndefinedPinException
+from PiGPIO.helper import raspi, UndefinedPinException, OutputNotSupportedException
 from PiGPIO.models import Program
 
 
@@ -31,8 +31,8 @@ class RunProgramView(APIView, LoginRequiredMixin):
             exec(program.code)
         except UndefinedPinException:
             return Response({'error': 'ERROR: Trying to set status of undefined pin'})  # TODO localize
-        except ValueError:
-            return Response({'error': 'ERROR: Trying to use a pin that does not support this mode of operation'})  # TODO localize
+        except OutputNotSupportedException as e:
+            return Response({'error': 'ERROR: Trying to use a pin that does not support this mode of operation' + str(e)})  # TODO localize
         except Exception:
             return Response({'error': str(sys.exc_info())})
 
