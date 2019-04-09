@@ -30,7 +30,9 @@ class RunProgramView(APIView, LoginRequiredMixin):
         try:
             exec(program.code)
         except UndefinedPinException:
-            return Response({'error': 'A pin you are trying to set is not defined'})  # TODO localize
+            return Response({'error': 'ERROR: Trying to set status of undefined pin'})  # TODO localize
+        except ValueError:
+            return Response({'error': 'ERROR: Trying to use a pin that does not support this mode of operation'})  # TODO localize
         except Exception:
             return Response({'error': str(sys.exc_info())})
 
