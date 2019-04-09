@@ -7,6 +7,7 @@ urlpatterns = [
     path('', views.index, name='index'),
 
     path('test', views.test, name='test'),
+    path('blocky', views.blocky, name='blocky'),
 
     path('api/set', SetPinView.as_view(), name='api_set_pin'),
 

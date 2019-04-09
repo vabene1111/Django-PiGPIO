@@ -1,0 +1,232 @@
+{% extends "base.html" %}
+{% load static %}
+{% load i18n %}
+
+{% block title %}{% trans "Pi GPIO" %}{% endblock %}
+
+
+
+{% block content %}
+    <div class="row" >
+        <div class="col-12">
+            <div id="blocklyArea"></div>
+            <div id="blocklyDiv" style="height: 80%!important;"></div>
+        </div>
+    </div>
+
+
+
+    <xml xmlns="http://www.w3.org/1999/xhtml" id="toolbox" style="display: none;">
+        <category name="Variables" colour="#A65C81" custom="VARIABLE"></category>
+        <category name="Math" colour="#5C68A6">
+            <block type="math_number">
+                <field name="NUM">0</field>
+            </block>
+            <block type="math_arithmetic">
+                <field name="OP">ADD</field>
+                <value name="A">
+                    <shadow type="math_number">
+                        <field name="NUM">1</field>
+                    </shadow>
+                </value>
+                <value name="B">
+                    <shadow type="math_number">
+                        <field name="NUM">1</field>
+                    </shadow>
+                </value>
+            </block>
+            <block type="math_single">
+                <field name="OP">ROOT</field>
+                <value name="NUM">
+                    <shadow type="math_number">
+                        <field name="NUM">9</field>
+                    </shadow>
+                </value>
+            </block>
+            <block type="math_trig">
+                <field name="OP">SIN</field>
+                <value name="NUM">
+                    <shadow type="math_number">
+                        <field name="NUM">45</field>
+                    </shadow>
+                </value>
+            </block>
+            <block type="math_constant">
+                <field name="CONSTANT">PI</field>
+            </block>
+            <block type="math_number_property">
+                <mutation divisor_input="false"></mutation>
+                <field name="PROPERTY">EVEN</field>
+                <value name="NUMBER_TO_CHECK">
+                    <shadow type="math_number">
+                        <field name="NUM">0</field>
+                    </shadow>
+                </value>
+            </block>
+            <block type="math_round">
+                <field name="OP">ROUND</field>
+                <value name="NUM">
+                    <shadow type="math_number">
+                        <field name="NUM">3.1</field>
+                    </shadow>
+                </value>
+            </block>
+            <block type="math_on_list">
+                <mutation op="SUM"></mutation>
+                <field name="OP">SUM</field>
+            </block>
+            <block type="math_modulo">
+                <value name="DIVIDEND">
+                    <shadow type="math_number">
+                        <field name="NUM">64</field>
+                    </shadow>
+                </value>
+                <value name="DIVISOR">
+                    <shadow type="math_number">
+                        <field name="NUM">10</field>
+                    </shadow>
+                </value>
+            </block>
+            <block type="math_constrain">
+                <value name="VALUE">
+                    <shadow type="math_number">
+                        <field name="NUM">50</field>
+                    </shadow>
+                </value>
+                <value name="LOW">
+                    <shadow type="math_number">
+                        <field name="NUM">1</field>
+                    </shadow>
+                </value>
+                <value name="HIGH">
+                    <shadow type="math_number">
+                        <field name="NUM">100</field>
+                    </shadow>
+                </value>
+            </block>
+            <block type="math_random_int">
+                <value name="FROM">
+                    <shadow type="math_number">
+                        <field name="NUM">1</field>
+                    </shadow>
+                </value>
+                <value name="TO">
+                    <shadow type="math_number">
+                        <field name="NUM">100</field>
+                    </shadow>
+                </value>
+            </block>
+            <block type="math_random_float"></block>
+        </category>
+        <category name="Loops" colour="#5CA65C">
+            <block type="controls_repeat_ext">
+                <value name="TIMES">
+                    <shadow type="math_number">
+                        <field name="NUM">10</field>
+                    </shadow>
+                </value>
+            </block>
+            <block type="controls_whileUntil">
+                <field name="MODE">WHILE</field>
+            </block>
+            <block type="controls_for">
+                <field name="VAR" id="=1d4z9=okx4zus7S[CRc" variabletype="">i</field>
+                <value name="FROM">
+                    <shadow type="math_number">
+                        <field name="NUM">1</field>
+                    </shadow>
+                </value>
+                <value name="TO">
+                    <shadow type="math_number">
+                        <field name="NUM">10</field>
+                    </shadow>
+                </value>
+                <value name="BY">
+                    <shadow type="math_number">
+                        <field name="NUM">1</field>
+                    </shadow>
+                </value>
+            </block>
+            <block type="controls_forEach">
+                <field name="VAR" id="pgr)4o-a;45vMSzr1w*x" variabletype="">j</field>
+            </block>
+            <block type="controls_flow_statements" disabled="true">
+                <field name="FLOW">BREAK</field>
+            </block>
+        </category>
+        <category name="Logic" colour="#5C81A6">
+            <block type="controls_if"></block>
+            <block type="logic_compare">
+                <field name="OP">EQ</field>
+            </block>
+            <block type="logic_operation">
+                <field name="OP">AND</field>
+            </block>
+            <block type="logic_negate"></block>
+            <block type="logic_boolean">
+                <field name="BOOL">TRUE</field>
+            </block>
+            <block type="logic_null"></block>
+            <block type="logic_ternary"></block>
+        </category>
+        <sep></sep>
+        <category name="GPIO" colour="#a5a55b">
+            <block type="gpio_output"></block>
+        </category>
+        <sep></sep>
+    </xml>
+
+
+{% endblock %}
+
+
+{% block script %}
+    <script src="{% static 'blocky/blockly_compressed.js' %}"></script>
+    <script src="{% static 'blocky/python_compressed.js' %}"></script>
+    <script src="{% static 'blocky/blocks_compressed.js' %}"></script>
+    <script src="{% static 'blocky/msg/js/en.js' %}"></script>
+
+    <script src="{% static 'blockly_custom_blocks.js' %}"></script>
+
+    <script type="text/javascript">
+        /* TODO: Change toolbox XML ID if necessary. Can export toolbox XML from Workspace Factory. */
+        var toolbox = document.getElementById("toolbox");
+
+        var options = {
+            toolbox: toolbox,
+            collapse: true,
+            comments: true,
+            disable: true,
+            maxBlocks: Infinity,
+            trashcan: true,
+            horizontalLayout: false,
+            toolboxPosition: 'start',
+            css: true,
+            media: '{% static 'blocky/media/' %}',
+            rtl: false,
+            scrollbars: true,
+            sounds: true,
+            oneBasedIndex: true,
+            grid: {
+                spacing: 20,
+                length: 1,
+                colour: '#888',
+                snap: true
+            },
+            zoom: {
+                controls: true,
+                wheel: true,
+                startScale: 1,
+                maxScale: 3,
+                minScale: 0.3,
+                scaleSpeed: 1.2
+            }
+        };
+
+        var blocklyArea = document.getElementById('blocklyArea');
+        var blocklyDiv = document.getElementById('blocklyDiv');
+        var workspace = Blockly.inject(blocklyDiv, options);
+    
+
+    </script>
+{% endblock %}

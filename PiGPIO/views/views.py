@@ -24,6 +24,10 @@ def program(request, pk):
     return render(request, 'program.html', {'program_info': program_info, 'program_steps': program_steps})
 
 
+def blocky(request):
+    return render(request, 'blocky.html')
+
+
 def test(request):
     tokens = lex('if x==1 then dont_use_this = True else dont_use_this = False end')
     result = parse(tokens)
