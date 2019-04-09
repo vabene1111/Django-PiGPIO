@@ -24,7 +24,8 @@ def get_bool(i):
 
 # Top level parser
 def parse(tokens):
-    ast = parser()(tokens, 0)
+    p = parser()
+    ast = p(tokens, 0)
     return ast
 
 
@@ -84,11 +85,10 @@ def bexp():
                       process_logic)
 
 
-def bexp_term():  # TODO remove test var
-    test = bexp_not() | \
+def bexp_term():
+    return bexp_not() | \
            bexp_relop() | \
            bexp_group()
-    return test
 
 
 def bexp_not():
@@ -98,11 +98,6 @@ def bexp_not():
 def bexp_relop():
     relops = ['<', '<=', '>', '>=', '==', '!=']
     return aexp() + any_operator_in_list(relops) + aexp() ^ process_relop
-
-
-def bexp_bool():
-    test = aexp() ^ process_bool
-    return test
 
 
 def bexp_group():

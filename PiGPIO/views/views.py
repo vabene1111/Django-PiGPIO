@@ -25,7 +25,7 @@ def program(request, pk):
 
 
 def test(request):
-    tokens = lex('x = True; if x == 0 then a = True else a = False end')
+    tokens = lex('x = True')
     result = parse(tokens)
 
     if not result:
