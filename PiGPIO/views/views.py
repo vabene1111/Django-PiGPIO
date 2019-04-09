@@ -1,12 +1,12 @@
+from django.contrib.auth.decorators import login_required
 from django.shortcuts import render
 from django_tables2 import RequestConfig
 
 from PiGPIO.models import ProgramStep, Program
 from PiGPIO.tables import ProgramStepTable
 
-from PiGPIO.interpreter import *
 
-
+@login_required
 def index(request):
     table = ProgramStepTable(ProgramStep.objects.all())
     RequestConfig(request, paginate={'per_page': 25}).configure(table)
@@ -14,29 +14,11 @@ def index(request):
     return render(request, 'index.html', {"test": table})
 
 
-def program(request, pk):
-    program_steps = ProgramStep.objects.filter(program_id=pk).all().order_by('num')
-
-    program_info = Program.objects.get(pk=pk)
-
-    return render(request, 'program_old.html', {'program_info': program_info, 'program_steps': program_steps})
-
-
+@login_required
 def blockly(request, pk):
-    program = Program.objects.get(pk=pk)
 
-    return render(request, 'program_blockly.html', {'program': program})
+    return render(request, 'program_blockly.html', {'program': Program.objects.get(pk=pk)})
 
 
 def test(request):
-    tokens = lex('if x==1 then dont_use_this = True else dont_use_this = False end')
-    result = parse(tokens)
-
-    if not result:
-        print('Praser failed')
-
-    ast = result.value
-    env = {}
-    ast.eval(env)
-
-    return render(request, 'test.html', {'test': env})
+    return render(request, 'test.html', {})

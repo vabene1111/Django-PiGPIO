@@ -12,17 +12,10 @@ urlpatterns = [
     path('api/set', SetPinView.as_view(), name='api_set_pin'),
 
     path('api/run', RunProgramView.as_view(), name='api_run_prog'),
-    path('api/run/old', RunProgramOldView.as_view(), name='api_run_prog_old'),
-    path('api/delete/step', StopProgramView.as_view(), name='api_stop_prog'),
 
     path('api/edit/program', EditProgramView.as_view(), name='api_edit_program'),
-    path('api/edit/step', EditStepView.as_view(), name='api_edit_step'),
-
-    path('api/new/step', NewStepView.as_view(), name='api_new_step'),
-    path('api/delete/step', DeleteStepView.as_view(), name='api_delete_step'),
 
     path('program/<int:pk>/', views.blockly, name='program'),
-    path('program/old/<int:pk>/', views.program, name='program_old'),
 
     # New/Edit/Delete Views
 
