@@ -23,10 +23,14 @@ class RunProgramView(APIView, LoginRequiredMixin):
         program_id = request.data['pk']
         program = Program.objects.get(pk=program_id)
 
+        program.running = False
+
+        program.save()
+
         try:
             exec(program.code)
         except:
-            return Response({sys.exc_info()[0]})
+            return Response({'error': str(sys.exc_info())})
 
         return Response({})
 

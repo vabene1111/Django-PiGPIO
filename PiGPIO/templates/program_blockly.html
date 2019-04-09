@@ -16,7 +16,7 @@
     <br/>
 
     <div class="row">
-        <div class="col-6 offset-3 text-center" >
+        <div class="col-6 offset-3 text-center">
             <button onclick="exportBlocks()" class="btn btn-success"><i class="fas fa-download"></i> Export</button>
             <button onclick="importBlocks()" class="btn btn-danger"><i class="fas fa-upload"></i> Import</button>
             <button onclick="saveProgram()" class="btn btn-primary"><i class="fas fa-save"></i> Save</button>
@@ -287,6 +287,32 @@
         <sep></sep>
     </xml>
 
+
+    <div class="modal" tabindex="-1" role="dialog" id="program_modal">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title"><i class="fas fa-running"></i> {% trans 'Programm running' %}</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body text-center">
+
+                    <div class="spinner-border" style="width: 5rem; height: 5rem;" role="status" id="program_spinner">
+                        <span class="sr-only">Loading...</span>
+                    </div>
+
+                    <textarea class="form-control" id="program_callback_data"></textarea>
+                    <br/>
+                </div>
+
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                </div>
+            </div>
+        </div>
+    </div>
 {% endblock %}
 
 
@@ -329,15 +355,33 @@
         }
 
         function runProgram() {
+            $('#program_spinner').show();
+            $('#program_callback_data').hide();
+
+            $("#program_modal").modal()
+
             let request_body = JSON.stringify({
                 "pk": {{ program.pk }}
             });
 
-            makeRequest(request_body, '{% url "api_run_prog" %}')
+            makeRequest(request_body, '{% url "api_run_prog" %}', runProgramCallback)
+        }
+
+        function runProgramCallback(data, textStatus, jQxhr) {
+            $('#program_spinner').hide();
+            let cb_data = $('#program_callback_data');
+            console.log(data);
+            if(typeof data.error !== "undefined"){
+                cb_data.val(data.error);
+            } else {
+                cb_data.val('{% trans 'Program ran successfully!' %}');
+            }
+
+            cb_data.show();
         }
 
         // TODO make general method in base
-        function makeRequest(request_body, url) {
+        function makeRequest(request_body, url, callback) {
             $.ajax({
                 url: url,
                 dataType: 'json',
@@ -345,14 +389,12 @@
                 contentType: 'application/json',
                 data: request_body,
                 success: function (data, textStatus, jQxhr) {
-                    console.log(data, textStatus, jQxhr);
-
-                    if (data.log !== undefined) {
-                        $('#program_state_info').val(data.log)
+                    if (typeof callback !== "undefined"){
+                        callback(data,textStatus, jQxhr)
                     }
                 },
                 error: function (jqXhr, textStatus, errorThrown) {
-                    console.log(errorThrown);
+                    console.log(jqXhr, textStatus, errorThrown)
                 }
             });
         }
@@ -390,11 +432,13 @@
             }
         };
 
-        var blocklyDiv = document.getElementById('blocklyDiv');
-        var workspace = Blockly.inject(blocklyDiv, options);
+        let blocklyDiv = document.getElementById('blocklyDiv');
+        let workspace = Blockly.inject(blocklyDiv, options);
 
-        var xml = Blockly.Xml.textToDom('{{ program.blockly_string | safe }}');
+        let xml = Blockly.Xml.textToDom('{{ program.blockly_string | safe }}');
         Blockly.Xml.domToWorkspace(xml, workspace);
+
+        workspace.scrollCenter();
 
     </script>
 {% endblock %}

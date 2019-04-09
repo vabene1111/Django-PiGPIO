@@ -20,7 +20,9 @@ Blockly.Blocks['gpio_output'] = {
 Blockly.Python['gpio_output'] = function (block) {
     var value_pin = Blockly.Python.valueToCode(block, 'pin', Blockly.Python.ORDER_ATOMIC);
     var value_state = Blockly.Python.valueToCode(block, 'state', Blockly.Python.ORDER_ATOMIC);
-    // TODO: Assemble Python into code variable.
+
+    Blockly.Python.definitions_['from_pigpio_helper_import_raspi'] = 'from PiGPIO.helper import raspi';
+
     return 'raspi.setup_pin(' + value_pin + ', 1)\nraspi.set_output(' + value_pin + ',' + value_state + ')\n';
 };
 
@@ -41,6 +43,8 @@ Blockly.Blocks['sleep'] = {
 
 Blockly.Python['sleep'] = function (block) {
     var number_sleep = block.getFieldValue('sleep');
-    // TODO: Assemble Python into code variable.
-    return 'sleep(int(' + number_sleep + '))\n';
+
+    Blockly.Python.definitions_['from_time_import_sleep'] = 'from time import sleep';
+
+    return 'sleep(' + number_sleep + ')\n';
 };
