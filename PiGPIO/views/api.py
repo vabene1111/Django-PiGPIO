@@ -39,7 +39,7 @@ class RunProgramView(APIView, LoginRequiredMixin):
 
         ProgramLog.objects.all().delete()
 
-        step = ProgramStep.objects.earliest('num')
+        step = ProgramStep.objects.filter(program_id=program_id).earliest('num')
 
         env = {'dont_use_this_name': True}
 
@@ -62,9 +62,9 @@ class RunProgramView(APIView, LoginRequiredMixin):
 
             try:
                 if env['dont_use_this_name'] is True:
-                    step = ProgramStep.objects.get(num=step.successor_true)
+                    step = ProgramStep.objects.get(num=step.successor_true, program_id=program_id)
                 else:
-                    step = ProgramStep.objects.get(num=step.successor_false)
+                    step = ProgramStep.objects.get(num=step.successor_false, program_id=program_id)
                     env['dont_use_this_name'] = True
             except ProgramStep.DoesNotExist:
                 if program.logging:
