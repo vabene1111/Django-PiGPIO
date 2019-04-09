@@ -25,7 +25,7 @@ def program(request, pk):
 
 
 def blocky(request):
-    return render(request, 'blocky.html')
+    return render(request, 'blockly.html')
 
 
 def test(request):

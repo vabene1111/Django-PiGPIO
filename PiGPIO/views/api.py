@@ -1,20 +1,12 @@
-from django.shortcuts import render
-from rest_framework.decorators import api_view
-from rest_framework.response import Response
-from rest_framework.views import APIView
-from django.contrib.auth.mixins import LoginRequiredMixin
-
-from PiGPIO.interpreter import lex, parse
-from PiGPIO.serializers import SetPinSerializer
 from time import sleep
 
-import logging
-
-from PiGPIO.models import Program, ProgramStep, ProgramLog
+from django.contrib.auth.mixins import LoginRequiredMixin
+from rest_framework.response import Response
+from rest_framework.views import APIView
 
 from PiGPIO.helper import raspi
-
-logger = logging.getLogger(__name__)
+from PiGPIO.interpreter import lex, parse
+from PiGPIO.models import Program, ProgramStep, ProgramLog
 
 
 class SetPinView(APIView, LoginRequiredMixin):
@@ -193,5 +185,19 @@ class StopProgramView(APIView, LoginRequiredMixin):
 
         program.save()
 
+        # TODO proper response
+        return Response({})
+
+
+class EditProgramView(APIView, LoginRequiredMixin):
+    def post(self, request):
+        # TODO proper input validation
+        if request.data['pk'] != '':
+            program = Program.objects.get(pk=int(request.data['pk']))
+
+            program.code = str(request.data['code'])
+            program.blockly_string = str(request.data['blockly_string'])
+
+            program.save()
         # TODO proper response
         return Response({})

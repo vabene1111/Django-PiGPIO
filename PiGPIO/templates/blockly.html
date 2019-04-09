@@ -19,7 +19,7 @@
         <div class="col-6 col-offset-3">
             <button onclick="exportBlocks()" class="btn btn-success">Export</button>
             <button onclick="importBlocks()" class="btn btn-danger">Import</button>
-            <button onclick="saveBlocks()" class="btn btn-primary">Save</button>
+            <button onclick="saveProgram()" class="btn btn-primary">Save</button>
         </div>
     </div>
 
@@ -215,6 +215,43 @@
             var xml = Blockly.Xml.textToDom($('#blocky_io').val());
             Blockly.Xml.domToWorkspace(xml, workspace);
             $('#blocky_io').val('')
+        }
+
+        function saveProgram() {
+            let xml = Blockly.Xml.workspaceToDom(workspace);
+            let xml_text = Blockly.Xml.domToText(xml);
+
+            let code = Blockly.Python.workspaceToCode(workspace);
+
+            let request_body = JSON.stringify({
+                "pk": 2,
+                "blockly_string": xml_text,
+                "code": code
+            });
+
+            makeRequest(request_body, '{% url "api_edit_program" %}');
+
+        }
+
+        // TODO make general method in base
+        function makeRequest(request_body, url) {
+            $.ajax({
+                url: url,
+                dataType: 'json',
+                type: 'POST',
+                contentType: 'application/json',
+                data: request_body,
+                success: function (data, textStatus, jQxhr) {
+                    console.log(data, textStatus, jQxhr);
+
+                    if (data.log !== undefined) {
+                        $('#program_state_info').val(data.log)
+                    }
+                },
+                error: function (jqXhr, textStatus, errorThrown) {
+                    console.log(errorThrown);
+                }
+            });
         }
 
         var toolbox = document.getElementById("toolbox");

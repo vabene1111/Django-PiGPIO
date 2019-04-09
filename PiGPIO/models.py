@@ -3,8 +3,10 @@ from django.db import models
 
 # Create your models here.
 class Program(models.Model):
-    name = models.CharField(max_length=128, default="")
-    description = models.CharField(max_length=1024, default="")
+    name = models.CharField(max_length=128, default='')
+    description = models.CharField(max_length=1024, default='')
+    blockly_string = models.TextField(blank=True, default='')
+    code = models.TextField(blank=True, default='')
     running = models.BooleanField(default=False)
     logging = models.BooleanField(default=False)
 

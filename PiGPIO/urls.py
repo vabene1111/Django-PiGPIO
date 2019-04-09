@@ -14,7 +14,9 @@ urlpatterns = [
     path('api/run', RunProgramView.as_view(), name='api_run_prog'),
     path('api/delete/step', StopProgramView.as_view(), name='api_stop_prog'),
 
+    path('api/edit/program', EditProgramView.as_view(), name='api_edit_program'),
     path('api/edit/step', EditStepView.as_view(), name='api_edit_step'),
+
     path('api/new/step', NewStepView.as_view(), name='api_new_step'),
     path('api/delete/step', DeleteStepView.as_view(), name='api_delete_step'),
 
