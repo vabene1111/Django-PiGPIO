@@ -22,6 +22,17 @@ class RunProgramView(APIView, LoginRequiredMixin):
     def post(self, request):
         raspi.set_mode(0)
         program_id = request.data['pk']
+        program = Program.objects.get(pk=program_id)
+
+        exec(program.code)
+
+        return Response({})
+
+
+class RunProgramOldView(APIView, LoginRequiredMixin):
+    def post(self, request):
+        raspi.set_mode(0)
+        program_id = request.data['pk']
 
         print("Starting Program " + str(program_id))
 

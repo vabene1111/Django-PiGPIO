@@ -20,6 +20,7 @@
             <button onclick="exportBlocks()" class="btn btn-success">Export</button>
             <button onclick="importBlocks()" class="btn btn-danger">Import</button>
             <button onclick="saveProgram()" class="btn btn-primary">Save</button>
+            <button onclick="runProgram()" class="btn btn-info">Run</button>
         </div>
     </div>
 
@@ -184,6 +185,100 @@
             <block type="logic_null"></block>
             <block type="logic_ternary"></block>
         </category>
+        <category name="Text" colour="#5CA68D">
+            <block type="text">
+                <field name="TEXT"></field>
+            </block>
+            <block type="text_join">
+                <mutation items="2"></mutation>
+            </block>
+            <block type="text_append">
+                <field name="VAR" id="DigV)gWhnnaO9cm$SZk." variabletype="">item</field>
+                <value name="TEXT">
+                    <shadow type="text">
+                        <field name="TEXT"></field>
+                    </shadow>
+                </value>
+            </block>
+            <block type="text_length">
+                <value name="VALUE">
+                    <shadow type="text">
+                        <field name="TEXT">abc</field>
+                    </shadow>
+                </value>
+            </block>
+            <block type="text_isEmpty">
+                <value name="VALUE">
+                    <shadow type="text">
+                        <field name="TEXT"></field>
+                    </shadow>
+                </value>
+            </block>
+            <block type="text_indexOf">
+                <field name="END">FIRST</field>
+                <value name="VALUE">
+                    <block type="variables_get">
+                        <field name="VAR" id="f_JsKbJw+(6-Q^Y*]$u{" variabletype="">text</field>
+                    </block>
+                </value>
+                <value name="FIND">
+                    <shadow type="text">
+                        <field name="TEXT">abc</field>
+                    </shadow>
+                </value>
+            </block>
+            <block type="text_charAt">
+                <mutation at="true"></mutation>
+                <field name="WHERE">FROM_START</field>
+                <value name="VALUE">
+                    <block type="variables_get">
+                        <field name="VAR" id="f_JsKbJw+(6-Q^Y*]$u{" variabletype="">text</field>
+                    </block>
+                </value>
+            </block>
+            <block type="text_getSubstring">
+                <mutation at1="true" at2="true"></mutation>
+                <field name="WHERE1">FROM_START</field>
+                <field name="WHERE2">FROM_START</field>
+                <value name="STRING">
+                    <block type="variables_get">
+                        <field name="VAR" id="f_JsKbJw+(6-Q^Y*]$u{" variabletype="">text</field>
+                    </block>
+                </value>
+            </block>
+            <block type="text_changeCase">
+                <field name="CASE">UPPERCASE</field>
+                <value name="TEXT">
+                    <shadow type="text">
+                        <field name="TEXT">abc</field>
+                    </shadow>
+                </value>
+            </block>
+            <block type="text_trim">
+                <field name="MODE">BOTH</field>
+                <value name="TEXT">
+                    <shadow type="text">
+                        <field name="TEXT">abc</field>
+                    </shadow>
+                </value>
+            </block>
+            <block type="text_print">
+                <value name="TEXT">
+                    <shadow type="text">
+                        <field name="TEXT">abc</field>
+                    </shadow>
+                </value>
+            </block>
+            <block type="text_prompt_ext">
+                <mutation type="TEXT"></mutation>
+                <field name="TYPE">TEXT</field>
+                <value name="TEXT">
+                    <shadow type="text">
+                        <field name="TEXT">abc</field>
+                    </shadow>
+                </value>
+            </block>
+        </category>
         <sep></sep>
         <category name="Pi GPIO" colour="#a5a55b">
             <block type="gpio_output"></block>
@@ -224,13 +319,21 @@
             let code = Blockly.Python.workspaceToCode(workspace);
 
             let request_body = JSON.stringify({
-                "pk": 2,
+                "pk": {{ program.pk }},
                 "blockly_string": xml_text,
                 "code": code
             });
 
             makeRequest(request_body, '{% url "api_edit_program" %}');
 
+        }
+
+        function runProgram() {
+            let request_body = JSON.stringify({
+                "pk": {{ program.pk }}
+            });
+
+            makeRequest(request_body, '{% url "api_run_prog" %}')
         }
 
         // TODO make general method in base
@@ -289,6 +392,9 @@
 
         var blocklyDiv = document.getElementById('blocklyDiv');
         var workspace = Blockly.inject(blocklyDiv, options);
+
+        var xml = Blockly.Xml.textToDom('{{ program.blockly_string | safe }}');
+        Blockly.Xml.domToWorkspace(xml, workspace);
 
     </script>
 {% endblock %}

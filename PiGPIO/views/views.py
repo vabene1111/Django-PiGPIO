@@ -15,17 +15,17 @@ def index(request):
 
 
 def program(request, pk):
-    # program_steps = ProgramStepTable(ProgramStep.objects.filter(program_id=pk).all())
-    # RequestConfig(request, paginate={'per_page': 25}).configure(program_steps)
     program_steps = ProgramStep.objects.filter(program_id=pk).all().order_by('num')
 
     program_info = Program.objects.get(pk=pk)
 
-    return render(request, 'program.html', {'program_info': program_info, 'program_steps': program_steps})
+    return render(request, 'program_old.html', {'program_info': program_info, 'program_steps': program_steps})
 
 
-def blocky(request):
-    return render(request, 'blockly.html')
+def blockly(request, pk):
+    program = Program.objects.get(pk=pk)
+
+    return render(request, 'program_blockly.html', {'program': program})
 
 
 def test(request):
