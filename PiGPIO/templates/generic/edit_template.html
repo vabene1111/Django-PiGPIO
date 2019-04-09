@@ -27,7 +27,7 @@
     <form action="." method="post">
         {% csrf_token %}
         {{ form|crispy }}
-        <input type="submit" value="Submit" class="btn btn-success">
+        <input type="submit" value="{% trans 'Save' %}" class="btn btn-success">
         <a href="{% url 'redirect_delete' form.instance|get_class|lower form.instance.pk %}" class="btn btn-danger">{% trans 'Delete' %}</a>
     </form>
 

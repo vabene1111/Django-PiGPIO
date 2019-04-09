@@ -22,13 +22,13 @@
     <br/>
 
     <div class="row">
-        <div class="col-6 offset-3 text-center">
+        <div class="col-12 text-center">
             <button onclick="exportBlocks()" class="btn btn-success"><i class="fas fa-download"></i> Export</button>
             <button onclick="importBlocks()" class="btn btn-danger"><i class="fas fa-upload"></i> Import</button>
             <button onclick="saveProgram()" class="btn btn-primary"><i class="fas fa-save"></i> Save </button>
             <button onclick="runProgram()" class="btn btn-info"><i class="fas fa-running"></i> Run</button>
 
-
+            <a href="{% url 'edit_program' program.pk%}" class="btn btn-warning"><i class="fas fa-info-circle"></i> Program Info</a>
         </div>
     </div>
 
@@ -37,6 +37,7 @@
     <div class="row">
         <div class="col-12">
             <textarea id="blocky_io" class="form-control"></textarea>
+            <br/>
         </div>
     </div>
 
@@ -468,7 +469,6 @@
 
 
         function workspaceChangeListener(event) {
-            console.log(event.type);
             if (workspace_loaded) {
                 workspace_changed = true;
             }

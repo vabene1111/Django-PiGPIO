@@ -10,6 +10,15 @@ create programs to allow everyone to get up and running quickly.
 [Docker Compose](https://docs.docker.com/compose/)
 - Highly customizable programming environment
 - Modern Webinterface based on python django
+- Usable without internet access (trough ad-hoc WiFi network or wired connection)
+
+## Intended use
+This program is designed to allow for easy and on the fly programming of a raspberry pi.
+Although it supports having multiple users it is not intended to be used by multiple users at the
+same time (this is mainly because one Pi only has one set of GPIO pins).
+
+PiGPIO is designed to work offline with the raspberry being accessed either via an ad-hoc WiFi network 
+or a wired connection. For this reason all resources (CSS, JS, ...) are included in this repository.
 
 ## Installation
 1. Clone this repository at your desired install location
