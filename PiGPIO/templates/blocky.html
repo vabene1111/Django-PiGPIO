@@ -7,14 +7,29 @@
 
 
 {% block content %}
-    <div class="row" >
+    <div class="row">
         <div class="col-12">
-            <div id="blocklyArea"></div>
-            <div id="blocklyDiv" style="height: 80%!important;"></div>
+            <div id="blocklyDiv" style="height: 75%!important;"></div>
         </div>
     </div>
 
+    <br/>
 
+    <div class="row">
+        <div class="col-6 col-offset-3">
+            <button onclick="exportBlocks()" class="btn btn-success">Export</button>
+            <button onclick="importBlocks()" class="btn btn-danger">Import</button>
+            <button onclick="saveBlocks()" class="btn btn-primary">Save</button>
+        </div>
+    </div>
+
+    <br/>
+
+    <div class="row">
+        <div class="col-12">
+            <textarea id="blocky_io" class="form-control"></textarea>
+        </div>
+    </div>
 
     <xml xmlns="http://www.w3.org/1999/xhtml" id="toolbox" style="display: none;">
         <category name="Variables" colour="#A65C81" custom="VARIABLE"></category>
@@ -170,12 +185,12 @@
             <block type="logic_ternary"></block>
         </category>
         <sep></sep>
-        <category name="GPIO" colour="#a5a55b">
+        <category name="Pi GPIO" colour="#a5a55b">
             <block type="gpio_output"></block>
+            <block type="sleep"></block>
         </category>
         <sep></sep>
     </xml>
-
 
 {% endblock %}
 
@@ -189,7 +204,19 @@
     <script src="{% static 'blockly_custom_blocks.js' %}"></script>
 
     <script type="text/javascript">
-        /* TODO: Change toolbox XML ID if necessary. Can export toolbox XML from Workspace Factory. */
+
+        function exportBlocks() {
+            var xml = Blockly.Xml.workspaceToDom(workspace);
+            var xml_text = Blockly.Xml.domToText(xml);
+            $('#blocky_io').val(xml_text)
+        }
+
+        function importBlocks() {
+            var xml = Blockly.Xml.textToDom($('#blocky_io').val());
+            Blockly.Xml.domToWorkspace(xml, workspace);
+            $('#blocky_io').val('')
+        }
+
         var toolbox = document.getElementById("toolbox");
 
         var options = {
@@ -223,10 +250,8 @@
             }
         };
 
-        var blocklyArea = document.getElementById('blocklyArea');
         var blocklyDiv = document.getElementById('blocklyDiv');
         var workspace = Blockly.inject(blocklyDiv, options);
-    
 
     </script>
 {% endblock %}

@@ -11,7 +11,7 @@ Blockly.Blocks['gpio_output'] = {
         this.setInputsInline(false);
         this.setPreviousStatement(true, null);
         this.setNextStatement(true, null);
-        this.setColour(150);
+        this.setColour(65);
         this.setTooltip("Sets state of given GPIO Pin");
         this.setHelpUrl("");
     }
@@ -21,6 +21,26 @@ Blockly.Python['gpio_output'] = function (block) {
     var value_pin = Blockly.Python.valueToCode(block, 'pin', Blockly.Python.ORDER_ATOMIC);
     var value_state = Blockly.Python.valueToCode(block, 'state', Blockly.Python.ORDER_ATOMIC);
     // TODO: Assemble Python into code variable.
-    var code = 'GPIO.out(' + value_pin + ',' + value_state + ')\n';
-    return code;
+    return 'raspi.setup_pin(' + value_pin + ', 1)\nraspi.set_output(' + value_pin + ',' + value_state + ')\n';
+};
+
+// Sleep Block - pauses execution for given amount of milliseconds
+Blockly.Blocks['sleep'] = {
+    init: function () {
+        this.appendDummyInput()
+            .appendField("sleep (seconds)")
+            .appendField(new Blockly.FieldNumber(0, 0), "sleep");
+        this.setInputsInline(true);
+        this.setPreviousStatement(true, null);
+        this.setNextStatement(true, null);
+        this.setColour(65);
+        this.setTooltip("pauses execution for given seconds");
+        this.setHelpUrl("");
+    }
+};
+
+Blockly.Python['sleep'] = function (block) {
+    var number_sleep = block.getFieldValue('sleep');
+    // TODO: Assemble Python into code variable.
+    return 'sleep(int(' + number_sleep + '))\n';
 };
