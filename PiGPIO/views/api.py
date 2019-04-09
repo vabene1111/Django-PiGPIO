@@ -3,6 +3,8 @@ from rest_framework.decorators import api_view
 from rest_framework.response import Response
 from rest_framework.views import APIView
 from django.contrib.auth.mixins import LoginRequiredMixin
+
+from PiGPIO.interpreter import lex, parse
 from PiGPIO.serializers import SetPinSerializer
 from time import sleep
 
@@ -39,7 +41,7 @@ class RunProgramView(APIView, LoginRequiredMixin):
 
         step = ProgramStep.objects.earliest('num')
 
-        vars = {}
+        env = {'dont_use_this_name': True}
 
         while True:
             program = Program.objects.get(pk=step.program_id)
@@ -56,10 +58,14 @@ class RunProgramView(APIView, LoginRequiredMixin):
                 log.step = step
                 log.save()
 
-            vars = run_step(step,vars)
+            env = run_step(step, env)
 
             try:
-                step = ProgramStep.objects.get(num=step.successor_true)
+                if env['dont_use_this_name'] is True:
+                    step = ProgramStep.objects.get(num=step.successor_true)
+                else:
+                    step = ProgramStep.objects.get(num=step.successor_false)
+                    env['dont_use_this_name'] = True
             except ProgramStep.DoesNotExist:
                 if program.logging:
                     log = ProgramLog()
@@ -85,7 +91,19 @@ def pretty_print_log():
     return output
 
 
-def run_step(step, vars):
+def run_interpreter(code, env):
+    tokens = lex(code)
+    result = parse(tokens)
+
+    if not result:
+        print('Praser failed')
+
+    ast = result.value
+    ast.eval(env)
+    return env
+
+
+def run_step(step, env):
     print('Running Step: ' + str(step))
     if step.type == 'sleep':
         print('Running step sleep')
@@ -95,10 +113,17 @@ def run_step(step, vars):
         raspi.setup_pin(step.pin, 1)
         raspi.set_output(step.pin, int(step.data))
     elif step.type == 'variable':
-        step.data
+        print("Variable assignment ", step.data, env)
+        run_interpreter(step.data, env)
+        print("After env: ", env)
+    elif step.type == 'condition':
+        print("Condition")
+        code = "if " + step.data + " then dont_use_this_name = True else dont_use_this_name = False end"
+        print(code, env)
+        run_interpreter(code, env)
+        print("After env: ", env)
 
-    return vars
-
+    return env
 
 
 class EditStepView(APIView, LoginRequiredMixin):

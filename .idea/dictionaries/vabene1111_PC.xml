@@ -2,6 +2,7 @@
   <dictionary name="vabene1111-PC">
     <words>
       <w>aexp</w>
+      <w>dontusethisname</w>
       <w>exprs</w>
       <w>gpio</w>
       <w>pigpio</w>

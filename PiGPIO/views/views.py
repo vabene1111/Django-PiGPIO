@@ -25,7 +25,7 @@ def program(request, pk):
 
 
 def test(request):
-    tokens = lex('x = True')
+    tokens = lex('if x==1 then dont_use_this = True else dont_use_this = False end')
     result = parse(tokens)
 
     if not result:
