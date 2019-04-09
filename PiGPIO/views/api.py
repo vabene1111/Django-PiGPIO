@@ -1,3 +1,4 @@
+import sys
 from time import sleep
 
 from django.contrib.auth.mixins import LoginRequiredMixin
@@ -24,7 +25,10 @@ class RunProgramView(APIView, LoginRequiredMixin):
         program_id = request.data['pk']
         program = Program.objects.get(pk=program_id)
 
-        exec(program.code)
+        try:
+            exec(program.code)
+        except:
+            return Response({sys.exc_info()[0]})
 
         return Response({})
 

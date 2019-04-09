@@ -1,11 +1,20 @@
 # DjangoPiGPIO
-Django PiGPIO aims to provide an easy to setup and use solution to control and program your raspberry pi's GPIO pins.
+Django PiGPIO is an easy way to program your Raspberry Pi's GPIO 
+pins from a modern webinterface.
 
-Nothing here works ... yet!
+Googles excellent [Blockly](https://developers.google.com/blockly/) library is used to
+create programs to allow everyone to get up and running quickly.
+
+<u>Features</u>
+- Super easy and fast to install using Docker and Docker Compose
+- Highly customizable programming environment
+- Modern Webinterface based on python django
 
 ## Installation
-Coming soon ...
-
+1. Clone this repository at your desired install location
+2. Initialize submodules with `git submodule update --init --recursive`
+3. Copy `.env.template` to `.env` and fill in every variable accordingly
+4. Start the docker container using `docker-compose up -d`
 
 ## License
 Most of the Code in this repository is licensed under the MIT License which basically allows you to do whatever you want.
