@@ -2,7 +2,7 @@ from django.contrib.auth.decorators import login_required
 from django.shortcuts import render
 
 from PiGPIO.models import Program, Dashboard
-from helper import raspi
+from PiGPIO.helper import raspi
 
 
 @login_required
