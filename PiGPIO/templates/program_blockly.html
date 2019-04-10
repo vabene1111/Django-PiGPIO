@@ -60,6 +60,7 @@
                     </div>
 
                     <textarea class="form-control" id="program_callback_data"></textarea>
+                    <textarea class="form-control" id="program_log_data"></textarea>
                     <br/>
                 </div>
 
@@ -114,7 +115,10 @@
             if (error) {
                 alert('{% trans 'An Error occured when trying to save your Program.' %}');
             } else {
-                workspace_changed = false;
+                let xml = Blockly.Xml.workspaceToDom(workspace);
+                let xml_text = Blockly.Xml.domToText(xml);
+
+                workspace_last_data = xml_text;
             }
         }
 
@@ -137,20 +141,26 @@
 
         function runProgramCallback(error, data, textStatus, jqXhr) {
             $('#program_spinner').hide();
-            let cb_data = $('#program_callback_data');
+
+            let log_data = $('#program_log_data');
 
             if (error) {
-                cb_data.val('Something went terribly wrong: ' + data); //TODO localize/beautify
-            } else {
-                if (typeof data.error !== "undefined") {
-                    cb_data.val(data.error);
-                } else {
-                    cb_data.val('{% trans 'Program ran successfully!' %}'); //TODO localize/beautify
-                }
+                log_data.val(log_data.val() + 'Something went terribly wrong: ' + data + "\n") //TODO localize/beautify
             }
 
+            getLogData();
+        }
 
-            cb_data.show();
+        function getLogData() {
+            let request_body = JSON.stringify({});
+
+            makeRequest(request_body, '{% url "api_pop_log" %}', getLogDataCallback)
+        }
+
+        function getLogDataCallback(error, data, textStatus, jqXhr) {
+            let log_data = $('#program_log_data');
+
+            log_data.val(log_data.val() + data.log)
         }
 
         // TODO make general method in base
@@ -175,9 +185,9 @@
             });
         }
 
-        var toolbox = document.getElementById("toolbox");
+        let toolbox = document.getElementById("toolbox");
 
-        var options = {
+        let options = {
             toolbox: toolbox,
             collapse: true,
             comments: true,
@@ -216,29 +226,18 @@
 
         workspace.scrollCenter();
 
-        workspace.addChangeListener(workspaceChangeListener);
-
-
-        function workspaceChangeListener(event) {
-            if (workspace_loaded) {
-                workspace_changed = true;
-            }
-
-            if (event.type === Blockly.Events.FINISHED_LOADING) {
-                workspace_loaded = true;
-            }
-        }
-
         window.onbeforeunload = confirmExit;
 
         function confirmExit() {
-            if (workspace_changed) {
-                return false;
+            let xml = Blockly.Xml.workspaceToDom(workspace);
+            let xml_text = Blockly.Xml.domToText(xml);
+
+            if (xml_text !== workspace_last_data){
+                return "";
             }
         }
 
-        let workspace_changed = false;
-        let workspace_loaded = false;
+        let workspace_last_data = '{{ program.blockly_string | safe }}';
 
     </script>
 {% endblock %}

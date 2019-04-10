@@ -13,6 +13,8 @@ urlpatterns = [
 
     path('api/run', RunProgramView.as_view(), name='api_run_prog'),
 
+    path('api/pop/log', PopLogView.as_view(), name='api_pop_log'),
+
     path('api/edit/program', EditProgramView.as_view(), name='api_edit_program'),
 
     path('program/<int:pk>/', views.blockly, name='program'),

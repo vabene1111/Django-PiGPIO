@@ -4,9 +4,9 @@ from django.contrib.auth.mixins import LoginRequiredMixin
 from rest_framework.response import Response
 from rest_framework.views import APIView
 
-from PiGPIO.helper import raspi, UndefinedPinException, OutputNotSupportedException
-from PiGPIO.models import Program
-
+from PiGPIO.helper import raspi, UndefinedPinException, OutputNotSupportedException, ListNotSupportedException
+from PiGPIO.models import Program, Log
+from django.utils.translation import gettext as _
 
 class SetPinView(APIView, LoginRequiredMixin):
     def post(self, request):
@@ -29,12 +29,15 @@ class RunProgramView(APIView, LoginRequiredMixin):
 
         try:
             exec(program.code)
+            raspi.log(_('Program finished successfully!'))
         except UndefinedPinException:
-            return Response({'error': 'ERROR: Trying to set status of undefined pin'})  # TODO localize
+            raspi.log('ERROR: Trying to set status of undefined pin')  # TODO localize
         except OutputNotSupportedException as e:
-            return Response({'error': 'ERROR: Outputting on pin ' + str(e) + ' is not supported by this model.'})  # TODO localize
+            raspi.log('ERROR: Outputting on pin ' + str(e) + ' is not supported by this model.')  # TODO localize
+        except ListNotSupportedException as e:
+            raspi.log('ERROR: Trying to pass list ' + str(e) + ' to function not supporting lists.')  # TODO localize
         except Exception:
-            return Response({'error': str(sys.exc_info())})
+            raspi.log(str(sys.exc_info()))
 
         return Response({})
 
@@ -64,3 +67,16 @@ class EditProgramView(APIView, LoginRequiredMixin):
             program.save()
         # TODO proper response
         return Response({})
+
+
+class PopLogView(APIView, LoginRequiredMixin):
+    def post(self, request):
+        logs = Log.objects.all()
+
+        log_string = ""
+        for log in logs:
+            log_string = log_string + log.data + "\n"
+
+        Log.objects.all().delete()
+
+        return Response({'log': log_string})
