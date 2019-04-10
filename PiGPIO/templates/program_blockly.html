@@ -146,10 +146,6 @@
         }
 
         function runProgramCallback(error, data, textStatus, jqXhr) {
-            $('#program_spinner').hide();
-
-            program_running = false;
-
             let log_data = $('#program_log_data');
 
             if (error) {
@@ -167,6 +163,11 @@
             let log_data = $('#program_log_data');
 
             log_data.val(log_data.val() + data.log);
+
+            if (data.program_finished) {
+                $('#program_spinner').hide();
+                program_running = false;
+            }
 
             if (program_running) {
                 setTimeout(function () {
