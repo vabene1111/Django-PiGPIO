@@ -91,6 +91,9 @@
         function importBlocks() {
             let blockly_io = $('#blockly_io');
             let xml = Blockly.Xml.textToDom(blockly_io.val());
+
+            workspace_last_data = xml;
+
             Blockly.Xml.domToWorkspace(xml, workspace);
             blockly_io.val('');
             workspace.scrollCenter();
@@ -164,6 +167,10 @@
 
             log_data.val(log_data.val() + data.log);
 
+            if(log_data.length){
+                log_data.scrollTop(log_data[0].scrollHeight - log_data.height());
+            }
+
             if (data.program_finished) {
                 $('#program_spinner').hide();
                 program_running = false;
@@ -234,7 +241,13 @@
         let blocklyDiv = document.getElementById('blocklyDiv');
         let workspace = Blockly.inject(blocklyDiv, options);
 
-        let xml = Blockly.Xml.textToDom('{{ program.blockly_string | safe }}');
+        {% if program.blockly_string != "" %}
+            let workspace_last_data = '{{ program.blockly_string | safe }}';
+        {% else %}
+            let workspace_last_data = '<xml xmlns="http://www.w3.org/1999/xhtml"></xml>';
+        {% endif %}
+
+        let xml = Blockly.Xml.textToDom(workspace_last_data);
         Blockly.Xml.domToWorkspace(xml, workspace);
 
         workspace.scrollCenter();
@@ -250,7 +263,6 @@
             }
         }
 
-        let workspace_last_data = '{{ program.blockly_string | safe }}';
         let program_running = false;
 
     </script>
