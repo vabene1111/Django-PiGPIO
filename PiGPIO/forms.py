@@ -1,6 +1,7 @@
 from django import forms
 from django.utils.translation import gettext as _
 
+from django.forms.widgets import TextInput
 from PiGPIO.models import Program, Dashboard
 
 
@@ -23,3 +24,10 @@ class DashboardForm(forms.ModelForm):
     class Meta:
         model = Dashboard
         fields = ('name', 'text', 'row', 'col', 'background_color', 'font_color', 'icon', 'program')
+        widgets = {
+            'background_color': TextInput(attrs={'type': 'color'}),
+            'font_color': TextInput(attrs={'type': 'color'}),
+        }
+        help_texts = {
+            'icon': _('Choose any icon from <a href="https://fontawesome.com/icons?d=gallery" target="_blank">here</a>. Enter complete icon including style. Example <code>fas fa-running</code>')
+        }

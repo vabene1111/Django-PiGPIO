@@ -27,7 +27,7 @@ class ProgramUpdate(LoginRequiredMixin, UpdateView):
 
     def get_context_data(self, **kwargs):
         context = super(ProgramUpdate, self).get_context_data(**kwargs)
-        context['title'] = _("Program")
+        context['title'] = _('Program')
         return context
 
 

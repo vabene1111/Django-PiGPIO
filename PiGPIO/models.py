@@ -1,5 +1,5 @@
 from django.db import models
-
+from django.utils.translation import gettext as _
 
 # Create your models here.
 class Program(models.Model):
@@ -27,3 +27,6 @@ class Dashboard(models.Model):
     font_color = models.CharField(max_length=8, default='#247896')
     icon = models.CharField(max_length=32, default='', blank=True)
     program = models.ForeignKey(Program, on_delete=models.CASCADE)
+
+    def __str__(self):
+        return self.name
