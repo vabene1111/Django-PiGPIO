@@ -34,7 +34,7 @@ class RunProgramView(APIView, LoginRequiredMixin):
         except UndefinedPinException:
             raspi.log('ERROR: Trying to set status of undefined pin')  # TODO localize
         except OutputNotSupportedException as e:
-            raspi.log('ERROR: Outputting on pin ' + str(e) + ' is not supported by this model.')  # TODO localize
+            raspi.log('ERROR: There was an error trying to output on ' + str(e))  # TODO localize
         except ListNotSupportedException as e:
             raspi.log('ERROR: Trying to pass list ' + str(e) + ' to function not supporting lists.')  # TODO localize
         except Exception:
