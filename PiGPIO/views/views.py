@@ -34,8 +34,11 @@ def remote(request):
 
     raspi.set_mode(0)
     for i in range(40):
-        raspi.setup_pin(i, 1)
-        raspi.set_output(i, 0)
+        try:
+            raspi.setup_pin(i, 1)
+            raspi.set_output(i, 0)
+        except:
+            pass
 
     return render(request, 'remote.html', {'pins': pins})
 
