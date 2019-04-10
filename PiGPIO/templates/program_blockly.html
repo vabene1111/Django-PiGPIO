@@ -102,6 +102,8 @@
 
     <script src="{% static 'blockly_custom_blocks.js' %}"></script>
 
+    <script type="text/javascript" src="{% static 'helper.js' %}"></script>
+
     <script type="text/javascript">
 
         function copyIOToClipboard() {
@@ -141,7 +143,6 @@
             });
 
             makeRequest(request_body, '{% url "api_edit_program" %}', saveProgramCallback);
-
         }
 
         function saveProgramCallback(error, data, textStatus, jqXhr) {
@@ -149,9 +150,7 @@
                 alert('{% trans 'An Error occured when trying to save your Program.' %}');
             } else {
                 let xml = Blockly.Xml.workspaceToDom(workspace);
-                let xml_text = Blockly.Xml.domToText(xml);
-
-                workspace_last_data = xml_text;
+                workspace_last_data = Blockly.Xml.domToText(xml);
             }
         }
 
@@ -210,28 +209,6 @@
                     getLogData();
                 }, 500);
             }
-        }
-
-        // TODO make general method in base
-        function makeRequest(request_body, url, callback) {
-            $.ajax({
-                url: url,
-                dataType: 'json',
-                type: 'POST',
-                contentType: 'application/json',
-                data: request_body,
-                success: function (data, textStatus, jQxhr) {
-                    if (typeof callback !== "undefined") {
-                        callback(false, data, textStatus, jQxhr)
-                    }
-                },
-                error: function (jqXhr, textStatus, errorThrown) {
-                    console.log(jqXhr, textStatus, errorThrown);
-                    if (typeof callback !== "undefined") {
-                        callback(true, errorThrown, textStatus, jqXhr)
-                    }
-                }
-            });
         }
 
         let toolbox = document.getElementById("toolbox");

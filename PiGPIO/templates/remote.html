@@ -1,1 +1,64 @@
-sh
+{% extends "base.html" %}
+{% load static %}
+{% load i18n %}
+{% load times_tag %}
+
+{% load render_table from django_tables2 %}
+
+{% block title %}{% trans "Pi GPIO" %}{% endblock %}
+
+{% block content %}
+
+    {% for x in pins %}
+
+        <div class="row text-center">
+
+            <div class="col-12">
+                <div class="btn-group btn-group-toggle" data-toggle="buttons">
+                    <label class="btn btn-outline-success">
+                        <input type="radio" name="options" onclick="setPin({{ x.r }}, 1)">{% trans 'On' %}
+                    </label>
+                    <label class="btn btn-outline-danger active">
+                        <input type="radio" name="options" onclick="setPin({{ x.r }}, 0)" checked>{% trans 'Off' %}
+                    </label>
+                    <label class="btn btn-secondary">
+                        {{ x.r }}
+                    </label>
+                </div>
+
+                <div class="btn-group btn-group-toggle" data-toggle="buttons">
+                    <label class="btn btn-secondary">
+                        {{ x.l }}
+                    </label>
+                    <label class="btn btn-outline-danger active">
+                        <input type="radio" name="options" onclick="setPin({{ x.l }}, 0)" checked>{% trans 'Off' %}
+                    </label>
+                    <label class="btn btn-outline-success">
+                        <input type="radio" name="options" onclick="setPin({{ x.l }}, 1)">{% trans 'On' %}
+                    </label>
+                </div>
+            </div>
+        </div>
+        <br/>
+    {% endfor %}
+
+
+{% endblock %}
+
+
+{% block script %}
+    <script type="text/javascript" src="{% static 'helper.js' %}"></script>
+
+    <script type="text/javascript">
+        function setPin(pin, state) {
+
+            let request_body = JSON.stringify({
+                "pin": parseInt(pin),
+                "mode": 1,
+                "state": state
+            });
+
+            makeRequest(request_body, '{% url "api_set_pin" %}');
+        }
+    </script>
+{% endblock %}

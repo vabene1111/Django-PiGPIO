@@ -51,6 +51,8 @@
 
 
 {% block script %}
+    <script type="text/javascript" src="{% static 'helper.js' %}"></script>
+
     <script type="text/javascript">
 
         {% for btn in buttons %}
@@ -84,24 +86,6 @@
             let btn = '<button onClick="runProgram(' + program + ')" style="width: 100%; height: 100%; background-color: ' + bg_color + '; color: ' + font_color + '" class="btn">' + inner + '</button>';
 
             $('#div_btn_' + row + '_' + cell).html(btn)
-        }
-
-
-        // TODO make general method in base
-        function makeRequest(request_body, url) {
-            $.ajax({
-                url: url,
-                dataType: 'json',
-                type: 'POST',
-                contentType: 'application/json',
-                data: request_body,
-                success: function (data, textStatus, jQxhr) {
-                    console.log(data, textStatus, jQxhr);
-                },
-                error: function (jqXhr, textStatus, errorThrown) {
-                    console.log(errorThrown);
-                }
-            });
         }
 
     </script>

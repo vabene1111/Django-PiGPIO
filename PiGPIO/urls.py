@@ -7,7 +7,7 @@ urlpatterns = [
     path('', views.index, name='index'),
 
     path('test', views.test, name='test'),
-    path('blocky', views.blockly, name='blocky'),
+    path('remote', views.remote, name='remote'),
 
     path('api/set', SetPinView.as_view(), name='api_set_pin'),
 
@@ -17,7 +17,7 @@ urlpatterns = [
 
     path('api/edit/program', EditProgramView.as_view(), name='api_edit_program'),
 
-    path('program/<int:pk>/', views.blockly, name='program'),
+    path('program/<int:pk>/', views.program, name='program'),
 
     # New/Edit/Delete Views
 
