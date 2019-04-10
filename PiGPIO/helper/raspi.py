@@ -96,8 +96,8 @@ def set_output(pin, state):
 
     try:
         GPIO.output(pin, state)
-    except ValueError:
-        raise OutputNotSupportedException(pin)
+    except ValueError as e:
+        raise OutputNotSupportedException(str(pin) + str(e))
 
 
 def get_input(pin):

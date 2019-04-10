@@ -37,7 +37,7 @@
 
     <div class="row">
         <div class="col-12">
-            <textarea id="blocky_io" class="form-control"></textarea>
+            <textarea id="blockly_io" class="form-control"></textarea>
             <br/>
         </div>
     </div>
@@ -83,15 +83,17 @@
     <script type="text/javascript">
 
         function exportBlocks() {
-            var xml = Blockly.Xml.workspaceToDom(workspace);
-            var xml_text = Blockly.Xml.domToText(xml);
-            $('#blocky_io').val(xml_text)
+            let xml = Blockly.Xml.workspaceToDom(workspace);
+            let xml_text = Blockly.Xml.domToText(xml);
+            $('#blockly_io').val(xml_text)
         }
 
         function importBlocks() {
-            var xml = Blockly.Xml.textToDom($('#blocky_io').val());
+            let blockly_io = $('#blockly_io');
+            let xml = Blockly.Xml.textToDom(blockly_io.val());
             Blockly.Xml.domToWorkspace(xml, workspace);
-            $('#blocky_io').val('')
+            blockly_io.val('');
+            workspace.scrollCenter();
         }
 
         function saveProgram() {
