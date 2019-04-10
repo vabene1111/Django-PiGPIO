@@ -71,12 +71,12 @@
             text = text.trim();
             icon = icon.trim();
             if (text === '' && icon !== '') {
-                inner = '<i class="' + icon + ' fa-10x"></i>'
+                inner = '<i style="font-size: 10vw;" class="' + icon + '"></i>'
             } else {
                 if (text !== '' && icon === '') {
                     inner = text
                 } else {
-                    inner = '<i class="' + icon + '"></i><br/>' + text
+                    inner = '<i style="font-size: 5vw;" class="' + icon + '"></i><br/>' + text
                 }
             }
 
