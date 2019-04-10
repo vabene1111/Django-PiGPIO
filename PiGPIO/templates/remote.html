@@ -15,11 +15,11 @@
 
             <div class="col-12">
                 <div class="btn-group btn-group-toggle" data-toggle="buttons">
-                    <label class="btn btn-outline-success">
-                        <input type="radio" name="options" onclick="setPin({{ x.r }}, 1)">{% trans 'On' %}
+                    <label class="btn btn-outline-success" onclick="setPin({{ x.r }}, 1)">
+                        <input type="radio" name="options">{% trans 'On' %}
                     </label>
-                    <label class="btn btn-outline-danger active">
-                        <input type="radio" name="options" onclick="setPin({{ x.r }}, 0)" checked>{% trans 'Off' %}
+                    <label class="btn btn-outline-danger active" onclick="setPin({{ x.r }}, 0)">
+                        <input type="radio" name="options" checked>{% trans 'Off' %}
                     </label>
                     <label class="btn btn-secondary">
                         {{ x.r }}
@@ -30,11 +30,11 @@
                     <label class="btn btn-secondary">
                         {{ x.l }}
                     </label>
-                    <label class="btn btn-outline-danger active">
-                        <input type="radio" name="options" onclick="setPin({{ x.l }}, 0)" checked>{% trans 'Off' %}
+                    <label class="btn btn-outline-danger active" onclick="setPin({{ x.l }}, 0)">
+                        <input type="radio" name="options" checked>{% trans 'Off' %}
                     </label>
-                    <label class="btn btn-outline-success">
-                        <input type="radio" name="options" onclick="setPin({{ x.l }}, 1)">{% trans 'On' %}
+                    <label class="btn btn-outline-success" onclick="setPin({{ x.l }}, 1)">
+                        <input type="radio" name="options">{% trans 'On' %}
                     </label>
                 </div>
             </div>

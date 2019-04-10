@@ -2,6 +2,7 @@ from django.contrib.auth.decorators import login_required
 from django.shortcuts import render
 
 from PiGPIO.models import Program, Dashboard
+from helper import raspi
 
 
 @login_required
@@ -30,6 +31,10 @@ def remote(request):
             r2 = '0' + str(i + 1)
 
         pins.append({'r': r1, 'l': r2})
+
+    for i in range(40):
+        raspi.setup_pin(i, 1)
+        raspi.set_output(i, 0)
 
     return render(request, 'remote.html', {'pins': pins})
 
