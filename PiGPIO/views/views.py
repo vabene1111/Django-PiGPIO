@@ -33,11 +33,19 @@ def remote(request):
         pins.append({'r': r1, 'l': r2})
 
     raspi.set_mode(0)
-    for i in range(40):
+    for x in pins:
         try:
-            raspi.setup_pin(i, 1)
-            raspi.set_output(i, 0)
+            raspi.setup_pin(int(x['r']), 1)
+            raspi.set_output(int(x['r']), 0)
         except:
+            x['error_r'] = 'error'
+            pass
+
+        try:
+            raspi.setup_pin(int(x['l']), 1)
+            raspi.set_output(int(x['l']), 0)
+        except:
+            x['error_l'] = 'error'
             pass
 
     return render(request, 'remote.html', {'pins': pins})

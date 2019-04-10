@@ -14,29 +14,56 @@
         <div class="row text-center">
 
             <div class="col-12">
-                <div class="btn-group btn-group-toggle" data-toggle="buttons">
-                    <label class="btn btn-outline-success" onclick="setPin({{ x.r }}, 1)">
-                        <input type="radio" name="options">{% trans 'On' %}
-                    </label>
-                    <label class="btn btn-outline-danger active" onclick="setPin({{ x.r }}, 0)">
-                        <input type="radio" name="options" checked>{% trans 'Off' %}
-                    </label>
-                    <label class="btn btn-secondary">
-                        {{ x.r }}
-                    </label>
-                </div>
+                {% if x.error_r == 'error' %}
+                    <div class="btn-group btn-group-toggle" data-toggle="buttons" disabled>
+                        <label class="btn btn-secondary">
+                            <input type="radio" name="options">&ensp;&ensp;
+                        </label>
+                        <label class="btn btn-secondary">
+                            <input type="radio" name="options" checked>&ensp;&ensp;&ensp;
+                        </label>
+                        <label class="btn btn-secondary">{{ x.r }}
 
-                <div class="btn-group btn-group-toggle" data-toggle="buttons">
-                    <label class="btn btn-secondary">
-                        {{ x.l }}
-                    </label>
-                    <label class="btn btn-outline-danger active" onclick="setPin({{ x.l }}, 0)">
-                        <input type="radio" name="options" checked>{% trans 'Off' %}
-                    </label>
-                    <label class="btn btn-outline-success" onclick="setPin({{ x.l }}, 1)">
-                        <input type="radio" name="options">{% trans 'On' %}
-                    </label>
-                </div>
+                        </label>
+                    </div>
+                {% else %}
+                    <div class="btn-group btn-group-toggle" data-toggle="buttons">
+                        <label class="btn btn-outline-success" onclick="setPin({{ x.r }}, 1)">
+                            <input type="radio" name="options">{% trans 'On' %}
+                        </label>
+                        <label class="btn btn-outline-danger active" onclick="setPin({{ x.r }}, 0)">
+                            <input type="radio" name="options" checked>{% trans 'Off' %}
+                        </label>
+                        <label class="btn btn-secondary">
+                            {{ x.r }}
+                        </label>
+                    </div>
+                {% endif %}
+
+                {% if x.error_l == 'error' %}
+                    <div class="btn-group btn-group-toggle" data-toggle="buttons" disabled>
+                        <label class="btn btn-secondary">{{ x.l }} </label>
+                        <label class="btn btn-secondary">
+                            <input type="radio" name="options">&ensp;&ensp;
+                        </label>
+                        <label class="btn btn-secondary">
+                            <input type="radio" name="options" checked>&ensp;&ensp;&ensp;
+                        </label>
+
+                    </div>
+                {% else %}
+                    <div class="btn-group btn-group-toggle" data-toggle="buttons">
+                        <label class="btn btn-secondary">
+                            {{ x.l }}
+                        </label>
+                        <label class="btn btn-outline-danger active" onclick="setPin({{ x.l }}, 0)">
+                            <input type="radio" name="options" checked>{% trans 'Off' %}
+                        </label>
+                        <label class="btn btn-outline-success" onclick="setPin({{ x.l }}, 1)">
+                            <input type="radio" name="options">{% trans 'On' %}
+                        </label>
+                    </div>
+                {% endif %}
             </div>
         </div>
         <br/>
