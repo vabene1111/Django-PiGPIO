@@ -9,6 +9,42 @@
 
 
 {% block content %}
+    <div class="row" style="height: 25%">
+        <div class="col-4" id="div_btn_1_1">
+
+        </div>
+        <div class="col-4" id="div_btn_1_2">
+
+        </div>
+        <div class="col-4" id="div_btn_1_3">
+
+        </div>
+    </div>
+    <br/>
+    <div class="row" style="height: 25%">
+        <div class="col-4" id="div_btn_2_1">
+
+        </div>
+        <div class="col-4" id="div_btn_2_2">
+
+        </div>
+        <div class="col-4" id="div_btn_2_3">
+
+        </div>
+    </div>
+    <br/>
+    <div class="row" style="height: 25%">
+        <div class="col-4" id="div_btn_3_1">
+
+        </div>
+        <div class="col-4" id="div_btn_3_2">
+
+        </div>
+        <div class="col-4" id="div_btn_3_3">
+
+        </div>
+    </div>
+
 
 
 {% endblock %}
@@ -16,6 +52,39 @@
 
 {% block script %}
     <script type="text/javascript">
+
+        {% for btn in buttons %}
+            makeButton({{ btn.row }}, {{ btn.col }}, '{{ btn.text }}', '{{ btn.background_color }}', '{{ btn.font_color }}', '{{ btn.icon }}', {{ btn.program.pk }});
+        {% endfor %}
+
+        function runProgram(program) {
+            let request_body = JSON.stringify({
+                "pk": program
+            });
+
+            makeRequest(request_body, '{% url "api_run_prog" %}');
+        }
+
+        function makeButton(row, cell, text, bg_color, font_color, icon, program) {
+            let inner = '';
+
+            text = text.trim();
+            icon = icon.trim();
+            if (text === '' && icon !== '') {
+                inner = '<i class="' + icon + ' fa-10x"></i>'
+            } else {
+                if (text !== '' && icon === '') {
+                    inner = text
+                } else {
+                    inner = '<i class="' + icon + '"></i><br/>' + text
+                }
+            }
+
+
+            let btn = '<button onClick="runProgram(' + program + ')" style="width: 100%; height: 100%; background-color: ' + bg_color + '; color: ' + font_color + '" class="btn">' + inner + '</button>';
+
+            $('#div_btn_' + row + '_' + cell).html(btn)
+        }
 
 
         // TODO make general method in base

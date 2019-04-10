@@ -13,3 +13,10 @@ class ProgramTable(tables.Table):
         model = Program
         fields = ('id', 'name', 'description', 'code')
 
+
+class DashboardTable(tables.Table):
+    id = tables.LinkColumn('edit_dashboard', args=[A('id')])
+
+    class Meta:
+        model = Dashboard
+        fields = ('id', 'name', 'text')
