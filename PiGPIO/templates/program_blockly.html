@@ -48,7 +48,7 @@
         <div class="modal-dialog" role="document">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title"><i class="fas fa-running"></i> {% trans 'Programm running' %}</h5>
+                    <h5 class="modal-title"><i class="fas fa-running"></i> {% trans 'Execution Info' %}</h5>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
                     </button>
@@ -59,8 +59,7 @@
                         <span class="sr-only">Loading...</span>
                     </div>
 
-                    <textarea class="form-control" id="program_callback_data"></textarea>
-                    <textarea class="form-control" id="program_log_data"></textarea>
+                    <textarea class="form-control" id="program_log_data" style="height: 60%!important;"></textarea>
                     <br/>
                 </div>
 
@@ -123,32 +122,37 @@
         }
 
         function runProgram() {
-            if (workspace_changed) {
+            let xml = Blockly.Xml.workspaceToDom(workspace);
+            let xml_text = Blockly.Xml.domToText(xml);
+
+            if (workspace_last_data !== xml_text) {
                 confirm('{% trans 'There are unsaved changes to your Program. Do you want to run the last saved program ?' %}');
             }
 
-            $('#program_spinner').show();
-            $('#program_callback_data').hide();
+            program_running = true;
 
+            $('#program_spinner').show();
+            $('#program_log_data').val('');
             $("#program_modal").modal();
 
             let request_body = JSON.stringify({
                 "pk": {{ program.pk }}
             });
 
-            makeRequest(request_body, '{% url "api_run_prog" %}', runProgramCallback)
+            makeRequest(request_body, '{% url "api_run_prog" %}', runProgramCallback);
+            getLogData();
         }
 
         function runProgramCallback(error, data, textStatus, jqXhr) {
             $('#program_spinner').hide();
+
+            program_running = false;
 
             let log_data = $('#program_log_data');
 
             if (error) {
                 log_data.val(log_data.val() + 'Something went terribly wrong: ' + data + "\n") //TODO localize/beautify
             }
-
-            getLogData();
         }
 
         function getLogData() {
@@ -160,7 +164,13 @@
         function getLogDataCallback(error, data, textStatus, jqXhr) {
             let log_data = $('#program_log_data');
 
-            log_data.val(log_data.val() + data.log)
+            log_data.val(log_data.val() + data.log);
+
+            if (program_running) {
+                setTimeout(function () {
+                    getLogData();
+                }, 500);
+            }
         }
 
         // TODO make general method in base
@@ -232,12 +242,13 @@
             let xml = Blockly.Xml.workspaceToDom(workspace);
             let xml_text = Blockly.Xml.domToText(xml);
 
-            if (xml_text !== workspace_last_data){
+            if (xml_text !== workspace_last_data) {
                 return "";
             }
         }
 
         let workspace_last_data = '{{ program.blockly_string | safe }}';
+        let program_running = false;
 
     </script>
 {% endblock %}

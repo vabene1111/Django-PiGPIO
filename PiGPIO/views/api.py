@@ -8,6 +8,7 @@ from PiGPIO.helper import raspi, UndefinedPinException, OutputNotSupportedExcept
 from PiGPIO.models import Program, Log
 from django.utils.translation import gettext as _
 
+
 class SetPinView(APIView, LoginRequiredMixin):
     def post(self, request):
         raspi.set_mode(0)
@@ -29,7 +30,7 @@ class RunProgramView(APIView, LoginRequiredMixin):
 
         try:
             exec(program.code)
-            raspi.log(_('Program finished successfully!'))
+            raspi.log(_('INFO: Program finished successfully!'))
         except UndefinedPinException:
             raspi.log('ERROR: Trying to set status of undefined pin')  # TODO localize
         except OutputNotSupportedException as e:
@@ -75,8 +76,7 @@ class PopLogView(APIView, LoginRequiredMixin):
 
         log_string = ""
         for log in logs:
-            log_string = log_string + log.data + "\n"
-
-        Log.objects.all().delete()
+            log_string = log_string + log.created_at.strftime("%H:%M:%S:%f") + ' ' + log.data + '\n'
+            Log.objects.get(pk=log.pk).delete()
 
         return Response({'log': log_string})

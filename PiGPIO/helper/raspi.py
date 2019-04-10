@@ -31,7 +31,7 @@ def set_mode(mode):
     """
 
     if DEBUG:
-        log('set mode ' + str(mode))
+        log('DEBUG: set mode ' + str(mode))  # TODO localize
 
     if mode == 1:
         GPIO.setmode(GPIO.BCM)
@@ -49,13 +49,13 @@ def setup_pin(pin, mode):
 
     if type(pin) is list:
         if DEBUG:
-            log('set pin array ' + str(pin) + ' to mode ' + str(mode))
+            log('DEBUG: set pin array ' + str(pin) + ' to mode ' + str(mode))  # TODO localize
         for p in pin:
             setup_pin(p, mode)
         return
 
     if DEBUG:
-        log('set pin ' + str(pin) + ' to mode ' + str(mode))
+        log('DEBUG: set pin ' + str(pin) + ' to mode ' + str(mode))  # TODO localize
 
     if pin is None:
         raise UndefinedPinException()
@@ -80,13 +80,13 @@ def set_output(pin, state):
     """
     if type(pin) is list:
         if DEBUG:
-            log('set pin array ' + str(pin) + ' to state ' + str(state))
+            log('DEBUG: set pin array ' + str(pin) + ' to state ' + str(state))  # TODO localize
         for p in pin:
             set_output(p, state)
         return
 
     if DEBUG:
-        log('set pin ' + str(pin) + ' to state ' + str(state))
+        log('DEBUG: set pin ' + str(pin) + ' to state ' + str(state))  # TODO localize
 
     if pin is None:
         raise UndefinedPinException()
@@ -108,7 +108,7 @@ def get_input(pin):
     setup_pin(pin, 0)
 
     if DEBUG:
-        log('reading ' + str(pin))
+        log('DEBUG: reading ' + str(pin))
 
     if type(pin) is list:
         raise ListNotSupportedException(pin)
@@ -122,7 +122,7 @@ def get_input(pin):
     try:
         pin_val = GPIO.input(pin)
         if DEBUG:
-            log('read pin ' + str(pin) + ' - value: ' + str(pin_val))
+            log('DEBUG: read pin ' + str(pin) + ' - value: ' + str(pin_val))  # TODO localize
         return pin_val
     except ValueError:
         raise OutputNotSupportedException(pin)

@@ -219,7 +219,6 @@
             <field name="DIRECTION">1</field>
         </block>
     </category>
-    <!--
     <category name="Text" colour="#5CA68D">
         <block type="text">
             <field name="TEXT"></field>
@@ -297,13 +296,14 @@
                 </shadow>
             </value>
         </block>
+        <!--
         <block type="text_print">
             <value name="TEXT">
                 <shadow type="text">
                     <field name="TEXT">abc</field>
                 </shadow>
             </value>
-        </block>
+        </block>-->
         <block type="text_prompt_ext">
             <mutation type="TEXT"></mutation>
             <field name="TYPE">TEXT</field>
@@ -313,7 +313,7 @@
                 </shadow>
             </value>
         </block>
-    </category>-->
+    </category>-
     <sep></sep>
     <category name="Pi GPIO" colour="#a5a55b">
         <block type="gpio_mode"></block>
