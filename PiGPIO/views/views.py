@@ -17,6 +17,13 @@ def program(request, pk):
     return render(request, 'program_blockly.html', {'program': Program.objects.get(pk=pk)})
 
 
+def docs(request, page=''):
+    if page != '':
+        return render(request, 'docs/' + page + '.html')
+
+    return render(request, 'docs/docs.html')
+
+
 @login_required
 def remote(request):
     pins = []

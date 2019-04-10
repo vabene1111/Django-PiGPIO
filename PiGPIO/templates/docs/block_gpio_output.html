@@ -1,0 +1,45 @@
+{% extends "docs/doc_base.html" %}
+{% load static %}
+{% load i18n %}
+
+{% block doc_page %}{% trans 'GPIO Output' %}{% endblock %}
+
+{% block doc_info %}
+
+    <div class="row">
+        <div class="col-3">
+            <img class="img img-thumbnail" src="{% static 'docs/block_gpio_output.png' %}">
+        </div>
+        <div class="col-9">
+            {% blocktrans %}
+                The GPIO Input Block can used to set the status of a given pin.
+            {% endblocktrans %}
+
+            <br>
+            <br>
+
+            <table class="table table-bordered">
+                <thead class="thead-dark">
+                <tr>
+                    <th>{% trans 'Label' %}</th>
+                    <th>{% trans 'Type(s)' %}</th>
+                    <th>{% trans 'Function' %}</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr>
+                    <td><code>output GPIO pin</code></td>
+                    <td>{% trans 'Number' %}, {% trans 'List' %}</td>
+                    <td>{% trans 'Defines which pin(s) to set' %}</td>
+                </tr>
+                <tr>
+                    <td><code>state</code></td>
+                    <td>0,1</td>
+                    <td>{% trans 'Defines pin state. Can either be 0 or 1.' %}</td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+{% endblock %}

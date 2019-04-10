@@ -20,6 +20,11 @@ same time (this is mainly because one Pi only has one set of GPIO pins).
 PiGPIO is designed to work offline with the raspberry being accessed either via an ad-hoc WiFi network 
 or a wired connection. For this reason all resources (CSS, JS, ...) are included in this repository.
 
+PiGPIO was not designed with a focus on security. Even though Django is pretty secure by default
+there are several places where an attacker could compromise the security of the PiGPIO app. This is 
+no problem if used in local environment, should you plan to use this on a public network consider 
+using a firewall.
+
 ## Installation
 1. Clone this repository at your desired install location
 2. Initialize submodules with `git submodule update --init --recursive`

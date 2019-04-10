@@ -13,7 +13,7 @@ Blockly.Blocks['gpio_output'] = {
         this.setNextStatement(true, null);
         this.setColour(65);
         this.setTooltip("Sets state of given GPIO Pin");
-        this.setHelpUrl("");
+        this.setHelpUrl(docUrls.block_gpio_output);
     }
 };
 

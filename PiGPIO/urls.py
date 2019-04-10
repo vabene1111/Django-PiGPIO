@@ -5,9 +5,10 @@ from .views import *
 
 urlpatterns = [
     path('', views.index, name='index'),
-
-    path('test', views.test, name='test'),
     path('remote', views.remote, name='remote'),
+    path('docs', views.docs, name='docs'),
+    path('docs/<slug:page>/', views.docs, name='docs'),
+
 
     path('api/set', SetPinView.as_view(), name='api_set_pin'),
 
@@ -34,5 +35,7 @@ urlpatterns = [
     path('delete/dashboard/<int:pk>/', edit.DashboardDelete.as_view(), name='delete_dashboard'),
 
     path('redirect/delete/<slug:name>/<int:pk>/', edit.delete_redirect, name='redirect_delete'),
+
+    path('test', views.test, name='test'),
 ]
 

@@ -46,6 +46,9 @@
             <li class="nav-item">
                 <a class="nav-link" href="{% url 'remote' %}">{% trans 'Remote' %}</a>
             </li>
+            <li class="nav-item">
+                <a class="nav-link" href="{% url 'docs' %}">{% trans 'Documentation' %}</a>
+            </li>
         </ul>
 
         <ul class="navbar-nav">
@@ -87,6 +90,11 @@
 
 
 <script type="text/javascript">
+
+    let docUrls = {
+        'block_gpio_output': '{% url 'docs' 'block_gpio_output'%}',
+    };
+
     $(document).ready(function () {
         setupAjax();
     });
