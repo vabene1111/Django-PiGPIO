@@ -3,7 +3,7 @@ Blockly.Blocks['gpio_output'] = {
     init: function () {
         this.appendValueInput("pin")
             .setCheck(["Number", "Array"])
-            .appendField("output GPIO pin");
+            .appendField("output GPIO pin(s)");
         this.appendValueInput("state")
             .setCheck("Number")
             .setAlign(Blockly.ALIGN_RIGHT)
@@ -13,7 +13,7 @@ Blockly.Blocks['gpio_output'] = {
         this.setNextStatement(true, null);
         this.setColour(65);
         this.setTooltip("Sets state of given GPIO Pin");
-        this.setHelpUrl(docUrls.block_gpio_output);
+        this.setHelpUrl("docUrls.block_gpio_output");
     }
 };
 
@@ -133,16 +133,16 @@ Blockly.Blocks['debug'] = {
     }
 };
 
-Blockly.Python['debug'] = function(block) {
-  let checkbox_debug_mode = block.getFieldValue('debug_mode') == 'TRUE';
+Blockly.Python['debug'] = function (block) {
+    let checkbox_debug_mode = block.getFieldValue('debug_mode') == 'TRUE';
 
-  Blockly.Python.definitions_['from_pigpio_helper_import_raspi'] = 'from PiGPIO.helper import raspi';
+    Blockly.Python.definitions_['from_pigpio_helper_import_raspi'] = 'from PiGPIO.helper import raspi';
 
-  if (checkbox_debug_mode) {
-      Blockly.Python.definitions_['debug_mode_true'] = 'raspi.DEBUG = True';
-  } else {
-      Blockly.Python.definitions_['debug_mode_true'] = 'raspi.DEBUG = False';
-  }
+    if (checkbox_debug_mode) {
+        Blockly.Python.definitions_['debug_mode_true'] = 'raspi.DEBUG = True';
+    } else {
+        Blockly.Python.definitions_['debug_mode_true'] = 'raspi.DEBUG = False';
+    }
 
-  return '';
+    return '';
 };
