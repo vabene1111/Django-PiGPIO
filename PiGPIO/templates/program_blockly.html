@@ -145,7 +145,7 @@
 
         function saveProgramCallback(error, data, textStatus, jqXhr) {
             if (error) {
-                alert('{% trans 'An Error occured when trying to save your Program.' %}');
+                alert('{% trans 'An Error occurred when trying to save your Program.' %}');
             } else {
                 let xml = Blockly.Xml.workspaceToDom(workspace);
                 workspace_last_data = Blockly.Xml.domToText(xml);

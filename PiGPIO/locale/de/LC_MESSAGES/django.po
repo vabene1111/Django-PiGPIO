@@ -1,0 +1,762 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2019-04-11 23:20+0200\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"Language: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+#: .\PiGPIO\forms.py:32
+msgid ""
+"Choose any icon from <a href=\"https://fontawesome.com/icons?d=gallery\" "
+"target=\"_blank\">here</a>. Enter complete icon including style. Example "
+"<code>fas fa-running</code>"
+msgstr ""
+
+#: .\PiGPIO\models.py:8
+msgid "Description"
+msgstr "Beschreibung"
+
+#: .\PiGPIO\models.py:9
+msgid "Blockly XML"
+msgstr ""
+
+#: .\PiGPIO\models.py:24
+msgid "INFO"
+msgstr ""
+
+#: .\PiGPIO\models.py:24
+msgid "ERROR"
+msgstr ""
+
+#: .\PiGPIO\models.py:24
+msgid "LOG"
+msgstr ""
+
+#: .\PiGPIO\models.py:24
+msgid "DEBUG"
+msgstr ""
+
+#: .\PiGPIO\models.py:31
+msgid "Row"
+msgstr "Reihe"
+
+#: .\PiGPIO\models.py:32
+msgid "Column"
+msgstr "Spalte"
+
+#: .\PiGPIO\models.py:33
+msgid "Background color"
+msgstr "Hintergrund Farbe"
+
+#: .\PiGPIO\models.py:34
+msgid "Text Color"
+msgstr "Text Farbe"
+
+#: .\PiGPIO\templates\base.html:39
+msgid "Home"
+msgstr ""
+
+#: .\PiGPIO\templates\base.html:42
+msgid "Programs"
+msgstr "Programme"
+
+#: .\PiGPIO\templates\base.html:45
+msgid "Buttons"
+msgstr "Knöpfe"
+
+#: .\PiGPIO\templates\base.html:48 .\PiGPIO\templates\docs\docs.html:46
+#: .\PiGPIO\templates\docs\remote.html:6
+msgid "Remote"
+msgstr "Fernbedienung"
+
+#: .\PiGPIO\templates\base.html:51 .\PiGPIO\templates\docs\doc_base.html:11
+msgid "Docs"
+msgstr "Doku"
+
+#: .\PiGPIO\templates\base.html:58
+msgid "Admin"
+msgstr ""
+
+#: .\PiGPIO\templates\base.html:65
+msgid "Logout"
+msgstr ""
+
+#: .\PiGPIO\templates\base.html:68
+msgid "Login"
+msgstr ""
+
+#: .\PiGPIO\templates\docs\api.html:6 .\PiGPIO\templates\docs\docs.html:48
+msgid "API"
+msgstr ""
+
+#: .\PiGPIO\templates\docs\api.html:8
+#: .\PiGPIO\templates\docs\block_debug.html:8
+#: .\PiGPIO\templates\docs\block_gpio_input.html:8
+#: .\PiGPIO\templates\docs\block_gpio_mode.html:8
+#: .\PiGPIO\templates\docs\block_gpio_output.html:8
+#: .\PiGPIO\templates\docs\block_log.html:8
+#: .\PiGPIO\templates\docs\block_sleep.html:8
+#: .\PiGPIO\templates\docs\blockly.html:8
+#: .\PiGPIO\templates\docs\dashboard.html:8
+#: .\PiGPIO\templates\docs\remote.html:8
+msgid "Pi GPIO Docs"
+msgstr "Pi GPIO Doku"
+
+#: .\PiGPIO\templates\docs\api.html:16
+msgid ""
+"\n"
+"                Using the API you can perform different actions related to "
+"your Raspberry Pi or PiGPIOs functions from\n"
+"                any client. An automatically generated documentation can be "
+"found\n"
+"            "
+msgstr ""
+"\n"
+"                Mithilfe der API können verschiedene Funktionen des "
+"Raspberry Pi und der PiGPIO Programme von beliebigen\n"
+"                clients aus gesteuert werden. Eine automatisch generierte "
+"Dokumentation der API befindet sich\n"
+"            "
+
+#: .\PiGPIO\templates\docs\api.html:20
+msgid "here"
+msgstr "hier"
+
+#: .\PiGPIO\templates\docs\api.html:21
+msgid ""
+"\n"
+"            See below for a brief overview of endpoints.\n"
+"            "
+msgstr ""
+"\n"
+"            Unten befindet sich eine grobe Liste aller Endpunkte.\n"
+"            "
+
+#: .\PiGPIO\templates\docs\api.html:27
+msgid ""
+"\n"
+"                <b>NOTE:</b> The API is currently very limited in Features. "
+"If you would like to have functionality\n"
+"                added consider implementing it yourself or request it trough "
+"a issue on\n"
+"                <a href=\"https://github.com/vabene1111/Django-PiGPIO\" "
+"target=\"_blank\">GitHub</a>.\n"
+"            "
+msgstr ""
+"\n"
+"                <b>WICHTIG:</b> Die API ist aktuell in ihrem Funktionsumfang "
+"noch stark begrenzt. Sollte zusätzliche Funktionalität gewünscht sein kann "
+"dise\n"
+"                selbst implementiert werden oder durch einen Issue "
+"auf                 <a href=\"https://github.com/vabene1111/Django-PiGPIO\" "
+"target=\"_blank\">GitHub</a> gewünscht werden.\n"
+"            "
+
+#: .\PiGPIO\templates\docs\api.html:39
+msgid "Endpoint"
+msgstr ""
+
+#: .\PiGPIO\templates\docs\api.html:40
+#: .\PiGPIO\templates\docs\block_debug.html:41
+#: .\PiGPIO\templates\docs\block_gpio_input.html:33
+#: .\PiGPIO\templates\docs\block_gpio_mode.html:38
+#: .\PiGPIO\templates\docs\block_gpio_output.html:31
+#: .\PiGPIO\templates\docs\block_log.html:38
+#: .\PiGPIO\templates\docs\block_sleep.html:31
+msgid "Function"
+msgstr "Funktion"
+
+#: .\PiGPIO\templates\docs\api.html:41
+msgid "Link"
+msgstr ""
+
+#: .\PiGPIO\templates\docs\api.html:47
+msgid "Run a program"
+msgstr "Programm ausführen"
+
+#: .\PiGPIO\templates\docs\api.html:52
+msgid "Set GPIO Pin"
+msgstr "Setze GPIO Pin"
+
+#: .\PiGPIO\templates\docs\api.html:57
+msgid "Edit program"
+msgstr "Programm editieren"
+
+#: .\PiGPIO\templates\docs\api.html:62
+msgid "Get log and delete it"
+msgstr "Log abholen und löschen"
+
+#: .\PiGPIO\templates\docs\block_debug.html:6
+msgid "Block: Debug"
+msgstr ""
+
+#: .\PiGPIO\templates\docs\block_debug.html:19
+msgid ""
+"\n"
+"                If the debug module is checked every GPIO function will "
+"automatically write debugging information to the\n"
+"                log.\n"
+"                This Block is best used for debugging a broken program and "
+"should be removed once debugging is finished\n"
+"                to keep the log clean.\n"
+"            "
+msgstr ""
+"\n"
+"                Wenn das Debug modul aktiviert ist werden von jeder GPIO "
+"Funktion automatisch debugging informationen in den Log geschrieben.\n"
+"                Dieser Block wird am besten nur zum debuggen von kaputten "
+"Programmen genutzt und sollte danach entfernt werden um die Performance zu "
+"schonen \n"
+"                und den Log übersichtlich zu halten.\n"
+"            "
+
+#: .\PiGPIO\templates\docs\block_debug.html:27
+#: .\PiGPIO\templates\docs\block_log.html:24
+msgid ""
+"\n"
+"                <b>Warning:</b> On systems with limited performance (like "
+"older Raspberry Pi Models) heavy logging can\n"
+"                cause significant performance loss.\n"
+"                Once a program is working properly it is advised to minimise "
+"logging or remove it completely.\n"
+"            "
+msgstr ""
+"\n"
+"                <b>Achtung:</b> Auf Systemen mit geringer Leistung (wie "
+"beispielsweise ältere Raspberry Pi Modelle) kann logging\n"
+"                zu signifikanten performance Problemen führen.\n"
+"                Sobald ein Programm richtig funktioniert sollte es "
+"minimiertoder komplett entfernt werden.\n"
+"            "
+
+#: .\PiGPIO\templates\docs\block_debug.html:39
+#: .\PiGPIO\templates\docs\block_gpio_input.html:31
+#: .\PiGPIO\templates\docs\block_gpio_mode.html:36
+#: .\PiGPIO\templates\docs\block_gpio_output.html:29
+#: .\PiGPIO\templates\docs\block_log.html:36
+#: .\PiGPIO\templates\docs\block_sleep.html:29
+msgid "Label"
+msgstr ""
+
+#: .\PiGPIO\templates\docs\block_debug.html:40
+#: .\PiGPIO\templates\docs\block_gpio_input.html:32
+#: .\PiGPIO\templates\docs\block_gpio_mode.html:37
+#: .\PiGPIO\templates\docs\block_gpio_output.html:30
+#: .\PiGPIO\templates\docs\block_log.html:37
+#: .\PiGPIO\templates\docs\block_sleep.html:30
+msgid "Type(s)"
+msgstr "Typ(en)"
+
+#: .\PiGPIO\templates\docs\block_debug.html:47
+msgid "Checkbox"
+msgstr ""
+
+#: .\PiGPIO\templates\docs\block_debug.html:48
+msgid "Turns debug mode on and off"
+msgstr "Schaltet den debug Modus an oder aus"
+
+#: .\PiGPIO\templates\docs\block_gpio_input.html:6
+msgid "Block: GPIO Input"
+msgstr ""
+
+#: .\PiGPIO\templates\docs\block_gpio_input.html:19
+msgid ""
+"\n"
+"                Reads the GPIO Input of the given PIN. This Block does "
+"currently not support multiple pins like the\n"
+"                output\n"
+"                block.\n"
+"            "
+msgstr ""
+"\n"
+"                Liest den Wert am angegebenen pin. Dieser Block unterstützt "
+"aktuell keine Pin Listen als eingabe (so wie beim GPIO \n"
+"                output\n"
+"                block.\n"
+"            "
+
+#: .\PiGPIO\templates\docs\block_gpio_input.html:39
+#: .\PiGPIO\templates\docs\block_gpio_output.html:37
+#: .\PiGPIO\templates\docs\block_sleep.html:37
+msgid "Number"
+msgstr "Zahl"
+
+#: .\PiGPIO\templates\docs\block_gpio_input.html:40
+msgid "Defines which pin to read"
+msgstr "Gibt an welcher Pin gelesen wird"
+
+#: .\PiGPIO\templates\docs\block_gpio_mode.html:6
+msgid "Block: GPIO Mode"
+msgstr ""
+
+#: .\PiGPIO\templates\docs\block_gpio_mode.html:19
+msgid ""
+"\n"
+"                The Raspberry Pi as different modes to run in. The mode "
+"defines how the pins are numbered. If set to\n"
+"                <b>Board</b>\n"
+"                all pins are numbered with there corresponding physical "
+"location from 1 to 40. If set to <b>BCM</b> pins\n"
+"                are identified by their Broadcom pin number. <a href="
+"\"https://pinout.xyz/\" target=\"_blank\">This page</a>\n"
+"                provides a nice overview\n"
+"                of both numbering modes. If you are unsure its probably "
+"easiest to board mode as you can count the\n"
+"                physical\n"
+"                pins to get correct numbers.\n"
+"            "
+msgstr ""
+"\n"
+"                Der Raspberry Pi verfügt über verschiedene Modi. Der Modus "
+"definiert wie die Pins nummeriert sind. Wenn er auf\n"
+"                <b>Board</b>\n"
+"                gesetzt ist werden alle Pins mit ihrer position auf der "
+"Platinevon 1 bis 40 nummeriert. Setzt man den Modus <b>BCM</b> werden die\n"
+"                Pins anhand ihrer Broadcom pin number identifiziert. <a href="
+"\"https://pinout.xyz/\" target=\"_blank\">Diese Seite</a>\n"
+"                enthält eine praktische übersicht\n"
+"                für beide Modi. Im Zweifel immer Board als Modus wählen da "
+"man so immer die Pins an der Platine\n"
+"                zählen\n"
+"                kann um die korrekten Pins zu erhalten.\n"
+"            "
+
+#: .\PiGPIO\templates\docs\block_gpio_mode.html:45
+msgid "Defines pin numbering mode"
+msgstr "Setzt Modus für Pin nummerierung"
+
+#: .\PiGPIO\templates\docs\block_gpio_output.html:6
+msgid "Block: GPIO Output"
+msgstr ""
+
+#: .\PiGPIO\templates\docs\block_gpio_output.html:19
+#, fuzzy
+#| msgid ""
+#| "\n"
+#| "                The GPIO Input Block can used to set the status of a "
+#| "given pin.\n"
+#| "            "
+msgid ""
+"\n"
+"                The GPIO Output Block can used to set the status of a given "
+"pin.\n"
+"            "
+msgstr ""
+"\n"
+"                Der GPIO Output Block kann den Zustand von einem oder "
+"mehreren Pins setzen.\n"
+"            "
+
+#: .\PiGPIO\templates\docs\block_gpio_output.html:37
+#: .\PiGPIO\templates\generic\list_template.html:7
+#: .\PiGPIO\templates\generic\list_template.html:11
+msgid "List"
+msgstr "Liste"
+
+#: .\PiGPIO\templates\docs\block_gpio_output.html:38
+msgid "Defines which pin(s) to set"
+msgstr "Definiert welche(r) pin(s) gesetzt werden sollen"
+
+#: .\PiGPIO\templates\docs\block_gpio_output.html:43
+msgid "Defines pin state. Can either be 0 or 1."
+msgstr "Definiert pin Zustand. Kann entweder 0 oder 1 sein."
+
+#: .\PiGPIO\templates\docs\block_log.html:6
+msgid "Block: Log"
+msgstr ""
+
+#: .\PiGPIO\templates\docs\block_log.html:19
+#, fuzzy
+#| msgid ""
+#| "\n"
+#| "                Every input to the log module is logged on the server and "
+#| "shown to the client when running a program\n"
+#| "                from the programming page. <br/>\n"
+#| "            "
+msgid ""
+"\n"
+"                Every input to the log module is logged on the raspberry pi "
+"and shown to the client when running a program\n"
+"                from the programming page. <br/>\n"
+"            "
+msgstr ""
+"\n"
+"                Jede Eingabe in das Log Modul wird auf dem Raspberry Pi "
+"gespeichert und angezeigt wenn das Programm aus der programmier\n"
+"                Ansicht gestartet wird. <br/>\n"
+"            "
+
+#: .\PiGPIO\templates\docs\block_log.html:44
+msgid "Any"
+msgstr "Alles"
+
+#: .\PiGPIO\templates\docs\block_log.html:45
+msgid "Arguments are converted to strings and logged"
+msgstr "Eingaben werden in text gewandelt und gespeichert"
+
+#: .\PiGPIO\templates\docs\block_sleep.html:6
+msgid "Block: Sleep"
+msgstr ""
+
+#: .\PiGPIO\templates\docs\block_sleep.html:19
+msgid ""
+"\n"
+"                The Sleep Block pauses the program execution for the given "
+"amount of seconds\n"
+"            "
+msgstr ""
+"\n"
+"                Der Sleep Block pausiert die Ausführung des Programs für die "
+"angegebene Anzahl Sekunden\n"
+"            "
+
+#: .\PiGPIO\templates\docs\block_sleep.html:38
+msgid "Amount of seconds to sleep. To sleep partial seconds use this format"
+msgstr ""
+"Anzahl Sekunden die das Programm stoppen soll. Bruchteile von sekunden "
+"können wie folgt angeben werden"
+
+#: .\PiGPIO\templates\docs\blockly.html:6 .\PiGPIO\templates\docs\docs.html:45
+msgid "Blockly Programming"
+msgstr "Blockly Programmierung"
+
+#: .\PiGPIO\templates\docs\blockly.html:19
+msgid ""
+"\n"
+"                Blockly is a visual programming language created by Google. "
+"It allows to easily create programs by\n"
+"                dragging blocks together. The Block Program can than be "
+"converted into source code for different programming languages<br/>\n"
+"                Pi GPIO uses blockly to allow you to create programs and "
+"than turn these programs into python code to run\n"
+"                on a raspberry pi. <br/><br/>\n"
+"            "
+msgstr ""
+"\n"
+"                Blockly ist eine visuelle Programmiersprache von Google. Es "
+"erlaubt das einfache erstellen durch das\n"
+"                zusammenschieben von Blöcken. Das Block Program wird dannin "
+"Programmcode anderer Programmiersprachen umgewandelt.<br/>\n"
+"                Pi GPIO benutzt Blockly um das einfache erstellen von "
+"Programmen zu ermöglichen die dan in Python Code umgewandelt und auf dem "
+"raspberry pi\n"
+"                ausgeführt werden. <br/><br/>\n"
+"            "
+
+#: .\PiGPIO\templates\docs\blockly.html:28
+msgid "Quickstart"
+msgstr "Schnellstart"
+
+#: .\PiGPIO\templates\docs\blockly.html:30
+msgid ""
+"To get started open the programs page and create a new program. Click on the "
+"code button and start dragging blocks together."
+msgstr ""
+"Zum anfangen öffne die Programm seite und erstelle ein neues Programm. Nach "
+"dem erstellen klick auf den Code Knopf und bau dein erstes Programm zusammen."
+
+#: .\PiGPIO\templates\docs\blockly.html:31
+msgid ""
+"Click <b>Save</b> to save your program to the database and generate the code "
+"needed to run it."
+msgstr ""
+"Klicke auf <b>Speichern</b> um zu Speichern und den Code zu generieren der "
+"notwendig ist damit das Programm laufen kann."
+
+#: .\PiGPIO\templates\docs\blockly.html:32
+msgid ""
+"Click <b>Run</b> to run your program. A window will appear showing "
+"information about its status."
+msgstr ""
+"Klicke auf <b>Run</b> um das Programm auszuführen. Ein Fenster öffnet sich "
+"und  zeigt Informationen über die Ausführung."
+
+#: .\PiGPIO\templates\docs\blockly.html:33
+msgid ""
+"Click <b>Import/Export</b> to share your program or import programs from "
+"others."
+msgstr ""
+"Klicke auf <b>Import/Export</b> um Programme zu teilen oder Programme "
+"anderer zuimportieren."
+
+#: .\PiGPIO\templates\docs\blockly.html:34
+msgid "Click <b>Program Info</b> to go back to the program page."
+msgstr "Klicke auf <b>Program Info</b> um das Program zu editieren."
+
+#: .\PiGPIO\templates\docs\blockly.html:38
+msgid "Notes"
+msgstr "Anmerkungen"
+
+#: .\PiGPIO\templates\docs\blockly.html:40
+msgid ""
+"Programs cannot be terminated. If you accidentally create and run an "
+"infinite loop its easiest to restart your raspberry pi."
+msgstr ""
+"Die Ausführung von Programmen kann aktuell nicht abgebrochen werden. Falls "
+"ein Programm versehentlich unendlich läuft istes am einfachsten den "
+"Raspberry Pi neu zu starten."
+
+#: .\PiGPIO\templates\docs\blockly.html:41
+msgid "To learn more about programming with blockly visit"
+msgstr "Um mehr über Blockly zu lernen besuche"
+
+#: .\PiGPIO\templates\docs\dashboard.html:6
+msgid "Dashboard"
+msgstr ""
+
+#: .\PiGPIO\templates\docs\dashboard.html:19
+msgid ""
+"\n"
+"                You can define buttons that run a program of your choice "
+"directly from the Dashboard.<br/>\n"
+"                Buttons can have different colors, icons and text. <br/>\n"
+"                All buttons are placed on the home screen in three rows and "
+"columns. If you place more than one button\n"
+"                in one cell they will hide each other. <br/>\n"
+"            "
+msgstr ""
+"\n"
+"                Es ist möglich Knöpfe zu definieren die es ermöglichen "
+"Programme direkt vom Dashboard (Startseite) aus zu starten.<br/>\n"
+"                Die Knöpfe können verschiedene Farben, Icons und Texte "
+"haben. <br/>\n"
+"                Alle Knöpfe werden in Reihen und Spalten angeordnet.  Wenn "
+"mehrere Buttons in der gleichen Reihe und Spalte sind\n"
+"                überlagern sie sich gegenseitig. <br/>\n"
+"            "
+
+#: .\PiGPIO\templates\docs\doc_base.html:5
+msgid "Pi GPIO - Docs"
+msgstr "Pi GPIO - Dokumentation"
+
+#: .\PiGPIO\templates\docs\docs.html:7 .\PiGPIO\templates\index.html:5
+#: .\PiGPIO\templates\program_blockly.html:5 .\PiGPIO\templates\remote.html:5
+msgid "Pi GPIO"
+msgstr ""
+
+#: .\PiGPIO\templates\docs\docs.html:20
+msgid "Blocks"
+msgstr "Blöcke"
+
+#: .\PiGPIO\templates\docs\docs.html:21
+msgid "Everything you always wanted to know about PiGPIOs custom Blocks."
+msgstr "Alles was es über die Blöcke zu wissen gibt."
+
+#: .\PiGPIO\templates\docs\docs.html:25
+msgid "GPIO Output"
+msgstr ""
+
+#: .\PiGPIO\templates\docs\docs.html:27
+msgid "GPIO Input"
+msgstr ""
+
+#: .\PiGPIO\templates\docs\docs.html:28
+msgid "GPIO Mode"
+msgstr ""
+
+#: .\PiGPIO\templates\docs\docs.html:30
+msgid "Sleep"
+msgstr ""
+
+#: .\PiGPIO\templates\docs\docs.html:31
+msgid "Log"
+msgstr ""
+
+#: .\PiGPIO\templates\docs\docs.html:32
+msgid "Debug"
+msgstr ""
+
+#: .\PiGPIO\templates\docs\docs.html:47 .\PiGPIO\views\lists.py:24
+msgid "Dashboard Buttons"
+msgstr "Dashboard Knöpfe"
+
+#: .\PiGPIO\templates\docs\remote.html:19
+msgid ""
+"\n"
+"                The <i>Remote</i> Page allows to easily and quickly control "
+"the output state of each valid pin.<br/>\n"
+"                The page is designed to work well on mobile devices to "
+"basically act like a tv remote for the raspberry\n"
+"                pi.<br/>\n"
+"                Pins that cant be used as outputs are automatically detected "
+"(as they are different on each model) and\n"
+"                greyed out.\n"
+"            "
+msgstr ""
+"\n"
+"                Die Seite <i>Fernbedienung</i> erlaubt es schnell und "
+"einfach den Ausgabe Zustand eines jeden Pins einzustellen.<br/>\n"
+"                Die Seite ist darauf ausgelegt auf Mobilgeräten gut zu "
+"funktionieren und kann damit quasi wie eine Fernbedienung für den Raspberry "
+"Pi benutzt werden\n"
+"                .<br/>\n"
+"                Alle Pins die nicht zur Ausgabe verwendet werden können "
+"werden automatisch erkannt (da sie sich je nach Modell unterscheiden) und\n"
+"                deaktiviert.\n"
+"            "
+
+#: .\PiGPIO\templates\docs\remote.html:30
+msgid "Open remote"
+msgstr "Fernbedienung öffnen"
+
+#: .\PiGPIO\templates\generic\delete_template.html:5
+#: .\PiGPIO\templates\generic\delete_template.html:13
+#: .\PiGPIO\templates\generic\delete_template.html:21
+#: .\PiGPIO\templates\generic\edit_template.html:24
+msgid "Delete"
+msgstr "Löschen"
+
+#: .\PiGPIO\templates\generic\delete_template.html:18
+#, python-format
+msgid "Are you sure you want to delete the %(title)s: <b>%(object)s</b> "
+msgstr ""
+"Bist du sicher das du diesen %(title)s löschen willst: <b>%(object)s</b> "
+
+#: .\PiGPIO\templates\generic\delete_template.html:22
+msgid "Cancel"
+msgstr "Abbrechen"
+
+#: .\PiGPIO\templates\generic\edit_template.html:6
+#: .\PiGPIO\templates\generic\edit_template.html:14
+msgid "Edit"
+msgstr "Bearbeiten"
+
+#: .\PiGPIO\templates\generic\edit_template.html:21
+#: .\PiGPIO\templates\generic\new_template.html:19
+#: .\PiGPIO\templates\program_blockly.html:26
+msgid "Save"
+msgstr "Speichern"
+
+#: .\PiGPIO\templates\generic\edit_template.html:28
+msgid "Code"
+msgstr "Code"
+
+#: .\PiGPIO\templates\generic\new_template.html:6
+#: .\PiGPIO\templates\generic\new_template.html:14
+msgid "New"
+msgstr "Neu"
+
+#: .\PiGPIO\templates\program_blockly.html:10
+msgid "Raspberry Pi Pin Info"
+msgstr ""
+
+#: .\PiGPIO\templates\program_blockly.html:25
+#: .\PiGPIO\templates\program_blockly.html:68
+msgid "Import/Export"
+msgstr ""
+
+#: .\PiGPIO\templates\program_blockly.html:28
+msgid "Run"
+msgstr ""
+
+#: .\PiGPIO\templates\program_blockly.html:32
+msgid "Program Details"
+msgstr "Programm Details"
+
+#: .\PiGPIO\templates\program_blockly.html:42
+msgid "Execution Info"
+msgstr "Informationen"
+
+#: .\PiGPIO\templates\program_blockly.html:79
+msgid "Copy"
+msgstr "Kopieren"
+
+#: .\PiGPIO\templates\program_blockly.html:82
+msgid "Export"
+msgstr ""
+
+#: .\PiGPIO\templates\program_blockly.html:85
+msgid "Import"
+msgstr ""
+
+#: .\PiGPIO\templates\program_blockly.html:148
+msgid "An Error occurred when trying to save your Program."
+msgstr "Beim Speichern des Programs ist ein Fehler aufgetreten."
+
+#: .\PiGPIO\templates\program_blockly.html:160
+msgid ""
+"There are unsaved changes to your Program. Do you want to run the last saved "
+"program ?"
+msgstr ""
+"In deinem Programm sind noch Änderungen die nicht gespeichert wurden. "
+"Möchtest du die letzte gespeicherte Version ausführen ?"
+
+#: .\PiGPIO\templates\program_blockly.html:181
+msgid "Something went terribly wrong:"
+msgstr "Irgendwas ist komplett schief gelaufen:"
+
+#: .\PiGPIO\templates\registration\login.html:8
+msgid "Your username and password didn't match. Please try again."
+msgstr ""
+"Dein Nutzername und Passwort passen nicht zusammen. Bitte nochmal versuchen"
+
+#: .\PiGPIO\templates\remote.html:11
+msgid "Help"
+msgstr "Hilfe"
+
+#: .\PiGPIO\templates\remote.html:35 .\PiGPIO\templates\remote.html:66
+msgid "On"
+msgstr "An"
+
+#: .\PiGPIO\templates\remote.html:38 .\PiGPIO\templates\remote.html:63
+msgid "Off"
+msgstr "Aus"
+
+#: .\PiGPIO\views\api.py:68
+msgid "Program finished successfully!"
+msgstr "Programm erfolgreich durchgelaufen!"
+
+#: .\PiGPIO\views\api.py:70
+msgid "Trying to set status of undefined pin"
+msgstr "Versuch undefinierten Pin zu setzen"
+
+#: .\PiGPIO\views\api.py:72
+msgid "There was an error trying to output on pin: "
+msgstr "Es gab einen Fehler beim setzen von pin: "
+
+#: .\PiGPIO\views\api.py:74
+msgid " Trying to pass list to function not supporting lists: "
+msgstr ""
+"Versuch eine Liste an eine Funktion zu übergeben die keine Listen "
+"unterstützt: "
+
+#: .\PiGPIO\views\edit.py:18 .\PiGPIO\views\edit.py:40
+msgid "Changes saved!"
+msgstr "Änderungen gespeichert!"
+
+#: .\PiGPIO\views\edit.py:22 .\PiGPIO\views\edit.py:44
+msgid "Error saving changes!"
+msgstr "Fehler beim speichern der Änderungen!"
+
+#: .\PiGPIO\views\edit.py:30 .\PiGPIO\views\edit.py:69
+#: .\PiGPIO\views\lists.py:16
+msgid "Program"
+msgstr "Programm"
+
+#: .\PiGPIO\views\edit.py:52 .\PiGPIO\views\edit.py:80
+msgid "Dashboard Button"
+msgstr "Dashboard Knopf"
+
+#: .\PiGPIO\views\new.py:18
+msgid "New Program"
+msgstr "Neues Programm"
+
+#: .\PiGPIO\views\new.py:30
+msgid "New Dashboard Button"
+msgstr "Neuer Dashboard Knopf"
+
+#~ msgid "Documentation"
+#~ msgstr "Doku"

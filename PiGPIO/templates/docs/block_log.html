@@ -17,8 +17,11 @@
         </div>
         <div class="col-md-9 col-sm-12">
             {% blocktrans %}
-                Every input to the log module is logged on the server and shown to the client when running a program
+                Every input to the log module is logged on the raspberry pi and shown to the client when running a program
                 from the programming page. <br/>
+            {% endblocktrans %}
+
+            {% blocktrans %}
                 <b>Warning:</b> On systems with limited performance (like older Raspberry Pi Models) heavy logging can
                 cause significant performance loss.
                 Once a program is working properly it is advised to minimise logging or remove it completely.

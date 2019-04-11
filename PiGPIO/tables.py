@@ -1,6 +1,8 @@
 import django_tables2 as tables
 from django_tables2.utils import A  # alias for Accessor
 
+from django.utils.translation import gettext as _
+
 from .models import *
 
 
@@ -19,4 +21,4 @@ class DashboardTable(tables.Table):
 
     class Meta:
         model = Dashboard
-        fields = ('id', 'name', 'text')
+        fields = ('id', 'name', 'text', 'row', 'col')
