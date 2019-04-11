@@ -16,18 +16,15 @@ class ProgramForm(forms.ModelForm):
 
 
 class DashboardForm(forms.ModelForm):
-    def validate(self, value):
-        """Check if value consists only of valid emails."""
-        # Use the parent's handling of required fields, etc.
-        super().validate(value)
 
     class Meta:
         model = Dashboard
-        fields = ('name', 'text', 'row', 'col', 'background_color', 'font_color', 'icon', 'program')
+        fields = ('name', 'text', 'row', 'col', 'background_color', 'font_color', 'icon', 'program', 'active')
         widgets = {
             'background_color': TextInput(attrs={'type': 'color'}),
             'font_color': TextInput(attrs={'type': 'color'}),
         }
         help_texts = {
-            'icon': _('Choose any icon from <a href="https://fontawesome.com/icons?d=gallery" target="_blank">here</a>. Enter complete icon including style. Example <code>fas fa-running</code>')
+            'icon': _('Choose any icon from <a href="https://fontawesome.com/icons?d=gallery" target="_blank">here</a>. Enter complete icon including style. Example <code>fas fa-running</code>'),
+            'active': _('Inactive buttons are not shown on dashboard.'),
         }

@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2019-04-11 23:20+0200\n"
+"POT-Creation-Date: 2019-04-11 23:26+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -18,12 +18,19 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
-#: .\PiGPIO\forms.py:32
+#: .\PiGPIO\forms.py:28
 msgid ""
 "Choose any icon from <a href=\"https://fontawesome.com/icons?d=gallery\" "
 "target=\"_blank\">here</a>. Enter complete icon including style. Example "
 "<code>fas fa-running</code>"
 msgstr ""
+"Wähle ein beliebiges Icon von <a href=\"https://fontawesome.com/icons?d=gallery\" "
+"target=\"_blank\">hier</a>. Gib das komplette icon mit Stil ein. Beispiel "
+"<code>fas fa-running</code>"
+
+#: .\PiGPIO\forms.py:29
+msgid "Inactive buttons are not shown on dashboard."
+msgstr "Inaktive Knöpfe werden auf dem Dashboard nicht angezeigt."
 
 #: .\PiGPIO\models.py:8
 msgid "Description"

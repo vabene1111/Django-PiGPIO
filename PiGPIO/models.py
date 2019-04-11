@@ -34,6 +34,7 @@ class Dashboard(models.Model):
     font_color = models.CharField(_('Text Color'), max_length=8, default='#ffffff')
     icon = models.CharField(max_length=32, default='', blank=True)
     program = models.ForeignKey(Program, on_delete=models.CASCADE)
+    active = models.BooleanField(default=True)
 
     def __str__(self):
         return self.name

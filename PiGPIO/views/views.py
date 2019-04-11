@@ -7,7 +7,7 @@ from PiGPIO.helper import raspi
 
 @login_required
 def index(request):
-    buttons = Dashboard.objects.all()
+    buttons = Dashboard.objects.filter(active=True).all()
 
     return render(request, 'index.html', {'buttons': buttons})
 
