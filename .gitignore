@@ -77,3 +77,5 @@ venv/
 
 \.env
 staticfiles/
+mediafiles/
+postgresql/
