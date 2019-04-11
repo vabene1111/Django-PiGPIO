@@ -7,8 +7,12 @@ from .views import *
 urlpatterns = [
     path('', views.index, name='index'),
     path('remote', views.remote, name='remote'),
+    path('settings', views.settings, name='settings'),
+
     path('docs', views.docs, name='docs'),
     path('docs/<slug:page>/', views.docs, name='docs'),
+
+    path('i18n/', include('django.conf.urls.i18n')),
 
     # API
 

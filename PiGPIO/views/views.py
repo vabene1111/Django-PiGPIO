@@ -17,6 +17,11 @@ def program(request, pk):
     return render(request, 'program_blockly.html', {'program': Program.objects.get(pk=pk)})
 
 
+@login_required
+def settings(request):
+    return render(request, 'generic/language_chooser.html', )
+
+
 def docs(request, page=''):
     if page != '':
         return render(request, 'docs/' + page + '.html')
