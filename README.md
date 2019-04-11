@@ -7,7 +7,7 @@ create programs to allow everyone to get up and running quickly.
 
 ![Screenshot](https://i.imgur.com/uYmrsxz.png)
 
-<u>Features</u>
+## Features
 - Super easy and fast to install using [Docker](https://www.docker.com/) and 
 [Docker Compose](https://docs.docker.com/compose/)
 - Highly customizable programming environment
