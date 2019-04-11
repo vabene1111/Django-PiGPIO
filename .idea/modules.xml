@@ -3,7 +3,6 @@
   <component name="ProjectModuleManager">
     <modules>
       <module fileurl="file://$PROJECT_DIR$/.idea/Django-PiGPIO.iml" filepath="$PROJECT_DIR$/.idea/Django-PiGPIO.iml" />
-      <module fileurl="file://$PROJECT_DIR$/.idea/DjangoPiGPIO.iml" filepath="$PROJECT_DIR$/.idea/DjangoPiGPIO.iml" />
     </modules>
   </component>
 </project>

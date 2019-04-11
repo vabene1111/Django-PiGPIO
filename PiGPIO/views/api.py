@@ -9,13 +9,19 @@ from PiGPIO.helper import raspi, UndefinedPinException, OutputNotSupportedExcept
 from PiGPIO.models import Program, Log
 from django.utils.translation import gettext as _
 
+from PiGPIO.serializers import SetPinSerializer
+
 
 class SetPinView(APIView, LoginRequiredMixin):
+    serializer_class = SetPinSerializer
+
     def post(self, request):
         raspi.set_mode(0)
 
-        raspi.setup_pin(request.data['pin'], request.data['mode'])
-        raspi.set_output(request.data['pin'], request.data['state'])
+        results = SetPinSerializer(request.data, many=False).data
+
+        raspi.setup_pin(results['pin'], results['mode'])
+        raspi.set_output(results['pin'], results['state'])
         return Response({})
 
 
