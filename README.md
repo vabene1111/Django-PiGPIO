@@ -51,20 +51,25 @@ might have problems if you modified `settings.py`.
 ## Contributing
 Feel free to [report bugs]() or create pull requests if you fix or improve something.
 
-Dont forget to set the environment variables when working locally (and not using docker). 
-The following environment variables are sufficient and recommended for development
-```
-DEBUG=1
-ALLOWED_HOSTS=*
-SECRET_KEY=<some random key>
-DB_ENGINE=django.db.backends.sqlite3
-POSTGRES_HOST=db.sqlite3
-```
+1. Clone the repository and init the submodules `git submodule update --init --recursive`
+2. Dont forget to set the environment variables when working locally (and not using docker). In PyCharm this can be done in the run configuration.
+    The following environment variables are sufficient and recommended for development
+    ```
+    DEBUG=1
+    ALLOWED_HOSTS=*
+    SECRET_KEY=<some random key>
+    DB_ENGINE=django.db.backends.sqlite3
+    POSTGRES_DB=db.sqlite3
+    ```
 
-When working on a machine that does not have the GPIO python library installed (basically anything but the pi itself)
-it might be useful to install [this](https://github.com/Def4l71diot/RPi.GPIO-def) package to prevent errors.
-Do note that this package just makes the interpreter think you have the required library's, no code is 
-actually executed.
+3. When working on a machine that does not have the GPIO python library installed (basically anything but the pi itself)
+   it might be useful to install the [RPi.GPIO-def package](https://github.com/Def4l71diot/RPi.GPIO-def) to prevent errors.
+   Do note that this package just makes the interpreter think you have the required library's, no code is
+   actually executed.
+4. Install requirements `pip install -r requirements.txt` (or with PyCharm open `requirements.txt` and click on banner)
+5. Setup database with `manage.py migrate`.
+   > NOTE: You need to either set the environment variables globally or when using PyCharm set them under `Settings | Languages and Frameworks | Django`
+
 
 ## License
 Most of the Code in this repository is licensed under the MIT License which basically allows you to do whatever you want.
