@@ -1,0 +1,44 @@
+{% extends "docs/doc_base.html" %}
+{% load static %}
+{% load i18n %}
+
+{% block doc_page %}{% trans 'GPIO Output' %}{% endblock %}
+
+{% block doc_info %}
+
+    <div class="row">
+        <div class="col-3">
+            <img class="img img-thumbnail" src="{% static 'docs/block_gpio_mode.png' %}">
+        </div>
+        <div class="col-9">
+            {% blocktrans %}
+                The Raspberry Pi as different modes to run in. The mode defines how the pins are numbered. If set to <b>Board</b>
+                all pins are numbered with there corresponding physical location from 1 to 40. If set to <b>BCM</b> pins
+                are identified by their Broadcom pin number. <a href="https://pinout.xyz/" target="_blank">This page</a> provides a nice overview
+                of both numbering modes. If you are unsure its probably easiest to board mode as you can count the physical
+                pins to get correct numbers.
+            {% endblocktrans %}
+
+            <br>
+            <br>
+
+            <table class="table table-bordered">
+                <thead class="thead-dark">
+                <tr>
+                    <th>{% trans 'Label' %}</th>
+                    <th>{% trans 'Type(s)' %}</th>
+                    <th>{% trans 'Function' %}</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr>
+                    <td><code>GPIO Board Mode</code></td>
+                    <td>Board, BCM</td>
+                    <td>{% trans 'Defines pin numbering mode' %}</td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+{% endblock %}

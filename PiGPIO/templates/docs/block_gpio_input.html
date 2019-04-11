@@ -1,0 +1,41 @@
+{% extends "docs/doc_base.html" %}
+{% load static %}
+{% load i18n %}
+
+{% block doc_page %}{% trans 'GPIO Output' %}{% endblock %}
+
+{% block doc_info %}
+
+    <div class="row">
+        <div class="col-3">
+            <img class="img img-thumbnail" src="{% static 'docs/block_gpio_input.png' %}">
+        </div>
+        <div class="col-9">
+            {% blocktrans %}
+                Reads the GPIO Input of the given PIN. This Block does currently not support multiple pins like the output
+                block.
+            {% endblocktrans %}
+
+            <br>
+            <br>
+
+            <table class="table table-bordered">
+                <thead class="thead-dark">
+                <tr>
+                    <th>{% trans 'Label' %}</th>
+                    <th>{% trans 'Type(s)' %}</th>
+                    <th>{% trans 'Function' %}</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr>
+                    <td><code>read GPIO pin</code></td>
+                    <td>{% trans 'Number' %}</td>
+                    <td>{% trans 'Defines which pin to read' %}</td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+{% endblock %}

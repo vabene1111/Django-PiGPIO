@@ -13,7 +13,7 @@ Blockly.Blocks['gpio_output'] = {
         this.setNextStatement(true, null);
         this.setColour(65);
         this.setTooltip("Sets state of given GPIO Pin");
-        this.setHelpUrl("docUrls.block_gpio_output");
+        this.setHelpUrl(docUrls.block_gpio_output);
     }
 };
 
@@ -36,7 +36,7 @@ Blockly.Blocks['gpio_input'] = {
         this.setOutput(true, "Number");
         this.setColour(65);
         this.setTooltip("Reads state of given GPIO Pin");
-        this.setHelpUrl("");
+        this.setHelpUrl(docUrls.block_gpio_input);
     }
 };
 
@@ -61,7 +61,7 @@ Blockly.Blocks['sleep'] = {
         this.setNextStatement(true, null);
         this.setColour(65);
         this.setTooltip("Halts execution for given amount of seconds");
-        this.setHelpUrl("");
+        this.setHelpUrl(docUrls.block_sleep);
     }
 };
 
@@ -83,7 +83,7 @@ Blockly.Blocks['gpio_mode'] = {
         this.setNextStatement(true, null);
         this.setColour(65);
         this.setTooltip("Sets mode. If unsure leave at Board.");
-        this.setHelpUrl("https://pinout.xyz/");
+        this.setHelpUrl(docUrls.block_gpio_mode);
     }
 };
 
@@ -106,7 +106,7 @@ Blockly.Blocks['log'] = {
         this.setNextStatement(true, null);
         this.setColour(65);
         this.setTooltip("Logs given input");
-        this.setHelpUrl("");
+        this.setHelpUrl(docUrls.block_log);
     }
 };
 
@@ -129,7 +129,7 @@ Blockly.Blocks['debug'] = {
         this.setNextStatement(true, null);
         this.setColour(65);
         this.setTooltip("activate this block to get more verbose logging");
-        this.setHelpUrl("");
+        this.setHelpUrl(docUrls.block_debug);
     }
 };
 

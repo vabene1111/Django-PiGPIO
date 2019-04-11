@@ -1,0 +1,49 @@
+{% extends "docs/doc_base.html" %}
+{% load static %}
+{% load i18n %}
+
+{% block doc_page %}{% trans 'GPIO Output' %}{% endblock %}
+
+{% block doc_info %}
+
+    <div class="row">
+        <div class="col-3">
+            <img class="img img-thumbnail" src="{% static 'docs/block_debug.png' %}">
+        </div>
+        <div class="col-9">
+            {% blocktrans %}
+                If the debug module is checked every GPIO function will automatically write debugging information to the log.
+                This Block is best used for debugging a broken program and should be removed once debugging is finished
+                to keep the log clean.
+            {% endblocktrans %}
+
+            <br/>
+            {% blocktrans %}
+                <b>Warning:</b> On systems with limited performance (like older Raspberry Pi Models) heavy logging can
+                cause significant performance loss.
+                Once a program is working properly it is advised to minimise logging or remove it completely.
+            {% endblocktrans %}
+
+            <br>
+            <br>
+
+            <table class="table table-bordered">
+                <thead class="thead-dark">
+                <tr>
+                    <th>{% trans 'Label' %}</th>
+                    <th>{% trans 'Type(s)' %}</th>
+                    <th>{% trans 'Function' %}</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr>
+                    <td><code>debug mode</code></td>
+                    <td>{% trans 'Checkbox' %}</td>
+                    <td>{% trans 'Turns debug mode on and off' %}</td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+{% endblock %}

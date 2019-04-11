@@ -1,0 +1,40 @@
+{% extends "docs/doc_base.html" %}
+{% load static %}
+{% load i18n %}
+
+{% block doc_page %}{% trans 'GPIO Output' %}{% endblock %}
+
+{% block doc_info %}
+
+    <div class="row">
+        <div class="col-3">
+            <img class="img img-thumbnail" src="{% static 'docs/block_sleep.png' %}">
+        </div>
+        <div class="col-9">
+            {% blocktrans %}
+                The Sleep Block pauses the program execution for the given amount of seconds
+            {% endblocktrans %}
+
+            <br>
+            <br>
+
+            <table class="table table-bordered">
+                <thead class="thead-dark">
+                <tr>
+                    <th>{% trans 'Label' %}</th>
+                    <th>{% trans 'Type(s)' %}</th>
+                    <th>{% trans 'Function' %}</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr>
+                    <td><code>sleep (seconds)</code></td>
+                    <td>{% trans 'Number' %}</td>
+                    <td>{% trans 'Amount of seconds to sleep. To sleep partial seconds use this format' %}<code> 1.35</code></td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+{% endblock %}
