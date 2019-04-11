@@ -178,7 +178,7 @@
             let log_data = $('#program_log_data');
 
             if (error) {
-                log_data.val(log_data.val() + 'Something went terribly wrong: ' + data + "\n") //TODO localize/beautify
+                log_data.val(log_data.val() + "{% trans 'Something went terribly wrong:' %}" + data + "\n")
             }
         }
 

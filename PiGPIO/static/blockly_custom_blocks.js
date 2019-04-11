@@ -115,7 +115,7 @@ Blockly.Python['log'] = function (block) {
 
     Blockly.Python.definitions_['from_pigpio_helper_import_raspi'] = 'from PiGPIO.helper import raspi';
 
-    return 'raspi.log( "LOG: " + str(' + value_data + '))\n';
+    return 'raspi.log(str(' + value_data + '), "LOG")\n';
 };
 
 // Debug block - if block is added and checked debug variable is set at beginning of script

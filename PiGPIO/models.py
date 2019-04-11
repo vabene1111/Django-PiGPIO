@@ -15,7 +15,13 @@ class Program(models.Model):
 
 
 class Log(models.Model):
+    INFO = 'INFO'
+    ERROR = 'ERROR'
+    LOG = 'LOG'
+    DEBUG = 'DEBUG'
+
     data = models.CharField(max_length=256)
+    tag = models.CharField(max_length=32, choices=((INFO, _('INFO')), (ERROR, _('ERROR')), (LOG, _('LOG')), (DEBUG, _('DEBUG'))), default=INFO)
     created_at = models.DateTimeField(auto_now_add=True)
 
 

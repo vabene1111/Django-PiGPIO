@@ -65,19 +65,19 @@ def run_program(program_id):
 
     try:
         exec(program.code)
-        raspi.log(_('INFO: Program finished successfully!'))
+        raspi.log(_('Program finished successfully!'), Log.INFO)
     except UndefinedPinException:
-        raspi.log('ERROR: Trying to set status of undefined pin')  # TODO localize
+        raspi.log(_('Trying to set status of undefined pin'), Log.ERROR)
     except OutputNotSupportedException as e:
-        raspi.log('ERROR: There was an error trying to output on pin' + str(e))  # TODO localize
+        raspi.log(_('There was an error trying to output on pin: ') + str(e), Log.ERROR)
     except ListNotSupportedException as e:
-        raspi.log('ERROR: Trying to pass list ' + str(e) + ' to function not supporting lists.')  # TODO localize
+        raspi.log(_(' Trying to pass list to function not supporting lists: ') + str(e), Log.ERROR)
     except Exception:
-        raspi.log(str(sys.exc_info()))
+        raspi.log(str(sys.exc_info()), Log.ERROR)
 
     program.running = False
     program.save()
-    raspi.log('__DONE__')
+    raspi.log('__DONE__', Log.INFO)
 
 
 class EditProgramView(APIView):
@@ -116,7 +116,7 @@ class PopLogView(APIView):
             if log.data == "__DONE__":
                 done = True
             else:
-                log_string = log_string + log.created_at.strftime("%H:%M:%S:%f") + ' ' + log.data + '\n'
+                log_string = log_string + log.created_at.strftime("%H:%M:%S:%f") + ' ' + log.tag + ' ' + log.data + '\n'
             Log.objects.get(pk=log.pk).delete()
 
         return Response({'log': log_string, 'program_finished': done})

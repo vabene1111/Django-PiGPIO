@@ -1,4 +1,5 @@
 import RPi.GPIO as GPIO
+from django.utils.translation import gettext as _
 
 from PiGPIO.models import Log
 
@@ -31,7 +32,7 @@ def set_mode(mode):
     """
 
     if DEBUG:
-        log('DEBUG: set mode ' + str(mode))  # TODO localize
+        log('set mode ' + str(mode), Log.DEBUG)  # TODO localize
 
     if mode == 1:
         GPIO.setmode(GPIO.BCM)
@@ -49,13 +50,13 @@ def setup_pin(pin, mode):
 
     if type(pin) is list:
         if DEBUG:
-            log('DEBUG: set pin array ' + str(pin) + ' to mode ' + str(mode))  # TODO localize
+            log('set pin array ' + str(pin) + ' to mode ' + str(mode), Log.DEBUG)  # TODO localize
         for p in pin:
             setup_pin(p, mode)
         return
 
     if DEBUG:
-        log('DEBUG: set pin ' + str(pin) + ' to mode ' + str(mode))  # TODO localize
+        log('set pin ' + str(pin) + ' to mode ' + str(mode), Log.DEBUG)  # TODO localize
 
     if pin is None:
         raise UndefinedPinException()
@@ -80,13 +81,13 @@ def set_output(pin, state):
     """
     if type(pin) is list:
         if DEBUG:
-            log('DEBUG: set pin array ' + str(pin) + ' to state ' + str(state))  # TODO localize
+            log('set pin array ' + str(pin) + ' to state ' + str(state), Log.DEBUG)  # TODO localize
         for p in pin:
             set_output(p, state)
         return
 
     if DEBUG:
-        log('DEBUG: set pin ' + str(pin) + ' to state ' + str(state))  # TODO localize
+        log('set pin ' + str(pin) + ' to state ' + str(state), Log.DEBUG)  # TODO localize
 
     if pin is None:
         raise UndefinedPinException()
@@ -108,7 +109,7 @@ def get_input(pin):
     setup_pin(pin, 0)
 
     if DEBUG:
-        log('DEBUG: reading ' + str(pin))
+        log('reading ' + str(pin), Log.DEBUG)
 
     if type(pin) is list:
         raise ListNotSupportedException(pin)
@@ -122,13 +123,14 @@ def get_input(pin):
     try:
         pin_val = GPIO.input(pin)
         if DEBUG:
-            log('DEBUG: read pin ' + str(pin) + ' - value: ' + str(pin_val))  # TODO localize
+            log('read pin ' + str(pin) + ' - value: ' + str(pin_val), Log.DEBUG)  # TODO localize
         return pin_val
     except ValueError:
         raise OutputNotSupportedException(pin)
 
 
-def log(data):
+def log(data, tag):
     log_entry = Log()
     log_entry.data = str(data)
+    log_entry.tag = tag
     log_entry.save()
