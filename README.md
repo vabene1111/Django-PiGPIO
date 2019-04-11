@@ -17,6 +17,7 @@ create programs to allow everyone to get up and running quickly.
 - Modern Webinterface based on python django
 - Mobile friendly UI (as good as it gets with blockly)
 - Usable without internet access (trough ad-hoc WiFi network or wired connection)
+- English and German language support (easily translatable into more languages)
 
 [More Screenshots](https://imgur.com/gallery/DOGCdMK)
 
