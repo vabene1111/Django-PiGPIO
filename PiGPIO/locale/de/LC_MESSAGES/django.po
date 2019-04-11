@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2019-04-11 23:26+0200\n"
+"POT-Creation-Date: 2019-04-12 00:02+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -24,9 +24,9 @@ msgid ""
 "target=\"_blank\">here</a>. Enter complete icon including style. Example "
 "<code>fas fa-running</code>"
 msgstr ""
-"Wähle ein beliebiges Icon von <a href=\"https://fontawesome.com/icons?d=gallery\" "
-"target=\"_blank\">hier</a>. Gib das komplette icon mit Stil ein. Beispiel "
-"<code>fas fa-running</code>"
+"Wähle ein beliebiges Icon von <a href=\"https://fontawesome.com/icons?"
+"d=gallery\" target=\"_blank\">hier</a>. Gib das komplette icon mit Stil ein. "
+"Beispiel <code>fas fa-running</code>"
 
 #: .\PiGPIO\forms.py:29
 msgid "Inactive buttons are not shown on dashboard."
@@ -93,15 +93,20 @@ msgstr "Fernbedienung"
 msgid "Docs"
 msgstr "Doku"
 
-#: .\PiGPIO\templates\base.html:58
+#: .\PiGPIO\templates\base.html:57
+#: .\PiGPIO\templates\generic\language_chooser.html:5
+msgid "Settings"
+msgstr ""
+
+#: .\PiGPIO\templates\base.html:61
 msgid "Admin"
 msgstr ""
 
-#: .\PiGPIO\templates\base.html:65
+#: .\PiGPIO\templates\base.html:68
 msgid "Logout"
 msgstr ""
 
-#: .\PiGPIO\templates\base.html:68
+#: .\PiGPIO\templates\base.html:71
 msgid "Login"
 msgstr ""
 
@@ -586,6 +591,10 @@ msgstr ""
 msgid "Debug"
 msgstr ""
 
+#: .\PiGPIO\templates\docs\docs.html:41
+msgid "Documentation of different PiGPIO features."
+msgstr "Dokumentation der verschiedenen PiGPIO Funktionen."
+
 #: .\PiGPIO\templates\docs\docs.html:47 .\PiGPIO\views\lists.py:24
 msgid "Dashboard Buttons"
 msgstr "Dashboard Knöpfe"
@@ -642,6 +651,7 @@ msgid "Edit"
 msgstr "Bearbeiten"
 
 #: .\PiGPIO\templates\generic\edit_template.html:21
+#: .\PiGPIO\templates\generic\language_chooser.html:23
 #: .\PiGPIO\templates\generic\new_template.html:19
 #: .\PiGPIO\templates\program_blockly.html:26
 msgid "Save"
