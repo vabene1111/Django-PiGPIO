@@ -1,4 +1,5 @@
-from django.urls import path
+from django.urls import path, include
+from rest_framework.documentation import include_docs_urls
 
 from .views import *
 
@@ -9,14 +10,17 @@ urlpatterns = [
     path('docs', views.docs, name='docs'),
     path('docs/<slug:page>/', views.docs, name='docs'),
 
+    # API
+
+    path('api/docs', include_docs_urls(title='PiGPIO API')),
+    path('api/auth/', include('rest_framework.urls')),
 
     path('api/set', SetPinView.as_view(), name='api_set_pin'),
-
     path('api/run', RunProgramView.as_view(), name='api_run_prog'),
-
     path('api/pop/log', PopLogView.as_view(), name='api_pop_log'),
-
     path('api/edit/program', EditProgramView.as_view(), name='api_edit_program'),
+
+
 
     path('program/<int:pk>/', views.program, name='program'),
 

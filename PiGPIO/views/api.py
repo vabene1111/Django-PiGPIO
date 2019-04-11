@@ -1,7 +1,7 @@
 import sys
 from threading import Thread
 
-from django.contrib.auth.mixins import LoginRequiredMixin
+from rest_framework import permissions
 from rest_framework.response import Response
 from rest_framework.views import APIView
 
@@ -9,11 +9,15 @@ from PiGPIO.helper import raspi, UndefinedPinException, OutputNotSupportedExcept
 from PiGPIO.models import Program, Log
 from django.utils.translation import gettext as _
 
-from PiGPIO.serializers import SetPinSerializer
+from PiGPIO.serializers import *
 
 
-class SetPinView(APIView, LoginRequiredMixin):
+class SetPinView(APIView):
+    """
+    Allows to easily set the state of any pin
+    """
     serializer_class = SetPinSerializer
+    permission_classes = (permissions.IsAuthenticated,)
 
     def post(self, request):
         raspi.set_mode(0)
@@ -25,9 +29,17 @@ class SetPinView(APIView, LoginRequiredMixin):
         return Response({})
 
 
-class RunProgramView(APIView, LoginRequiredMixin):
+class RunProgramView(APIView):
+    """
+    Run program with the given primary key (pk)
+    """
+    serializer_class = RunProgramSerializer
+    permission_classes = (permissions.IsAuthenticated,)
+
     def post(self, request):
-        run_program(request.data['pk'])
+        results = RunProgramSerializer(request.data, many=False).data
+
+        run_program(results['pk'])
 
         return Response({})
 
@@ -68,34 +80,33 @@ def run_program(program_id):
     raspi.log('__DONE__')
 
 
-class StopProgramView(APIView, LoginRequiredMixin):
+class EditProgramView(APIView):
+    """
+    Update a program with a given blockly xml string and the corresponding (generated) python code
+    """
+    serializer_class = EditProgramSerializer
+    permission_classes = (permissions.IsAuthenticated,)
+
     def post(self, request):
-        # TODO proper input validation
-        program = Program.objects.get(pk=int(request.data['pk']))
+        results = EditProgramSerializer(request.data, many=False).data
 
-        program.running = False
-
-        program.save()
-
-        # TODO proper response
-        return Response({})
-
-
-class EditProgramView(APIView, LoginRequiredMixin):
-    def post(self, request):
-        # TODO proper input validation
-        if request.data['pk'] != '':
+        if results['pk'] != '':
             program = Program.objects.get(pk=int(request.data['pk']))
 
-            program.code = str(request.data['code'])
-            program.blockly_string = str(request.data['blockly_string'])
+            program.code = results['code']
+            program.blockly_string = results['blockly_string']
 
             program.save()
-        # TODO proper response
-        return Response({})
+
+        return Response({})  # TODO proper response
 
 
-class PopLogView(APIView, LoginRequiredMixin):
+class PopLogView(APIView):
+    """
+    Returns all entries in log db formatted as string and deletes them
+    """
+    permission_classes = (permissions.IsAuthenticated,)
+
     def post(self, request):
         logs = Log.objects.all()
 

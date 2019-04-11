@@ -8,3 +8,11 @@ class SetPinSerializer(serializers.Serializer):
     state = serializers.IntegerField()
 
 
+class RunProgramSerializer(serializers.Serializer):
+    pk = serializers.IntegerField()
+
+
+class EditProgramSerializer(serializers.Serializer):
+    pk = serializers.IntegerField()
+    blockly_string = serializers.CharField()
+    code = serializers.CharField()

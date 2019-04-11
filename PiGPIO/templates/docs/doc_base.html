@@ -1,7 +1,6 @@
 {% extends "base.html" %}
 {% load static %}
 {% load i18n %}
-{% load times_tag %}
 
 {% load render_table from django_tables2 %}
 
@@ -15,6 +14,12 @@
             <li class="breadcrumb-item active" aria-current="page">{% block doc_page %}{% endblock %}</li>
         </ol>
     </nav>
+    <br/>
+    <div class="row">
+        <div class="col-12">
+            <h1>{% block doc_title %}{% endblock %}</h1>
+        </div>
+    </div>
 
     <br/>
 
