@@ -49,6 +49,7 @@ INSTALLED_APPS = [
     'django_tables2',
     'crispy_forms',
     'rest_framework',
+    'macros',
     'PiGPIO.apps.PigpioConfig',
 ]
 

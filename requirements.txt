@@ -6,6 +6,7 @@ pygments
 django-filter
 django-tables2
 django-crispy-forms
+django-macros
 RPi.GPIO
 python-dotenv==0.7.1
 psycopg2==2.7.4

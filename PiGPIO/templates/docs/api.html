@@ -1,13 +1,70 @@
 {% extends "docs/doc_base.html" %}
 {% load static %}
 {% load i18n %}
+{% load macros %}
 
-{% block doc_page %}{% trans 'GPIO Output' %}{% endblock %}
+{% macro macro_title %}{% trans 'API' %}{% endmacro %}
+
+{% block title %}{% trans "Pi GPIO Docs" %} - {% use_macro macro_title %}{% endblock %}
+{% block doc_title %}{% use_macro macro_title %}{% endblock %}
+{% block doc_page %}{% use_macro macro_title %}{% endblock %}
 
 {% block doc_info %}
 
     <div class="row">
+        <div class="col-9">
+            {% blocktrans %}
+                Using the API you can perform different actions related to your Raspberry Pi or PiGPIOs functions from
+                any client. An automatically generated documentation can be found
+            {% endblocktrans %}
+            <a href="{% url 'api-docs:docs-index' %}" target="_blank">{% trans 'here' %}</a>.
+            {% blocktrans %}
+            See below for a brief overview of endpoints.
+            {% endblocktrans %}
+            <br/>
+            <br/>
 
+            {% blocktrans %}
+                <b>NOTE:</b> The API is currently very limited in Features. If you would like to have functionality
+                added consider implementing it yourself or request it trough a issue on
+                <a href="https://github.com/vabene1111/Django-PiGPIO" target="_blank">GitHub</a>.
+            {% endblocktrans %}
+
+
+            <br/>
+            <br/>
+            <table class="table table-bordered">
+                <thead class="thead-dark">
+                <tr>
+                    <th>{% trans 'Endpoint' %}</th>
+                    <th>{% trans 'Function' %}</th>
+                    <th>{% trans 'Link' %}</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr>
+                    <td><code>{% url 'api_run_prog' %}</code></td>
+                    <td>{% trans 'Run a program' %}</td>
+                    <td><a class="btn btn-warning" href="{% url 'api_run_prog' %}" target="_blank"><i class="fas fa-external-link-alt"></i></a> </td>
+                </tr>
+                <tr>
+                    <td><code>{% url 'api_set_pin' %}</code></td>
+                    <td>{% trans 'Set GPIO Pin' %}</td>
+                    <td><a class="btn btn-warning" href="{% url 'api_set_pin' %}" target="_blank"><i class="fas fa-external-link-alt"></i></a> </td>
+                </tr>
+                <tr>
+                    <td><code>{% url 'api_edit_program' %}</code></td>
+                    <td>{% trans 'Edit program' %}</td>
+                    <td><a class="btn btn-warning" href="{% url 'api_edit_program' %}" target="_blank"><i class="fas fa-external-link-alt"></i></a> </td>
+                </tr>
+                <tr>
+                    <td><code>{% url 'api_pop_log' %}</code></td>
+                    <td>{% trans 'Get log and delete it' %}</td>
+                    <td><a class="btn btn-warning" href="{% url 'api_pop_log' %}" target="_blank"><i class="fas fa-external-link-alt"></i></a> </td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
     </div>
 
 {% endblock %}

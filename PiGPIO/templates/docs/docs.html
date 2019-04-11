@@ -13,35 +13,42 @@
     <br/>
 
     <div class="row">
-        <div class="col-4">
-            <div class="card" >
+        <div class="card-columns">
+
+            <div class="card">
                 <div class="card-body">
                     <h5 class="card-title">{% trans 'Blocks' %}</h5>
                     <p class="card-text">{% trans 'Everything you always wanted to know about PiGPIOs custom Blocks.' %}</p>
                 </div>
                 <ul class="list-group list-group-flush">
-                    <li class="list-group-item"><a href="{% url 'docs' 'block_gpio_output'%}">{% trans 'GPIO Output' %}</a></li>
-                    <li class="list-group-item"><a href="{% url 'docs' 'block_gpio_input'%}">{% trans 'GPIO Input' %}</a></li>
-                    <li class="list-group-item"><a href="{% url 'docs' 'block_gpio_mode'%}">{% trans 'GPIO Mode' %}</a></li>
-                    <li class="list-group-item"><a href="{% url 'docs' 'block_sleep'%}">{% trans 'Sleep' %}</a></li>
-                    <li class="list-group-item"><a href="{% url 'docs' 'block_log'%}">{% trans 'Log' %}</a></li>
-                    <li class="list-group-item"><a href="{% url 'docs' 'block_debug'%}">{% trans 'Debug' %}</a></li>
+                    <li class="list-group-item"><a
+                            href="{% url 'docs' 'block_gpio_output' %}">{% trans 'GPIO Output' %}</a></li>
+                    <li class="list-group-item"><a
+                            href="{% url 'docs' 'block_gpio_input' %}">{% trans 'GPIO Input' %}</a></li>
+                    <li class="list-group-item"><a href="{% url 'docs' 'block_gpio_mode' %}">{% trans 'GPIO Mode' %}</a>
+                    </li>
+                    <li class="list-group-item"><a href="{% url 'docs' 'block_sleep' %}">{% trans 'Sleep' %}</a></li>
+                    <li class="list-group-item"><a href="{% url 'docs' 'block_log' %}">{% trans 'Log' %}</a></li>
+                    <li class="list-group-item"><a href="{% url 'docs' 'block_debug' %}">{% trans 'Debug' %}</a></li>
                 </ul>
             </div>
-        </div>
 
-        <div class="col-4">
-            <div class="card" >
+
+            <div class="card">
+
                 <div class="card-body">
                     <h5 class="card-title">Misc</h5>
                     <p class="card-text">Documentation of different PiGPIO features.</p>
                 </div>
                 <ul class="list-group list-group-flush">
-                    <li class="list-group-item"><a href="{% url 'docs' 'block_log'%}">{% trans 'Blockly Programming' %}</a></li>
-                    <li class="list-group-item"><a href="{% url 'docs' 'block_log'%}">{% trans 'Remote' %}</a></li>
-                    <li class="list-group-item"><a href="{% url 'docs' 'api'%}">{% trans 'API' %}</a></li>
+                    <li class="list-group-item"><a
+                            href="{% url 'docs' 'blockly' %}">{% trans 'Blockly Programming' %}</a></li>
+                    <li class="list-group-item"><a href="{% url 'docs' 'remote' %}">{% trans 'Remote' %}</a></li>
+                    <li class="list-group-item"><a href="{% url 'docs' 'dashboard' %}">{% trans 'Dashboard Buttons' %}</a></li>
+                    <li class="list-group-item"><a href="{% url 'docs' 'api' %}">{% trans 'API' %}</a></li>
                 </ul>
             </div>
+
         </div>
     </div>
 {% endblock %}

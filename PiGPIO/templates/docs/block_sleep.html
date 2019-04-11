@@ -1,16 +1,21 @@
 {% extends "docs/doc_base.html" %}
 {% load static %}
 {% load i18n %}
+{% load macros %}
 
-{% block doc_page %}{% trans 'GPIO Output' %}{% endblock %}
+{% macro macro_title %}{% trans 'Block: Sleep' %}{% endmacro %}
+
+{% block title %}{% trans "Pi GPIO Docs" %} - {% use_macro macro_title %}{% endblock %}
+{% block doc_title %}{% use_macro macro_title %}{% endblock %}
+{% block doc_page %}{% use_macro macro_title %}{% endblock %}
 
 {% block doc_info %}
 
     <div class="row">
-        <div class="col-3">
-            <img class="img img-thumbnail" src="{% static 'docs/block_sleep.png' %}">
+        <div class="col-md-3 col-sm-12">
+            <img class="img img-thumbnail" src="{% static 'docs/block_sleep.png' %}"><br/><br/>
         </div>
-        <div class="col-9">
+        <div class="col-md-9 col-sm-12">
             {% blocktrans %}
                 The Sleep Block pauses the program execution for the given amount of seconds
             {% endblocktrans %}
@@ -30,7 +35,8 @@
                 <tr>
                     <td><code>sleep (seconds)</code></td>
                     <td>{% trans 'Number' %}</td>
-                    <td>{% trans 'Amount of seconds to sleep. To sleep partial seconds use this format' %}<code> 1.35</code></td>
+                    <td>{% trans 'Amount of seconds to sleep. To sleep partial seconds use this format' %}<code>
+                        1.35</code></td>
                 </tr>
                 </tbody>
             </table>

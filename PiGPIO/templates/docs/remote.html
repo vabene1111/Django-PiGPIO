@@ -1,0 +1,35 @@
+{% extends "docs/doc_base.html" %}
+{% load static %}
+{% load i18n %}
+{% load macros %}
+
+{% macro macro_title %}{% trans 'Remote' %}{% endmacro %}
+
+{% block title %}{% trans "Pi GPIO Docs" %} - {% use_macro macro_title %}{% endblock %}
+{% block doc_title %}{% use_macro macro_title %}{% endblock %}
+{% block doc_page %}{% use_macro macro_title %}{% endblock %}
+
+{% block doc_info %}
+
+    <div class="row">
+        <div class="col-md-3 col-sm-12">
+            <img class="img img-thumbnail" src="{% static 'docs/remote.png' %}"><br/><br/>
+        </div>
+        <div class="col-md-9 col-sm-12">
+            {% blocktrans %}
+                The <i>Remote</i> Page allows to easily and quickly control the output state of each valid pin.<br/>
+                The page is designed to work well on mobile devices to basically act like a tv remote for the raspberry
+                pi.<br/>
+                Pins that cant be used as outputs are automatically detected (as they are different on each model) and
+                greyed out.
+            {% endblocktrans %}
+
+            <br/>
+            <br/>
+            <a class="btn btn-warning" href="{% url 'remote' %}"><i
+                    class="fas fa-keyboard"></i> {% trans 'Open remote' %}</a><br/><br/>
+        </div>
+
+    </div>
+
+{% endblock %}

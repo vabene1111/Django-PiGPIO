@@ -1,0 +1,50 @@
+{% extends "docs/doc_base.html" %}
+{% load static %}
+{% load i18n %}
+{% load macros %}
+
+{% macro macro_title %}{% trans 'Blockly Programming' %}{% endmacro %}
+
+{% block title %}{% trans "Pi GPIO Docs" %} - {% use_macro macro_title %}{% endblock %}
+{% block doc_title %}{% use_macro macro_title %}{% endblock %}
+{% block doc_page %}{% use_macro macro_title %}{% endblock %}
+
+{% block doc_info %}
+
+    <div class="row">
+        <div class="col-md-3 col-sm-12">
+            <img class="img img-thumbnail" src="{% static 'docs/blockly.png' %}"><br/><br/>
+        </div>
+        <div class="col-md-9 col-sm-12">
+            {% blocktrans %}
+                Blockly is a visual programming language created by Google. It allows to easily create programs by
+                dragging blocks together. The Block Program can than be converted into source code for different programming languages<br/>
+                Pi GPIO uses blockly to allow you to create programs and than turn these programs into python code to run
+                on a raspberry pi. <br/><br/>
+            {% endblocktrans %}
+
+            <br/>
+
+            <h4>{% trans 'Quickstart' %}</h4>
+            <ul>
+                <li>{% blocktrans %}To get started open the programs page and create a new program. Click on the code button and start dragging blocks together.{% endblocktrans %}</li>
+                <li>{% blocktrans %}Click <b>Save</b> to save your program to the database and generate the code needed to run it.{% endblocktrans %}</li>
+                <li>{% blocktrans %}Click <b>Run</b> to run your program. A window will appear showing information about its status.{% endblocktrans %}</li>
+                <li>{% blocktrans %}Click <b>Import/Export</b> to share your program or import programs from others.{% endblocktrans %}</li>
+                <li>{% blocktrans %}Click <b>Program Info</b> to go back to the program page.{% endblocktrans %}</li>
+            </ul>
+
+            <br/>
+            <h4>{% trans 'Notes' %}</h4>
+            <ul>
+                <li>{% blocktrans %}Programs cannot be terminated. If you accidentally create and run an infinite loop its easiest to restart your raspberry pi.{% endblocktrans %}</li>
+                 <li>{% blocktrans %}To learn more about programming with blockly visit{% endblocktrans %}
+                     <a href="https://developers.google.com/blockly/" target="_blank">Blockly's Website</a></li>
+            </ul>
+
+
+        </div>
+
+    </div>
+
+{% endblock %}

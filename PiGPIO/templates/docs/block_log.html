@@ -1,20 +1,26 @@
 {% extends "docs/doc_base.html" %}
 {% load static %}
 {% load i18n %}
+{% load macros %}
 
-{% block doc_page %}{% trans 'GPIO Output' %}{% endblock %}
+{% macro macro_title %}{% trans 'Block: Log' %}{% endmacro %}
+
+{% block title %}{% trans "Pi GPIO Docs" %} - {% use_macro macro_title %}{% endblock %}
+{% block doc_title %}{% use_macro macro_title %}{% endblock %}
+{% block doc_page %}{% use_macro macro_title %}{% endblock %}
 
 {% block doc_info %}
 
     <div class="row">
-        <div class="col-3">
-            <img class="img img-thumbnail" src="{% static 'docs/block_log.png' %}">
+        <div class="col-md-3 col-sm-12">
+            <img class="img img-thumbnail" src="{% static 'docs/block_log.png' %}"><br/><br/>
         </div>
-        <div class="col-9">
+        <div class="col-md-9 col-sm-12">
             {% blocktrans %}
                 Every input to the log module is logged on the server and shown to the client when running a program
                 from the programming page. <br/>
-                <b>Warning:</b> On systems with limited performance (like older Raspberry Pi Models) heavy logging can cause significant performance loss.
+                <b>Warning:</b> On systems with limited performance (like older Raspberry Pi Models) heavy logging can
+                cause significant performance loss.
                 Once a program is working properly it is advised to minimise logging or remove it completely.
             {% endblocktrans %}
 

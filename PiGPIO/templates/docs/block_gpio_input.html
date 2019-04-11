@@ -1,18 +1,24 @@
 {% extends "docs/doc_base.html" %}
 {% load static %}
 {% load i18n %}
+{% load macros %}
 
-{% block doc_page %}{% trans 'GPIO Output' %}{% endblock %}
+{% macro macro_title %}{% trans 'Block: GPIO Input' %}{% endmacro %}
+
+{% block title %}{% trans "Pi GPIO Docs" %} - {% use_macro macro_title %}{% endblock %}
+{% block doc_title %}{% use_macro macro_title %}{% endblock %}
+{% block doc_page %}{% use_macro macro_title %}{% endblock %}
 
 {% block doc_info %}
 
     <div class="row">
-        <div class="col-3">
-            <img class="img img-thumbnail" src="{% static 'docs/block_gpio_input.png' %}">
+        <div class="col-md-3 col-sm-12">
+            <img class="img img-thumbnail" src="{% static 'docs/block_gpio_input.png' %}"><br/><br/>
         </div>
-        <div class="col-9">
+        <div class="col-md-9 col-sm-12">
             {% blocktrans %}
-                Reads the GPIO Input of the given PIN. This Block does currently not support multiple pins like the output
+                Reads the GPIO Input of the given PIN. This Block does currently not support multiple pins like the
+                output
                 block.
             {% endblocktrans %}
 

@@ -1,16 +1,21 @@
 {% extends "docs/doc_base.html" %}
 {% load static %}
 {% load i18n %}
+{% load macros %}
 
-{% block doc_page %}{% trans 'GPIO Output' %}{% endblock %}
+{% macro macro_title %}{% trans 'Block: GPIO Output' %}{% endmacro %}
+
+{% block title %}{% trans "Pi GPIO Docs" %} - {% use_macro macro_title %}{% endblock %}
+{% block doc_title %}{% use_macro macro_title %}{% endblock %}
+{% block doc_page %}{% use_macro macro_title %}{% endblock %}
 
 {% block doc_info %}
 
-
-
     <div class="row">
-
-        <div class="col-9">
+        <div class="col-md-3 col-sm-12">
+            <img class="img img-thumbnail" src="{% static 'docs/block_gpio_output.png' %}"><br/><br/>
+        </div>
+        <div class="col-md-9 col-sm-12">
             {% blocktrans %}
                 The GPIO Input Block can used to set the status of a given pin.
             {% endblocktrans %}
@@ -39,9 +44,6 @@
                 </tr>
                 </tbody>
             </table>
-        </div>
-    <div class="col-3">
-            <img class="img img-thumbnail" src="{% static 'docs/block_gpio_output.png' %}">
         </div>
     </div>
 

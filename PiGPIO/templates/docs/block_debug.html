@@ -1,18 +1,24 @@
 {% extends "docs/doc_base.html" %}
 {% load static %}
 {% load i18n %}
+{% load macros %}
 
-{% block doc_page %}{% trans 'GPIO Output' %}{% endblock %}
+{% macro macro_title %}{% trans 'Block: Debug' %}{% endmacro %}
+
+{% block title %}{% trans "Pi GPIO Docs" %} - {% use_macro macro_title %}{% endblock %}
+{% block doc_title %}{% use_macro macro_title %}{% endblock %}
+{% block doc_page %}{% use_macro macro_title %}{% endblock %}
 
 {% block doc_info %}
 
     <div class="row">
-        <div class="col-3">
-            <img class="img img-thumbnail" src="{% static 'docs/block_debug.png' %}">
+        <div class="col-md-3 col-sm-12">
+            <img class="img img-thumbnail" src="{% static 'docs/block_debug.png' %}"><br/><br/>
         </div>
-        <div class="col-9">
+        <div class="col-md-9 col-sm-12">
             {% blocktrans %}
-                If the debug module is checked every GPIO function will automatically write debugging information to the log.
+                If the debug module is checked every GPIO function will automatically write debugging information to the
+                log.
                 This Block is best used for debugging a broken program and should be removed once debugging is finished
                 to keep the log clean.
             {% endblocktrans %}
@@ -44,6 +50,7 @@
                 </tbody>
             </table>
         </div>
+
     </div>
 
 {% endblock %}

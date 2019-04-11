@@ -5,7 +5,13 @@
 {% block title %}{% trans "Pi GPIO" %}{% endblock %}
 
 {% block content %}
+    <div class="row text-center">
+        <div class="col-12">
 
+            <a href="{% url 'docs' 'remote' %}">{% trans 'Help' %}</a>
+        </div>
+    </div>
+    <br/>
     {% for x in pins %}
 
         <div class="row text-center">

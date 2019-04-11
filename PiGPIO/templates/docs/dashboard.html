@@ -1,0 +1,29 @@
+{% extends "docs/doc_base.html" %}
+{% load static %}
+{% load i18n %}
+{% load macros %}
+
+{% macro macro_title %}{% trans 'Dashboard' %}{% endmacro %}
+
+{% block title %}{% trans "Pi GPIO Docs" %} - {% use_macro macro_title %}{% endblock %}
+{% block doc_title %}{% use_macro macro_title %}{% endblock %}
+{% block doc_page %}{% use_macro macro_title %}{% endblock %}
+
+{% block doc_info %}
+
+    <div class="row">
+        <div class="col-md-3 col-sm-12">
+            <!--<img class="img img-thumbnail" src="{% static 'docs/remote.png' %}"><br/><br/>-->
+        </div>
+        <div class="col-md-9 col-sm-12">
+            {% blocktrans %}
+                You can define buttons that run a program of your choice directly from the Dashboard.<br/>
+                Buttons can have different colors, icons and text. <br/>
+                All buttons are placed on the home screen in three rows and columns. If you place more than one button
+                in one cell they will hide each other. <br/>
+            {% endblocktrans %}
+        </div>
+
+    </div>
+
+{% endblock %}

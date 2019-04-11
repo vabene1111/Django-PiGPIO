@@ -1,21 +1,29 @@
 {% extends "docs/doc_base.html" %}
 {% load static %}
 {% load i18n %}
+{% load macros %}
 
-{% block doc_page %}{% trans 'GPIO Output' %}{% endblock %}
+{% macro macro_title %}{% trans 'Block: GPIO Mode' %}{% endmacro %}
+
+{% block title %}{% trans "Pi GPIO Docs" %} - {% use_macro macro_title %}{% endblock %}
+{% block doc_title %}{% use_macro macro_title %}{% endblock %}
+{% block doc_page %}{% use_macro macro_title %}{% endblock %}
 
 {% block doc_info %}
 
     <div class="row">
-        <div class="col-3">
-            <img class="img img-thumbnail" src="{% static 'docs/block_gpio_mode.png' %}">
+        <div class="col-md-3 col-sm-12">
+            <img class="img img-thumbnail" src="{% static 'docs/block_gpio_mode.png' %}"><br/><br/>
         </div>
-        <div class="col-9">
+        <div class="col-md-9 col-sm-12">
             {% blocktrans %}
-                The Raspberry Pi as different modes to run in. The mode defines how the pins are numbered. If set to <b>Board</b>
+                The Raspberry Pi as different modes to run in. The mode defines how the pins are numbered. If set to
+                <b>Board</b>
                 all pins are numbered with there corresponding physical location from 1 to 40. If set to <b>BCM</b> pins
-                are identified by their Broadcom pin number. <a href="https://pinout.xyz/" target="_blank">This page</a> provides a nice overview
-                of both numbering modes. If you are unsure its probably easiest to board mode as you can count the physical
+                are identified by their Broadcom pin number. <a href="https://pinout.xyz/" target="_blank">This page</a>
+                provides a nice overview
+                of both numbering modes. If you are unsure its probably easiest to board mode as you can count the
+                physical
                 pins to get correct numbers.
             {% endblocktrans %}
 

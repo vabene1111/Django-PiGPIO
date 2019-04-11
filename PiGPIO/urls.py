@@ -12,7 +12,7 @@ urlpatterns = [
 
     # API
 
-    path('api/docs', include_docs_urls(title='PiGPIO API')),
+    path('api/docs', include_docs_urls(title='PiGPIO API', public=False)),
     path('api/auth/', include('rest_framework.urls')),
 
     path('api/set', SetPinView.as_view(), name='api_set_pin'),
