@@ -18,6 +18,7 @@
 
     <link rel="stylesheet" href="{% static 'fontawesome/css/all.min.css' %}">
 
+    <link rel="stylesheet" href="{% static 'footer.css' %}">
 
     {% block extra_head %} <!-- block for templates to put stuff into header -->
     {% endblock %}
@@ -86,6 +87,15 @@
 
     {% block content %}
     {% endblock %}
+
+</div>
+
+<div class="text-center">
+    <footer class="footer">
+
+        <span class="text-muted">Created with <i class="fas fa-heart"></i> by <a href="https://github.com/vabene1111/Django-PiGPIO" target="_blank">vabene111</a></span>
+        <br/>
+    </footer>
 </div>
 
 

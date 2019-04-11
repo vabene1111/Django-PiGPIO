@@ -1,6 +1,7 @@
 from django.db import models
 from django.utils.translation import gettext as _
 
+
 # Create your models here.
 class Program(models.Model):
     name = models.CharField(max_length=128, default='')
@@ -24,7 +25,7 @@ class Dashboard(models.Model):
     row = models.CharField(max_length=1, choices=(('1', '1'), ('2', '2'), ('3', '3')), default=1)
     col = models.CharField(max_length=1, choices=(('1', '1'), ('2', '2'), ('3', '3')), default=1)
     background_color = models.CharField(max_length=8, default='#247896')
-    font_color = models.CharField(max_length=8, default='#247896')
+    font_color = models.CharField(max_length=8, default='#ffffff')
     icon = models.CharField(max_length=32, default='', blank=True)
     program = models.ForeignKey(Program, on_delete=models.CASCADE)
 

@@ -18,8 +18,10 @@
             <h4 class="alert-heading"><i class="far fa-exclamation-triangle"></i> {% trans 'Security Warning' %}</h4>
             <p>{% blocktrans %}
                 The <b>Password and Token</b> field are stored as <b>plain text</b> inside the database.
-                This is necessary because they are needed to make API requests, but it also increases the risk of someone stealing it. <br/>
-                To limit the possible damage use read only tokens or accounts if available or create separate accounts with limited access (only to recipes).
+                This is necessary because they are needed to make API requests, but it also increases the risk of
+                someone stealing it. <br/>
+                To limit the possible damage use read only tokens or accounts if available or create separate accounts
+                with limited access (only to recipes).
             {% endblocktrans %}</p>
         </div>
     {% endif %}
@@ -29,5 +31,27 @@
         {{ form|crispy }}
         <button type="submit" class="btn btn-success"><i class="fas fa-save"></i> {% trans 'Save' %}</button>
     </form>
+
+{% endblock %}
+
+{% block script %}
+
+    <script type="text/javascript">
+        $(document).ready(function () {
+            let input_icon = $('#id_icon');
+
+            input_icon.on('paste', function () {
+
+                setTimeout(function () {
+                    let text = input_icon.val();
+                    text = text.replace('<i class="', '');
+                    text = text.replace('"></i>', '');
+
+                    input_icon.val(text)
+                }, 15);
+
+            });
+        });
+    </script>
 
 {% endblock %}

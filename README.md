@@ -5,12 +5,20 @@ pins from a modern webinterface.
 Googles excellent [Blockly](https://developers.google.com/blockly/) library is used to
 create programs to allow everyone to get up and running quickly.
 
+![Screenshot](https://i.imgur.com/uYmrsxz.png)
+
 <u>Features</u>
 - Super easy and fast to install using [Docker](https://www.docker.com/) and 
 [Docker Compose](https://docs.docker.com/compose/)
 - Highly customizable programming environment
+- Remote-Control for GPIO Pins (see Screenshots)
+- Built-in documentation
+- API to run programs and control individual GPIO pins (built your own client ?!)
 - Modern Webinterface based on python django
+- Mobile friendly UI (as good as it gets with blockly)
 - Usable without internet access (trough ad-hoc WiFi network or wired connection)
+
+[More Screenshots](https://imgur.com/gallery/DOGCdMK)
 
 ## Intended use
 This program is designed to allow for easy and on the fly programming of a raspberry pi.
