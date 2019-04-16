@@ -1,3 +1,3 @@
-[submodule "PiGPIO/static/blocky"]
-	path = PiGPIO/static/blocky
+[submodule "PiGPIO/static/blockly"]
+	path = PiGPIO/static/blockly
 	url = https://github.com/google/blockly.git

@@ -93,10 +93,10 @@
 
 
 {% block script %}
-    <script src="{% static 'blocky/blockly_compressed.js' %}"></script>
-    <script src="{% static 'blocky/python_compressed.js' %}"></script>
-    <script src="{% static 'blocky/blocks_compressed.js' %}"></script>
-    <script src="{% static 'blocky/msg/js/en.js' %}"></script>
+    <script src="{% static 'blockly/blockly_compressed.js' %}"></script>
+    <script src="{% static 'blockly/python_compressed.js' %}"></script>
+    <script src="{% static 'blockly/blocks_compressed.js' %}"></script>
+    <script src="{% static 'blockly/msg/js/en.js' %}"></script>
 
     <script src="{% static 'blockly_custom_blocks.js' %}"></script>
 
@@ -221,7 +221,7 @@
             horizontalLayout: false,
             toolboxPosition: 'start',
             css: true,
-            media: '{% static 'blocky/media/' %}',
+            media: '{% static 'blockly/media/' %}',
             rtl: false,
             scrollbars: true,
             sounds: true,

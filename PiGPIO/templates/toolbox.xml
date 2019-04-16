@@ -314,6 +314,7 @@
             </value>
         </block>-->
     </category>
+    <category name="Functions" colour="#9A5CA6" custom="PROCEDURE"></category>
     <sep></sep>
     <category name="Pi GPIO" colour="#a5a55b">
         <block type="gpio_mode"></block>
