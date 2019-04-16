@@ -53,15 +53,15 @@ Blockly.Python['gpio_input'] = function (block) {
 // Sleep Block - pauses execution for given amount of milliseconds
 Blockly.Blocks['sleep'] = {
     init: function () {
-        this.appendDummyInput()
-            .appendField("sleep (seconds)")
-            .appendField(new Blockly.FieldNumber(0, 0), "sleep");
+        this.appendValueInput("sleep")
+            .setCheck("Number")
+            .appendField("sleep (seconds)");
         this.setInputsInline(true);
         this.setPreviousStatement(true, null);
         this.setNextStatement(true, null);
         this.setColour(65);
         this.setTooltip("Halts execution for given amount of seconds");
-        this.setHelpUrl(docUrls.block_sleep);
+        this.setHelpUrl("");
     }
 };
 
@@ -106,7 +106,7 @@ Blockly.Blocks['log'] = {
         this.setNextStatement(true, null);
         this.setColour(65);
         this.setTooltip("Logs given input");
-        this.setHelpUrl(docUrls.block_log);
+        this.setHelpUrl("");
     }
 };
 

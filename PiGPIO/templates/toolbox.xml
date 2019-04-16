@@ -318,10 +318,39 @@
     <sep></sep>
     <category name="Pi GPIO" colour="#a5a55b">
         <block type="gpio_mode"></block>
-        <block type="gpio_output"></block>
-        <block type="gpio_input"></block>
-        <block type="sleep"></block>
-        <block type="log"></block>
+        <block type="gpio_output">
+            <value name="pin">
+                <shadow type="math_number">
+                    <field name="NUM">7</field>
+                </shadow>
+            </value>
+            <value name="state">
+                <shadow type="math_number">
+                    <field name="NUM">0</field>
+                </shadow>
+            </value>
+        </block>
+        <block type="gpio_input">
+             <value name="pin">
+                <shadow type="math_number">
+                    <field name="NUM">7</field>
+                </shadow>
+            </value>
+        </block>
+        <block type="sleep">
+            <value name="sleep">
+                <shadow type="math_number">
+                    <field name="NUM">5</field>
+                </shadow>
+            </value>
+        </block>
+        <block type="log">
+            <value name="data">
+                <shadow type="text">
+                    <field name="NUM">abc</field>
+                </shadow>
+            </value>
+        </block>
         <block type="debug"></block>
     </category>
     <sep></sep>
