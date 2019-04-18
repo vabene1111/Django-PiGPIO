@@ -62,8 +62,3 @@ def remote(request):
             pass
 
     return render(request, 'remote.html', {'pins': pins})
-
-
-@login_required
-def test(request):
-    return render(request, 'test.html', {})

@@ -44,6 +44,7 @@ urlpatterns = [
 
     path('redirect/delete/<slug:name>/<int:pk>/', edit.delete_redirect, name='redirect_delete'),
 
-    path('test', views.test, name='test'),
+
+    path('tests/blockly_custom/', tests.blockly_custom, name='test_blockly_custom'),
 ]
 

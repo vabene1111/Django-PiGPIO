@@ -1,0 +1,78 @@
+{% extends "base.html" %}
+{% load static %}
+{% load i18n %}
+
+{% block content %}
+
+<div class="row">
+    <div class="col-12">
+        <div id="blocklyDiv" style="height: 80%!important;"></div>
+    </div>
+</div>
+
+<br/>
+
+{% include 'toolbox.xml' %}
+
+{% endblock %}
+
+
+{% block script %}
+
+
+<script src="{% static 'blockly/blockly_compressed.js' %}"></script>
+<script src="{% static 'blockly/python_compressed.js' %}"></script>
+<script src="{% static 'blockly/blocks_compressed.js' %}"></script>
+<script src="{% static 'blockly/msg/js/en.js' %}"></script>
+
+<script src="{% static 'blockly_custom_blocks.js' %}"></script>
+
+<script type="text/javascript" src="{% static 'helper.js' %}"></script>
+
+<script type="text/javascript">
+
+    function getCode(){
+        return Blockly.Python.workspaceToCode(workspace);
+    }
+
+    let toolbox = document.getElementById("toolbox");
+
+    let options = {
+        toolbox: toolbox,
+        collapse: true,
+        comments: true,
+        disable: true,
+        maxBlocks: Infinity,
+        trashcan: true,
+        horizontalLayout: false,
+        toolboxPosition: 'start',
+        css: true,
+        media: '{% static 'blockly/media/' %}',
+        rtl: false,
+        scrollbars: true,
+        sounds: true,
+        oneBasedIndex: true,
+        grid: {
+            spacing: 20,
+            length: 1,
+            colour: '#888',
+            snap: true
+        },
+        zoom: {
+            controls: true,
+            wheel: true,
+            startScale: 1,
+            maxScale: 3,
+            minScale: 0.3,
+            scaleSpeed: 1.2
+        }
+    };
+
+    let blocklyDiv = document.getElementById('blocklyDiv');
+    let workspace = Blockly.inject(blocklyDiv, options);
+
+    let xml = Blockly.Xml.textToDom("<xml xmlns=\"http://www.w3.org/1999/xhtml\"><block type=\"gpio_mode\" id=\"IPHk3srSlC(]J{P]!h76\" x=\"-230\" y=\"-370\"><field name=\"gpio_mode\">1</field><next><block type=\"sleep\" id=\"`n[|](aS_BnLJH{aW[y;\"><value name=\"seconds\"><shadow type=\"math_number\" id=\"1k%E0v]wZ)r2hEwIj!G[\"><field name=\"NUM\">5</field></shadow></value><next><block type=\"log\" id=\"4[gSK7Epc8-xZ}LWFE_o\"><value name=\"data\"><shadow type=\"text\" id=\"xXDzBHCfE~oC[n`rVj8J\"><field name=\"TEXT\">test</field></shadow></value><next><block type=\"gpio_output\" id=\"T1)L,?IhIh/1)MYr99Lj\"><value name=\"pin\"><shadow type=\"math_number\" id=\"V5s_BEt2De`8B#nW|fn]\"><field name=\"NUM\">7</field></shadow><block type=\"math_number\" id=\"cnRcw~2Op+)#C8=uv6#7\"><field name=\"NUM\">5</field></block></value><value name=\"state\"><shadow type=\"math_number\" id=\"WCIo=#8-4ZLQIqDi}S/:\"><field name=\"NUM\">0</field></shadow></value><next><block type=\"log\" id=\"/][4:9s,D^E(7@Uf,]iT\"><value name=\"data\"><shadow type=\"text\" id=\"}dQ.Gs?Bf`}d/Pe|=T2K\"><field name=\"TEXT\">abc</field></shadow><block type=\"gpio_input\" id=\"G3N@#:+UL7z%1lH:CZXe\"><value name=\"pin\"><shadow type=\"math_number\" id=\"5o(oz2uOLHLN/bN!|H:2\"><field name=\"NUM\">7</field></shadow></value></block></value></block></next></block></next></block></next></block></next></block></xml>");
+    Blockly.Xml.domToWorkspace(xml, workspace);
+
+</script>
+{% endblock %}
