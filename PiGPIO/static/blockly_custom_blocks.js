@@ -53,7 +53,7 @@ Blockly.Python['gpio_input'] = function (block) {
 // Sleep Block - pauses execution for given amount of milliseconds
 Blockly.Blocks['sleep'] = {
     init: function () {
-        this.appendValueInput("sleep")
+        this.appendValueInput("seconds")
             .setCheck("Number")
             .appendField("sleep (seconds)");
         this.setInputsInline(true);
@@ -66,11 +66,11 @@ Blockly.Blocks['sleep'] = {
 };
 
 Blockly.Python['sleep'] = function (block) {
-    let number_sleep = block.getFieldValue('sleep');
+    let number_seconds = Blockly.Python.valueToCode(block, 'seconds', Blockly.Python.ORDER_ATOMIC);
 
     Blockly.Python.definitions_['from_time_import_sleep'] = 'from time import sleep';
 
-    return 'sleep(' + number_sleep + ')\n';
+    return 'sleep(' + number_seconds + ')\n';
 };
 
 // Sets Board Mode
