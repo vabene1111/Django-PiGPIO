@@ -1,1 +1,78 @@
-{{ test }}
+{% extends "base.html" %}
+{% load static %}
+{% load i18n %}
+
+{% block title %}{% trans "Pi GPIO" %}{% endblock %}
+
+{% block content %}
+
+
+            <div id="blocklyDiv"></div>
+
+
+
+    <br/>
+
+    {% include 'toolbox.xml' %}
+
+{% endblock %}
+
+
+{% block script %}
+    <script src="{% static 'blockly/blockly_compressed.js' %}"></script>
+    <script src="{% static 'blockly/python_compressed.js' %}"></script>
+    <script src="{% static 'blockly/blocks_compressed.js' %}"></script>
+    <script src="{% static 'blockly/msg/js/en.js' %}"></script>
+
+    <script src="{% static 'blockly_custom_blocks.js' %}"></script>
+
+    <script type="text/javascript" src="{% static 'helper.js' %}"></script>
+
+    <script type="text/javascript">
+
+        let toolbox = document.getElementById("toolbox");
+
+        let options = {
+            toolbox: toolbox,
+            collapse: true,
+            comments: true,
+            disable: true,
+            maxBlocks: Infinity,
+            trashcan: true,
+            horizontalLayout: false,
+            toolboxPosition: 'start',
+            css: true,
+            media: '{% static 'blockly/media/' %}',
+            rtl: false,
+            scrollbars: true,
+            sounds: true,
+            oneBasedIndex: true,
+            grid: {
+                spacing: 20,
+                length: 1,
+                colour: '#888',
+                snap: true
+            },
+            zoom: {
+                controls: true,
+                wheel: true,
+                startScale: 1,
+                maxScale: 3,
+                minScale: 0.3,
+                scaleSpeed: 1.2
+            }
+        };
+
+        let blocklyDiv = document.getElementById('blocklyDiv');
+        let workspace = Blockly.inject(blocklyDiv, options);
+
+
+        let workspace_last_data = '<xml xmlns="http://www.w3.org/1999/xhtml"></xml>';
+
+        let xml = Blockly.Xml.textToDom(workspace_last_data);
+        Blockly.Xml.domToWorkspace(xml, workspace);
+
+
+
+    </script>
+{% endblock %}

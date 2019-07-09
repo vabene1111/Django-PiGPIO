@@ -1,6 +1,5 @@
 from django.contrib.auth.decorators import login_required
 from django.shortcuts import render
-from django.templatetags.static import static
 
 from PiGPIO.models import Program, Dashboard
 from PiGPIO.helper import raspi
@@ -62,3 +61,8 @@ def remote(request):
             pass
 
     return render(request, 'remote.html', {'pins': pins})
+
+
+@login_required
+def test(request):
+    return render(request, 'test.html', )

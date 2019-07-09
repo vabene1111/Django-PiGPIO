@@ -8,10 +8,10 @@ from selenium import webdriver
 class TestBlockly(unittest.TestCase):
 
     def setUp(self):
-        self.driver = webdriver.Chrome("C:/Users/vabene1111/Downloads/chromedriver.exe") # TODO make correct path
+        self.driver = webdriver.Chrome("C:/Users/vabene1111/Downloads/chromedriver.exe")  # TODO make correct path
 
-    def test_blockly_custom(self):
-        self.driver.get("http://192.168.178.83:8000/pigpio/tests/blockly_custom/") # TODO reverse URL
+    def test_blockly_custom(self):  # TODO make test work without runserver
+        self.driver.get("http://192.168.178.83:8000/pigpio/tests/blockly_custom/")  # TODO reverse URL
 
         code = self.driver.execute_script("return getCode()")
 

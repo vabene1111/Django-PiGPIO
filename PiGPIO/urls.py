@@ -3,7 +3,6 @@ from rest_framework.documentation import include_docs_urls
 
 from .views import *
 
-
 urlpatterns = [
     path('', views.index, name='index'),
     path('remote', views.remote, name='remote'),
@@ -24,8 +23,6 @@ urlpatterns = [
     path('api/pop/log', PopLogView.as_view(), name='api_pop_log'),
     path('api/edit/program', EditProgramView.as_view(), name='api_edit_program'),
 
-
-
     path('program/<int:pk>/', views.program, name='program'),
 
     # New/Edit/Delete Views
@@ -44,7 +41,7 @@ urlpatterns = [
 
     path('redirect/delete/<slug:name>/<int:pk>/', edit.delete_redirect, name='redirect_delete'),
 
-
     path('tests/blockly_custom/', tests.blockly_custom, name='test_blockly_custom'),
-]
 
+    path('test', views.test, name='test'),
+]
